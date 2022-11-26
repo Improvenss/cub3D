@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 23:01:10 by gsever            #+#    #+#             */
-/*   Updated: 2022/11/26 23:49:27 by gsever           ###   ########.fr       */
+/*   Updated: 2022/11/27 01:39:06 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,18 +119,9 @@ void draw_ray(t_main *main, double angle)
 	double ydy;
 	double ydx;
 
-	//int x = main->ply.rotationAngle + 180;
-	// if (x > 0 && x <= 180)
-	// 	ydx = main->ply.x - ceil(main->ply.x);
-	// else
-	// 	ydx = main->ply.x + ceil(main->ply.x);
-	// // if (tan(((FOV / 2) + x) * (PI / 180)) != 0)
-	// // 	ydy = ydx / tan(((FOV / 2) + x) * (PI / 180));
-	// // else
-	// // {
-	ydy = 1 * sin((angle - (FOV / 2)) * (M_PI / 180));
-	ydx = 1 * cos((angle - (FOV / 2)) * (M_PI / 180));
-	// }
+	ydy = -1 * sin((angle - (FOV / 2)) * (M_PI / 180));
+	ydx = -1 * cos((angle - (FOV / 2)) * (M_PI / 180));
+
 	double	ray_x;
 	double	ray_y;
 	double	dx;
@@ -155,7 +146,7 @@ void draw_ray(t_main *main, double angle)
 		ray_x += dx / 2000;
 		ray_y += dy / 2000;
 	}
-	//printf("x:%f y:%f\n", ray_x, ray_y);
+	// printf("x:%f y:%f\n", ray_x, ray_y);
 }
 
 /** Dikey
@@ -269,8 +260,10 @@ void draw_ray_ikinci_deneme(t_main *main, double angle)
 	dy /= max_value;
 	while (1)
 	{
+		// printf("main->boxsize[%d]\n", main->box_size);
 		if (!is_wall(ray_x, ray_y, main))
-			main->mlx->img.addr[WINDOW_W * (int)floor(main->box_size * ray_y) + (int)floor(main->box_size * ray_x)] = 0xFF0000;
+			main->mlx->img.addr[WINDOW_W * (int)floor(main->box_size * ray_y)
+				+ (int)floor(main->box_size * ray_x)] = 0xFF0000;
 		else
 			break;
 		ray_x += dx / 2000;
@@ -285,18 +278,6 @@ int ft_loop(t_main *main)
 	draw_minimap_test(main);
 	draw_player_test(main);
 
-	// double angle;
-	// double maxangle;
-
-	// angle = main->ply.rotationAngle + 180;
-	// maxangle = angle + (FOV / 2.0);
-	// while (angle <= maxangle)
-	// {
-	// 	draw_ray(main, angle);
-	// 	draw_ray(main, angle + (FOV / 2.0));
-	// 	angle += (FOV / 2.0) / ((FOV_THICKNESS - 1) / 2.0);
-	// }
-
 	double angle;
 	double maxangle;
 
@@ -307,8 +288,8 @@ int ft_loop(t_main *main)
 	{
 		// draw_ray_ikinci_deneme(main, angle);// right side 30º
 		// draw_ray_ikinci_deneme(main, angle + (FOV / 2.0));// left side 30º
-		draw_ray(main, angle);
-		draw_ray(main, angle + (FOV / 2.0));
+		draw_ray(main, angle);// right side 30º
+		draw_ray(main, angle + (FOV / 2.0));// left side 30º
 		angle += (FOV / 2.0) / ((FOV_THICKNESS) / 2.0);// angle += 30 / 60; -> 0.5;
 	}
 	draw_player_directory(main);
