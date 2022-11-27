@@ -180,7 +180,7 @@ int main(int argc, char **argv)
 	if (argv_check(argc, argv[1], &main) == ERROR)
 		return (1);
 	printf("Argumans checked OK: Initializing cub3D...\n");
-	if (init_cub3d(&main) == ERROR)
+	if (init_all(&main) == ERROR)
 		return (2);
 	printf("Initializing cub3D OK: Setting MLX window to screen...\n");
 	if (window_set(&main) == ERROR)

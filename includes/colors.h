@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:42:12 by gsever            #+#    #+#             */
-/*   Updated: 2022/11/11 01:36:15 by gsever           ###   ########.fr       */
+/*   Updated: 2022/11/27 02:36:38 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,10 @@
 # define COLOR_SILVER	0xCCCCCC
 # define COLOR_TUNDORA	0x444444
 # define COLOR_BLACK	0x000000
+# define COLOR_RED		0xFF0000
+# define COLOR_GREEN	0x00FF00
+# define COLOR_BLUE		0x0000FF
+# define COLOR_LBLUE	0x29B6F6
+# define COLOR_YELLOW	0xFFFF00
 
 #endif

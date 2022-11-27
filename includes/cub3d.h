@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2022/11/26 23:18:03 by gsever           ###   ########.fr       */
+/*   Updated: 2022/11/27 04:12:33 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,15 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define ERROR		-1
 # define PROMPT		"cub3D"
 
-# define WINDOW_W				800
-# define WINDOW_H				800
+# define WINDOW_W				1100//800
+# define WINDOW_H				800//800
 # define SCREEN_RATE			2
 # define PLAYER_THICKNESS		8
 # define PLAYER_WALKSPEED		6
 # define PLAYER_ROTATION_SPEED	5
 # define FOV					60// 60º Player's eye degree.
 # define FOV_THICKNESS			120// RayTracing's ray count.
-// # define SIZE				64// When we don't use this minimap being fully square.
+// # define SIZE					64// When we don't use this minimap being fully square.
 
 // " " -> Empty, 1 -> Wall, 0 -> Ground, 
 // N -> North Angle, S -> South Angle, E -> East Angle, W -> West Angle, 
@@ -122,11 +122,11 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 /* STRUCT DEFINES AREA													  	  */
 /* ************************************************************************** */
 
-typedef struct s_ray {
-	double mesafe;
-	double x;
-	double y;
-}		t_ray;
+// typedef struct s_ray {
+// 	double mesafe;
+// 	double x;
+// 	double y;
+// }		t_ray;
 
 typedef struct s_key {
 	int up;
@@ -194,7 +194,7 @@ typedef struct	s_texture
 
 typedef struct s_main
 {
-	t_ray		ray;
+	// t_ray		ray;
 	t_key		key;
 	t_player	ply;
 	t_texture	texture;
@@ -225,27 +225,41 @@ int		init_cub3d(t_main *main);
 // actions_key.c
 int		actions_key(int keycode, t_main *main);
 
-
 // actions_mouse.c
 int		actions_mouse(int button, int x, int y, t_main *main);
+
+// draw_minimap.c
+void	draw_minimap_test(t_main *main);
+void	draw_player_test(t_main *main);
+void	draw_player_directory(t_main *main);
+void	draw_ray(t_main *main, double angle);
+void	draw_minimap(t_main *main);
+
+// draw_render.c
+void	draw_floor(t_main *main, int x, int y);
+void	draw_ceil(t_main *main, int x, int y);
+int		draw_render(t_main *main);
+
+// init_all.c
+int		init_window(t_main *main);
+int		init_cub3d(t_main *main);
+int		init_all(t_main *main);
+
 
 // main.c
 int		where_is_my_hero(int *x, int *y, t_main *main);
 int		argv_check(int argc, char *map, t_main *main);
-int 	main(int argc, char **argv);
-
-// init_mlx.c
-int		init_mlx(t_main *main);
+int		main(int argc, char **argv);
 
 // map_borders_func.c
 int		map_borders_inside(t_main *main);
 int		map_borders_left(t_main *main);
 int		map_borders_bottom(t_main *main);
-int 	map_borders_right(t_main *main);
+int		map_borders_right(t_main *main);
 int		map_borders_top(t_main *main);
 
 // map_definitions_check.c
-int 	map_definitions_check_rgb(t_main *main);
+int		map_definitions_check_rgb(t_main *main);
 int		xpm_file_check(char *str, char *name);
 int		map_definitions_check(int count, char *line, int limit, t_main *main);
 
@@ -263,7 +277,7 @@ int		map_definitions(char *line, t_main *main);
 
 // map_map.c
 int		map_borders(t_main *main);
-int 	map_max_lenght(char *line, char c);
+int		map_max_lenght(char *line, char c);
 int		map_find_borders(char *line, int start, int *map_end);
 int		map_skip_empty_line(char *line, int limit);
 int		map_map(char *line, int start, t_main *main);
@@ -273,9 +287,7 @@ char	*map_read(int fd);
 int		map_check(int fd, t_main *main);
 
 // set_mlx.c
-int		draw_while_func(t_main *main);
-int		window_loop(t_main *main);
-int		window_init(t_main *main);
+void	put_pixe(double x, int y, double color, t_mlximg *img, t_main *main);
 int		window_set(t_main *main);
 
 // utils_func.c
