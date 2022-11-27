@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2022/11/27 04:12:33 by gsever           ###   ########.fr       */
+/*   Updated: 2022/11/27 07:23:27 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,12 +128,12 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 // 	double y;
 // }		t_ray;
 
-typedef struct s_key {
-	int up;
-	int down;
-	int right;
-	int left;
-}		t_key;
+// typedef struct s_key {
+// 	int up;
+// 	int down;
+// 	int right;
+// 	int left;
+// }		t_key;
 
 typedef struct s_player {
 	double	x;
@@ -195,7 +195,7 @@ typedef struct	s_texture
 typedef struct s_main
 {
 	// t_ray		ray;
-	t_key		key;
+	// t_key		key;
 	t_player	ply;
 	t_texture	texture;
 	t_mlx		*mlx;
@@ -204,13 +204,12 @@ typedef struct s_main
 	int			max_y;
 	int			max_x;
 	int			box_size;
+	int			key_val;
 }		t_main;
 
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
 /* ************************************************************************** */
-
-int		is_wall(double x, double y, t_main *main);
 
 // error.c
 int		print_error(char *s1, char *s2, char *s3, char *message);
@@ -223,7 +222,10 @@ int		mlx_free_kill_all(t_main *main);
 int		init_cub3d(t_main *main);
 
 // actions_key.c
-int		actions_key(int keycode, t_main *main);
+int		is_wall(double x, double y, t_main *main);
+int		update_player(t_main *main);
+int		actions_key_press(int keycode, t_main *main);
+int		actions_key_release(int keycode, t_main *main);
 
 // actions_mouse.c
 int		actions_mouse(int button, int x, int y, t_main *main);
@@ -231,7 +233,7 @@ int		actions_mouse(int button, int x, int y, t_main *main);
 // draw_minimap.c
 void	draw_minimap_test(t_main *main);
 void	draw_player_test(t_main *main);
-void	draw_player_directory(t_main *main);
+void	draw_player_destination(t_main *main);
 void	draw_ray(t_main *main, double angle);
 void	draw_minimap(t_main *main);
 
@@ -286,8 +288,12 @@ int		map_map(char *line, int start, t_main *main);
 char	*map_read(int fd);
 int		map_check(int fd, t_main *main);
 
+// player.c
+void	player_turn(t_main *main, int way, double val);
+void	player_move(t_main *main, int way, double val);
+
 // set_mlx.c
-void	put_pixe(double x, int y, double color, t_mlximg *img, t_main *main);
+void	put_pixe( t_main *main, double x, int y, double color);
 int		window_set(t_main *main);
 
 // utils_func.c

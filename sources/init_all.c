@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 04:01:25 by gsever            #+#    #+#             */
-/*   Updated: 2022/11/27 04:12:22 by gsever           ###   ########.fr       */
+/*   Updated: 2022/11/27 06:36:17 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	init_window(t_main *main)
 			&mlx->img.line_length, &mlx->img.endian);
 	if (mlx->img.addr == NULL)
 		return (print_error(PROMPT, NULL, NULL, "mlx_get_data_addr() error."));
-	mlx_hook(mlx->win, 2, 1L<<0, &actions_key, main);
+	mlx_hook(mlx->win, 2, 1L << 0, &actions_key_press, main);
+	mlx_hook(mlx->win, 3, 1L << 1, actions_key_release, main);
 	mlx_hook(mlx->win, 4, 0, &actions_mouse, main);
 	mlx_hook(mlx->win, 17, 0, &mlx_free_kill_all, main);// close_window(); yapilacak
 	return (0);

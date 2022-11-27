@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:43:06 by gsever            #+#    #+#             */
-/*   Updated: 2022/11/27 01:53:50 by gsever           ###   ########.fr       */
+/*   Updated: 2022/11/27 07:23:43 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ void	draw_minimap_test(t_main *main)
 		while (++x <= main->max_x)
 		{
 			if (main->map[y][x] == '1')
-				put_pixe(main->box_size * x, main->box_size * y, 0xffffff, &(main->mlx->img), main);
+				put_pixe(main, main->box_size * x, main->box_size * y, COLOR_WHITE);
 			else if (main->map[y][x] == '0')
-				put_pixe(main->box_size * x, main->box_size * y, 0x000000, &(main->mlx->img), main);
+				put_pixe(main, main->box_size * x, main->box_size * y, COLOR_BLACK);
 			else
-				put_pixe(main->box_size * x, main->box_size * y, 0x000000, &(main->mlx->img), main);
+				(void)main;
+				// put_pixe(main, main->box_size * x, main->box_size * y, COLOR_BLACK);
 		}
 	}
 }
@@ -64,7 +65,7 @@ void	draw_player_test(t_main *main)
 	}
 }
 
-void	draw_player_directory(t_main *main)
+void	draw_player_destination(t_main *main)
 {
 	//double stick_x = cos(main->ply.rotationAngle * (PI / 180)) * 1;
 	//double stick_y = sin(main->ply.rotationAngle * (PI / 180)) * -1;
@@ -92,7 +93,8 @@ void	draw_player_directory(t_main *main)
 	while (1)
 	{
 		if (!is_wall(ray_x, ray_y, main))
-			main->mlx->img.addr[WINDOW_W * (int)floor(main->box_size * ray_y) + (int)floor(main->box_size * ray_x)] = 0x00ffff;
+			main->mlx->img.addr[WINDOW_W * (int)floor(main->box_size * ray_y)
+				+ (int)floor(main->box_size * ray_x)] = COLOR_LBLUE;
 		else
 			break;
 		ray_x += dx / 2000;
@@ -126,7 +128,7 @@ void	draw_ray(t_main *main, double angle)
 	{
 		if (!is_wall(ray_x, ray_y, main))
 			main->mlx->img.addr[WINDOW_W * (int)floor(main->box_size * ray_y)
-				+ (int)floor(main->box_size * ray_x)] = 0xFF0000;
+				+ (int)floor(main->box_size * ray_x)] = COLOR_RED;
 		else
 			break;
 		ray_x += dx / 2000;
@@ -154,5 +156,5 @@ void	draw_minimap(t_main *main)
 		draw_ray(main, angle + (FOV / 2.0));// left side 30º
 		angle += (FOV / 2.0) / ((FOV_THICKNESS) / 2.0);// angle += 30 / 60; -> 0.5;
 	}
-	draw_player_directory(main);
+	draw_player_destination(main);
 }

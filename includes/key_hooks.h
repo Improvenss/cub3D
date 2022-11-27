@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaraca <akaraca@student.42.tr>            +#+  +:+       +#+        */
+/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 03:37:47 by gsever            #+#    #+#             */
-/*   Updated: 2022/11/23 13:22:59 by akaraca          ###   ########.fr       */
+/*   Updated: 2022/11/27 06:40:54 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@
 #  define KEY_ARROW_DOWN	125
 #  define KEY_ARROW_LEFT	123
 #  define KEY_ARROW_RIGHT	124
+
+#  define GO_FORWARD		1
+#  define GO_BACKWARD		2
+#  define GO_LEFT			4
+#  define GO_RIGHT			8
+#  define TURN_UP			16
+#  define TURN_DOWN			32
+#  define TURN_LEFT			64
+#  define TURN_RIGHT		128
 # endif
 
 // ---->AppleScript Key Codes<----//
@@ -43,6 +52,15 @@
 #  define KEY_ARROW_DOWN	65364
 #  define KEY_ARROW_LEFT	65361
 #  define KEY_ARROW_RIGHT	65363
+
+#  define GO_FORWARD		1
+#  define GO_BACKWARD		2
+#  define GO_LEFT			4
+#  define GO_RIGHT			8
+#  define TURN_UP			16
+#  define TURN_DOWN			32
+#  define TURN_LEFT			64
+#  define TURN_RIGHT		128
 # endif
 
 #endif
