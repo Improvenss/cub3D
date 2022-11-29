@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 04:01:25 by gsever            #+#    #+#             */
-/*   Updated: 2022/11/27 06:36:17 by gsever           ###   ########.fr       */
+/*   Updated: 2022/11/27 23:28:01 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ int	init_cub3d(t_main *main)
 	main = malloc(sizeof(t_main));
 	if (main == NULL)
 		return (print_error(PROMPT, NULL, NULL, strerror(errno)));
+	main->key_val = 10000;
+	// main->ply = malloc(sizeof(t_player));
+	// if (main == NULL)
+	// 	return (print_error(PROMPT, NULL, NULL, strerror(errno)));
+	// main->texture = malloc(sizeof(t_texture));
+	// if (main == NULL)
+	// 	return (print_error(PROMPT, NULL, NULL, strerror(errno)));
 	return (0);
 }
 

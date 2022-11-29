@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 23:01:10 by gsever            #+#    #+#             */
-/*   Updated: 2022/11/27 07:48:10 by gsever           ###   ########.fr       */
+/*   Updated: 2022/11/27 17:32:15 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int ft_loop(t_main *main)
 		WINDOW_W - 80, WINDOW_H - 20, COLOR_TUNDORA, "H - Help");// Burasi H tusuna bastigimizda help ekrani acilacak. onun icin. Belki bunu ayarlar icin sekme flaan da yapabilirisz simdilik boyle dusundum.
 	mlx_string_put(main->mlx->ptr, main->mlx->win, WINDOW_W - 80,
 		WINDOW_H - 20 - 50, COLOR_TUNDORA, ft_itoa(main->ply.rotationAngle));
+	mlx_string_put(main->mlx->ptr, main->mlx->win, WINDOW_W - 80,
+		WINDOW_H - 20 - 100, COLOR_TUNDORA, ft_itoa(main->key_val));
 	return (0);
 }
 
