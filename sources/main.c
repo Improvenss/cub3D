@@ -23,60 +23,6 @@
  */
 #include "../includes/cub3d.h"
 
-int	where_is_my_hero(int *x, int *y, t_main *main)
-{
-	(*y) = 0;
-	while (main->map[*y])
-	{
-		(*x) = 0;
-		while (main->map[*y][*x])
-		{
-			if (ft_strchr("ENWS", main->map[*y][*x]))
-			{
-				if (main->map[*y][*x] == 'E')
-					main->ply.rotationAngle = 0;
-				else if (main->map[*y][*x] == 'N')
-					main->ply.rotationAngle = 90;
-				else if (main->map[*y][*x] == 'W')
-					main->ply.rotationAngle = 180;
-				else if (main->map[*y][*x] == 'S')
-					main->ply.rotationAngle = 270;
-				main->map[*y][*x] = '0';
-				return (0);
-			}
-			(*x)++;
-		}
-		(*y)++;
-	}
-	return (0);
-}
-
-/**
- * @brief	checking input arguments
- * 
- * @param argc	should be 2 arguments or else -> is error
- * @param map	if map name doesn't have .cub extension -> is error
- * 				if map name size < 5 (for "touch .cub")-> is error
- * 				if the specified file does not exist -> is error
- * @return int : Access 0, Error -1
- */
-int	argv_check(int argc, char *map, t_main *main)
-{
-	int	fd;
-
-	if (argc < 2)
-		return (err(RED"Map argument unspecified!"END));
-	if (argc > 2)
-		return (err(RED"Too many arguments entered!"END));
-	if (ft_strcmp_edited(".cub", &map[ft_strlen(map) - 4]) \
-		|| ft_strlen(map) < 5 || map[ft_strlen(map) - 5] == '/')
-		return (err(RED"Map extension is incorrect!"END));
-	fd = open(map, F_OK);
-	if (fd == -1)
-		return (err(RED"Map argument doesn't exist!"END));
-	return (map_check(fd, main));
-}
-
 /**
  * @brief 
  * 
@@ -169,6 +115,8 @@ Akıllı davranın!
 
 * ************************************************************************** *
  * 
+ * TODO: OK:check, init, set
+ * TODO: struct; map, minimap, mlx_window
  * @param argc 
  * @param argv 
  * @return int 
@@ -176,19 +124,19 @@ Akıllı davranın!
 int main(int argc, char **argv)
 {
 	t_main	main;
-	printf("Program started: Argumans checking...\n");
-	if (argv_check(argc, argv[1], &main) == ERROR)
+
+	printf(GREEN"Program started:"END YELLOW" Argumans checking...\n"END);
+	if (check_args(argc, argv) == ERROR)
 		return (1);
-	printf("Argumans checked OK: Initializing cub3D...\n");
-	if (init_all(&main) == ERROR)
+	printf(GREEN"Argumans checked OK:"END YELLOW" Map checking...\n"END);
+	if (check_map(&main, argv) == ERROR)
 		return (2);
-	printf("Initializing cub3D OK: Setting MLX window to screen...\n");
-	if (window_set(&main) == ERROR)
+	printf(GREEN"Map checking OK:"END YELLOW" MLX's window creating...\n"END);
+	if (init_all(&main) == ERROR)
 		return (3);
-	mlx_loop(main.mlx->ptr);// Burada mlx'le actigimiz window'umuzun kapanmamasi icin donguye alacagiz. Her sey bu window set ile mlx_loop() arasinda ilerleyecek.
-	free(main.texture.rgb_f);
-	free(main.texture.rgb_c);
-	free_definitions(&main);
-	free_pstr(main.map);
+	printf(GREEN"MLX's window create OK:"END YELLOW" Going draw loop...\n"END);
+	if (draw_mlx_window(&main) == ERROR)// inside the loop draw to mlx's img to window.
+		return (4);
+	mlx_loop(main.mlx->ptr);
 	return (0);
 }

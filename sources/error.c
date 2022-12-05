@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 23:23:39 by gsever            #+#    #+#             */
-/*   Updated: 2022/11/11 00:09:44 by gsever           ###   ########.fr       */
+/*   Created: 2022/12/02 19:34:59 by gsever            #+#    #+#             */
+/*   Updated: 2022/12/03 01:50:59 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@
  * @param message 
  * @return int ERROR: -1
  */
-int	print_error(char *s1, char *s2, char *s3, char *message)
+int	print_error(char *s1 __attribute((unused))
+	, char *s2 __attribute((unused))
+	, char *s3 __attribute((unused))
+	, char *message __attribute((unused)))
 {
 	if (s1)
 		ft_putstr_fd(s1, 2);
@@ -43,7 +46,7 @@ int	print_error(char *s1, char *s2, char *s3, char *message)
 			ft_putstr_fd(": ", 2);
 		ft_putstr_fd(message, 2);
 	}
-	ft_putchar_fd('\n', 2);
+	ft_putstr_fd(B_RED"\nError\n"END, 2);
 	return (ERROR);
 }
 

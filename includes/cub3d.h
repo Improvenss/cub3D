@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2022/11/27 07:23:27 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/05 13:36:51 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,18 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 	RESET	"\033[0m"
 */
 # include "key_hooks.h" /* Keyboard/Mouse Press */
-
-# define CMD_CLEAR	"\e[1;1H\e[2J"
+# include "map_errors.h"
 
 // Usually if have problem any func()s, returning ERROR=-1
-# define ERROR		-1
-# define PROMPT		"cub3D"
+# define ERROR					-1
+# define PROMPT					"cub3D"
 
 # define WINDOW_W				1100//800
 # define WINDOW_H				800//800
-# define SCREEN_RATE			2
-# define PLAYER_THICKNESS		8
-# define PLAYER_WALKSPEED		6
-# define PLAYER_ROTATION_SPEED	5
-# define FOV					60// 60º Player's eye degree.
-# define FOV_THICKNESS			120// RayTracing's ray count.
-// # define SIZE					64// When we don't use this minimap being fully square.
 
+# define WHITESPACES			" \t\n"
+
+/* ---------------MAP CONTROL DEFINES---------------- */
 // " " -> Empty, 1 -> Wall, 0 -> Ground, 
 // N -> North Angle, S -> South Angle, E -> East Angle, W -> West Angle, 
 // \r -> Carriage Return, \n -> New Line
@@ -113,35 +108,16 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define MAP_CHARACTER_ANGLE	"NSWE"
 # define MAP_ANGLE				"NOSOWEEA"
 # define MAP_COVERING			"FC"
-# define RGB_CHR				"0123456789,"
-
-# define WHITESPACES			" \t\n"
 # define MAP_WHITESPACES		"\r\n"
+# define RGB_CHR				"0123456789,"
+/* -------------------------------------------------- */
+
+# define FOV					(M_PI / 180.0)
+
 
 /* ************************************************************************** */
 /* STRUCT DEFINES AREA													  	  */
 /* ************************************************************************** */
-
-// typedef struct s_ray {
-// 	double mesafe;
-// 	double x;
-// 	double y;
-// }		t_ray;
-
-// typedef struct s_key {
-// 	int up;
-// 	int down;
-// 	int right;
-// 	int left;
-// }		t_key;
-
-typedef struct s_player {
-	double	x;
-	double	y;
-	int		thickness;
-	double	rotationAngle;
-	double	walkSpeed;
-}		t_player;
 
 /**
  * @brief MLX's image's data.
@@ -179,6 +155,36 @@ typedef struct s_mlx
 	void		*win;
 }		t_mlx;
 
+typedef struct s_player
+{
+	double	pos_x;// start location
+	double	pos_y;// start location
+	double	dir_x;// initial direction location
+	double	dir_y;// initial direction location
+	double	plane_x;// 0
+	double	plane_y;// 0.66 -> 66º fov look angle
+	double	angle;
+}		t_player;
+
+typedef struct s_key
+{
+	int	value;
+}		t_key;
+
+typedef struct	s_minimap
+{
+	t_mlximg	img;
+	int			x;
+	int			y;
+}		t_minimap;
+
+typedef struct s_map
+{
+	char	**map;
+	char	*l_free;
+	int		max_x;
+	int		max_y;
+}		t_map;
 
 typedef struct	s_texture
 {
@@ -194,22 +200,27 @@ typedef struct	s_texture
 
 typedef struct s_main
 {
-	// t_ray		ray;
-	// t_key		key;
-	t_player	ply;
 	t_texture	texture;
+	t_map		map;
 	t_mlx		*mlx;
-	char		*l_free;
-	char		**map;
-	int			max_y;
-	int			max_x;
-	int			box_size;
-	int			key_val;
+	t_minimap	minimap;
+	t_key		key;
+	t_player	ply;
+	int			first_key;
 }		t_main;
+
 
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
 /* ************************************************************************** */
+
+// check_all.c
+int		check_args(int	argc, char	**argv);
+int		check_map(t_main *main, char **argv);
+
+// draw_all.c
+int		draw_mlx_window(t_main *main);
+int		loop_draw_image_to_window(t_main *main);
 
 // error.c
 int		print_error(char *s1, char *s2, char *s3, char *message);
@@ -218,92 +229,58 @@ int		print_error_errno(char *s1, char *s2, char *s3);
 // free.c
 int		mlx_free_kill_all(t_main *main);
 
-// init_cub3d.c
-int		init_cub3d(t_main *main);
-
-// actions_key.c
-int		is_wall(double x, double y, t_main *main);
-int		update_player(t_main *main);
-int		actions_key_press(int keycode, t_main *main);
-int		actions_key_release(int keycode, t_main *main);
-
-// actions_mouse.c
-int		actions_mouse(int button, int x, int y, t_main *main);
-
-// draw_minimap.c
-void	draw_minimap_test(t_main *main);
-void	draw_player_test(t_main *main);
-void	draw_player_destination(t_main *main);
-void	draw_ray(t_main *main, double angle);
-void	draw_minimap(t_main *main);
-
-// draw_render.c
-void	draw_floor(t_main *main, int x, int y);
-void	draw_ceil(t_main *main, int x, int y);
-int		draw_render(t_main *main);
+// hooking.c
+int		key_press(int keycode, t_main *main);
+int		key_release(int keycode, t_main *main);
 
 // init_all.c
-int		init_window(t_main *main);
-int		init_cub3d(t_main *main);
+int		init_mlx_hooking(t_main *main);
+int		init_mlx_window(t_main *main);
 int		init_all(t_main *main);
 
-
-// main.c
-int		where_is_my_hero(int *x, int *y, t_main *main);
-int		argv_check(int argc, char *map, t_main *main);
-int		main(int argc, char **argv);
-
-// map_borders_func.c
+// map_borders.c
 int		map_borders_inside(t_main *main);
 int		map_borders_left(t_main *main);
 int		map_borders_bottom(t_main *main);
 int		map_borders_right(t_main *main);
 int		map_borders_top(t_main *main);
 
-// map_definitions_check.c
-int		map_definitions_check_rgb(t_main *main);
-int		xpm_file_check(char *str, char *name);
-int		map_definitions_check(int count, char *line, int limit, t_main *main);
-
-// map_definitions_rgb.c
+// map_check_rgb.c
 int		map_definitions_rgb_c(t_main *main);
 int		map_definitions_rgb_f(t_main *main);
 int		map_definitions_rgb(t_main *main);
+int		map_definitions_check_rgb(t_main *main);
 
-// map_definitions.c
+// map_check.c
+int		xpm_file_check(char *str, char *name);
+int		map_definitions_check(int count, char *line, int limit, t_main *main);
+
+// map_free.c
 void	free_definitions(t_main *main);
+
+// map_read.c
 int		map_definitions_invalid_input(char *line, int limit, t_main *main);
-char	*map_read_definitions(char *line, int *limit, int *count, int size);
 void	map_definitions_init(t_main *main);
 int		map_definitions(char *line, t_main *main);
+char	*map_read(int fd);
 
-// map_map.c
+// map_to_struct.c
 int		map_borders(t_main *main);
 int		map_max_lenght(char *line, char c);
 int		map_find_borders(char *line, int start, int *map_end);
 int		map_skip_empty_line(char *line, int limit);
 int		map_map(char *line, int start, t_main *main);
 
-// map.c
-char	*map_read(int fd);
-int		map_check(int fd, t_main *main);
-
 // player.c
-void	player_turn(t_main *main, int way, double val);
-void	player_move(t_main *main, int way, double val);
-
-// set_mlx.c
-void	put_pixe( t_main *main, double x, int y, double color);
-int		window_set(t_main *main);
+void	where_is_my_player(t_main *main, int x, int y);
 
 // utils_func.c
 void	free_pstr(char **line);
-int		err(char *err_output);
 char	*ft_chrjoin(char *s1, char c);
 int		ft_strncmp_edited(const char *s1, const char *s2, size_t n);
 int		ft_strcmp_edited(char *s1, char *s2);
 
-// utils_map_split.c
+// utils_map.c
 char	*map_split_stringfind(const char *s, char c, int max);
 size_t	map_split_wordcount(char *s, char c);
 char	**map_split(char *line, char c, int max);
