@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 20:37:03 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/05 11:49:32 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/05 14:12:05 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	map_borders(t_main *main)
 {
 	// int write = 0;
 	// printf("//----------MAP----------//\n");
-	// while (main->map[write])
+	// while (main->map->map[write])
 	// 	printf("#%s#\n",main->map[write++]);
 	// printf("//----------MAP----------//\n");
 

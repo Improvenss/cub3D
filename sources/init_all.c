@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 00:45:58 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/05 13:44:35 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/05 14:11:23 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	init_mlx_draw(t_main *main)
 {
 	printf("player before x[%f] y[%f]\n", main->ply.pos_x, main->ply.pos_y);
-	where_is_my_player(main, 0, 0);
+	init_set_player(main, 0, 0);
 	printf("player after x[%f] y[%f]\n", main->ply.pos_x, main->ply.pos_y);
 	return (0);
 }

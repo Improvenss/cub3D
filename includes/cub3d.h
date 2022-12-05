@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/05 13:36:51 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/05 16:12:01 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,11 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define RGB_CHR				"0123456789,"
 /* -------------------------------------------------- */
 
+/* ------------------PLAYER DEFINES------------------ */
 # define FOV					(M_PI / 180.0)
+# define PLAYER_ROTATION_SPEED	0.80
+# define PLAYER_WALK_SPEED		0.09
+/* -------------------------------------------------- */
 
 
 /* ************************************************************************** */
@@ -154,6 +158,16 @@ typedef struct s_mlx
 	void		*ptr;
 	void		*win;
 }		t_mlx;
+
+typedef struct s_ray
+{
+	double	pos_x;// ray starting location
+	double	pos_y;// ray starting location
+	double	hit_x;// ray hit_the_wall location
+	double	hit_y;// ray hit_the_wall location
+	double	max_x;// calculated max lenght
+	double	max_y;// calculated max lenght
+}		t_ray;
 
 typedef struct s_player
 {
@@ -206,6 +220,7 @@ typedef struct s_main
 	t_minimap	minimap;
 	t_key		key;
 	t_player	ply;
+	t_ray		ray;
 	int			first_key;
 }		t_main;
 
@@ -272,7 +287,11 @@ int		map_skip_empty_line(char *line, int limit);
 int		map_map(char *line, int start, t_main *main);
 
 // player.c
-void	where_is_my_player(t_main *main, int x, int y);
+void	update_player_all(t_main *main);
+void	init_set_player(t_main *main, int x, int y);
+
+// ray.c
+void	ray_init(t_ray *ray);
 
 // utils_func.c
 void	free_pstr(char **line);
@@ -284,5 +303,8 @@ int		ft_strcmp_edited(char *s1, char *s2);
 char	*map_split_stringfind(const char *s, char c, int max);
 size_t	map_split_wordcount(char *s, char c);
 char	**map_split(char *line, char c, int max);
+
+// utils_wall.c
+int		is_wall(t_main *main, double x, double y);
 
 #endif

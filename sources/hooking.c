@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 02:10:44 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/05 11:46:02 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/05 15:06:53 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ int	key_press(int keycode, t_main *main)
 		main->key.value |= TURN_UP;
 	else if (keycode == KEY_ARROW_DOWN)
 		main->key.value |= TURN_DOWN;
-	printf("You press a key["B_CYAN"%d"END"]\
-	& key.value["B_YELLOW"%d"END"]\n", keycode, main->key.value);
-	printf("first_key -> [%d]\n", main->first_key);
+	// printf("You press a key["B_CYAN"%d"END"]\
+	// & key.value["B_YELLOW"%d"END"]\n", keycode, main->key.value);
 	return (0);
 }
 
@@ -52,7 +51,7 @@ int	key_release(int keycode, t_main *main)
 		main->key.value &= ~TURN_LEFT;
 	else if (keycode == KEY_ARROW_RIGHT)
 		main->key.value &= ~TURN_RIGHT;
-	printf("You removed a key["B_BLUE"%d"END"]\
-	& key.value["B_YELLOW"%d"END"]\n", keycode, main->key.value);
+	// printf("You removed a key["B_BLUE"%d"END"]\
+	// & key.value["B_YELLOW"%d"END"]\n", keycode, main->key.value);
 	return (0);
 }

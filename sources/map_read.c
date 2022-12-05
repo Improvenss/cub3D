@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 19:58:30 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/05 11:55:36 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/05 14:08:29 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ char	*map_read_definitions(char *line, int *limit, int *count, int size)
 
 void	map_definitions_init(t_main *main)
 {
-	// printf(B_CYAN"%d\n"END, __LINE__);
 	main->texture.no = NULL;
-	// printf(B_CYAN"%d\n"END, __LINE__);
 	main->texture.so = NULL;
 	main->texture.we = NULL;
 	main->texture.ea = NULL;

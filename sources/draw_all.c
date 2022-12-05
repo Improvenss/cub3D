@@ -6,11 +6,18 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/05 13:49:08 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/05 16:11:18 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	draw_with_ray_casting(t_main *main)
+{
+	ray_init(&main->ray);
+	//....
+	return ;
+}
 
 void	draw_text_on_window(t_main *main)
 {
@@ -25,12 +32,12 @@ int	loop_draw_image_to_window(t_main *main)
 	t_mlx	*mlx;
 
 	mlx = main->mlx;
-	printf("player before x[%f] y[%f]\n", main->ply.pos_x, main->ply.pos_y);
-	where_is_my_player(main, 0, 0);
-	//update_player_position(main);yapilacak
-	printf("player after x[%f] y[%f]\n", main->ply.pos_x, main->ply.pos_y);
+	update_player_all(main);
+	draw_with_ray_casting(main);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img.ptr, 0, 0);
 	draw_text_on_window(main);
+	printf("player x[%f] y[%f]", main->ply.pos_x, main->ply.pos_y);
+	printf("ply.angle[%f]\n", main->ply.angle);
 	return (0);
 }
 
