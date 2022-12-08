@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/05 16:12:01 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/08 04:22:26 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,25 +95,48 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define ERROR					-1
 # define PROMPT					"cub3D"
 
-# define WINDOW_W				1100//800
-# define WINDOW_H				800//800
+# define WINDOW_W				1280//800
+# define WINDOW_H				1024//800
 
 # define WHITESPACES			" \t\n"
 
 /* ---------------MAP CONTROL DEFINES---------------- */
-// " " -> Empty, 1 -> Wall, 0 -> Ground, 
-// N -> North Angle, S -> South Angle, E -> East Angle, W -> West Angle, 
-// \r -> Carriage Return, \n -> New Line
+// " " -> Empty, 1 -> Wall, 0 -> Ground
 # define MAP_ARGUMENTS			" 10NSEW\r\n"
+/*
+			N -> North Angle
+	W -> West Angle		E -> East Angle
+			S -> South Angle
+*/
 # define MAP_CHARACTER_ANGLE	"NSWE"
 # define MAP_ANGLE				"NOSOWEEA"
 # define MAP_COVERING			"FC"
+// \r -> Carriage Return, \n -> New Line
 # define MAP_WHITESPACES		"\r\n"
 # define RGB_CHR				"0123456789,"
 /* -------------------------------------------------- */
 
+/* -----------------MINIMAP DEFINES------------------ */
+# define SCREEN_RATE			2
+# define MINIMAP_RATE_W			(WINDOW_W / SCREEN_RATE)
+# define MINIMAP_RATE_H			(WINDOW_H / SCREEN_RATE)
+/* -------------------------------------------------- */
+
 /* ------------------PLAYER DEFINES------------------ */
-# define FOV					(M_PI / 180.0)
+// 1º = 0.0174532925 radian
+# define ONE_DEGREE					(M_PI / 180.0)// FOV
+// 1 rad = 57.2957795131 degree
+# define ONE_RADIAN					(180.0 / M_PI)
+/*
+		π = 180º	</>	1 rad = 180 / π
+
+	66º = 11π / 30			-> 1980 / 30 = 66
+	66º = 11 * M_PI / 30	-> 1980 / 30 = 66
+	66º = 66 * (M_PI / 180.0)
+	66º = 1.15191730631626 radians
+*/
+# define PLAYER_ANGLE			(ONE_DEGREE * 66)
+# define RAY_COUNT				(PLAYER_ANGLE * 2)
 # define PLAYER_ROTATION_SPEED	0.80
 # define PLAYER_WALK_SPEED		0.09
 /* -------------------------------------------------- */
@@ -188,8 +211,11 @@ typedef struct s_key
 typedef struct	s_minimap
 {
 	t_mlximg	img;
+	void		*ptr;
+	void		*win;
 	int			x;
 	int			y;
+	int			box_size;
 }		t_minimap;
 
 typedef struct s_map
@@ -249,9 +275,14 @@ int		key_press(int keycode, t_main *main);
 int		key_release(int keycode, t_main *main);
 
 // init_all.c
-int		init_mlx_hooking(t_main *main);
-int		init_mlx_window(t_main *main);
 int		init_all(t_main *main);
+
+// init_images.c
+int		init_cub3d_image(t_main *main);
+int		init_minimap_image(t_main *main);
+
+// init_window.c
+int		init_cub3d_window(t_main *main);
 
 // map_borders.c
 int		map_borders_inside(t_main *main);
@@ -291,6 +322,7 @@ void	update_player_all(t_main *main);
 void	init_set_player(t_main *main, int x, int y);
 
 // ray.c
+void	sent_ray(t_main *main);
 void	ray_init(t_ray *ray);
 
 // utils_func.c

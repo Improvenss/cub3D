@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:05:27 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/05 15:52:09 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/08 04:03:02 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,22 @@ void	player_move(t_main *main, int way, double val)
 	if (way & (GO_FORWARD | GO_BACKWARD))
 	{
 		main->ply.pos_x += val * (main->ply.pos_x * PLAYER_WALK_SPEED
-			* cos(main->ply.angle * FOV));//bu okay ama karakter nereye bakiyorsa oraya dogru ilerlemiyor
+			* cos(main->ply.angle * ONE_DEGREE));//bu okay ama karakter nereye bakiyorsa oraya dogru ilerlemiyor
 		// main->ply.pos_x -= val * (PLAYER_WALKSPEED / main->box_size) * cos(main->ply.rotationAngle * (M_PI / 180));
 		if (is_wall(main, main->ply.pos_x, main->ply.pos_y))
 			main->ply.pos_x = last_location_x;
 		main->ply.pos_y += val * (main->ply.pos_y * PLAYER_WALK_SPEED
-			* sin(main->ply.angle * FOV));//bu okay ama karakter nereye bakiyorsa oraya dogru ilerlemiyor
+			* sin(main->ply.angle * ONE_DEGREE));//bu okay ama karakter nereye bakiyorsa oraya dogru ilerlemiyor
 		// main->ply.pos_y -= val * (PLAYER_WALKSPEED / main->box_size) * sin(main->ply.rotationAngle * (M_PI / 180));
 		if (is_wall(main, main->ply.pos_x, main->ply.pos_y))
 			main->ply.pos_y = last_location_y;
 	}
 	else if (way & (GO_LEFT | GO_RIGHT))
 	{
-		main->ply.pos_x -= val * (main->ply.pos_y * PLAYER_WALK_SPEED * cos(main->ply.angle * FOV));
+		main->ply.pos_x -= val * (main->ply.pos_y * PLAYER_WALK_SPEED * cos(main->ply.angle * ONE_DEGREE));
 		if (is_wall(main, main->ply.pos_x, main->ply.pos_y))
 			main->ply.pos_x = last_location_x;
-		main->ply.pos_y += val * (main->ply.pos_x * PLAYER_WALK_SPEED * sin(main->ply.angle * FOV));
+		main->ply.pos_y += val * (main->ply.pos_x * PLAYER_WALK_SPEED * sin(main->ply.angle * ONE_DEGREE));
 		if (is_wall(main, main->ply.pos_x, main->ply.pos_y))
 			main->ply.pos_y = last_location_y;
 	}

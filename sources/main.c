@@ -123,7 +123,7 @@ Akıllı davranın!
  */
 int main(int argc, char **argv)
 {
-	t_main	main;
+	t_main		main;
 
 	printf(GREEN"Program started:"END YELLOW" Argumans checking...\n"END);
 	if (check_args(argc, argv) == ERROR)
