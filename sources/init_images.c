@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 02:57:42 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/08 18:09:25 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/10 23:22:34 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	init_minimap_image(t_main *main)
 	// ft_putnbr_fd(main->map.max_y, 1); ft_putchar_fd('\n', 1);
 	// ft_putnbr_fd(main->minimap.box_size * main->map.max_x, 1); ft_putchar_fd('\n', 1);
 	ft_putstr_fd(B_CYAN"minimap img start\n"END, 1);
-	
-	main->minimap.img.ptr = mlx_new_image(main->mlx->ptr,
+
+	main->minimap.img.ptr = mlx_new_image(&main->mlx->ptr,
 		(main->minimap.box_size * main->map.max_x),
 		(main->minimap.box_size * main->map.max_y));
 
@@ -56,7 +56,7 @@ int	init_minimap_image(t_main *main)
 	if (main->minimap.img.ptr == NULL)
 		return (print_error(PROMPT, "minimap", "mlx_new_image()", "error."));
 
-	main->minimap.img.addr = (int *)mlx_get_data_addr(main->minimap.img.ptr,
+	main->minimap.img.addr = (int *)mlx_get_data_addr(&main->minimap.img.ptr,
 		&main->minimap.img.bits_per_pixel,
 		&main->minimap.img.line_length, &main->minimap.img.endian);
 
