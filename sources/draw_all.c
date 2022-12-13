@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/08 02:48:36 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/13 13:32:11 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	draw_with_ray_casting(t_main *main)
 	sent_ray(main);
 	mlx_put_image_to_window(main->mlx->ptr,
 		main->mlx->win, main->mlx->img.ptr, 0, 0);
-	// mlx_put_image_to_window(main->minimap)
 	return ;
 }
 
@@ -41,6 +40,11 @@ int	loop_draw_image_to_window(t_main *main)
 
 int	draw_mlx_window(t_main *main)
 {
-	mlx_loop_hook(main->mlx->ptr, loop_draw_image_to_window, main);
+	ft_putstr_fd("loop started\n", 1);
+	mlx_hook(main->mlx->win, 2, 1L << 0, &key_press, &main);
+	mlx_hook(main->mlx->win, 3, 1L << 1, &key_release, &main);
+	// mlx_hook(mlx->win, 4, 0, &actions_mouse, main);
+	mlx_hook(main->mlx->win, 17, 0, &mlx_free_kill_all, &main);// close_window(); yapilacak
+	mlx_loop_hook(main->mlx->ptr, &loop_draw_image_to_window, main);
 	return (0);
 }

@@ -135,8 +135,8 @@ int main(int argc, char **argv)
 	if (init_all(&main) == ERROR)
 		return (3);
 	printf(GREEN"MLX's window create OK:"END YELLOW" Going draw loop...\n"END);
-	if (draw_mlx_window(&main) == ERROR)// inside the loop draw to mlx's img to window.
-		return (4);
-	mlx_loop(main.mlx->ptr);
+	draw_mlx_window(&main);// inside the loop draw to mlx's img to window.
+		// return (4);
+	// mlx_loop(main.mlx->ptr);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/08 04:22:26 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/13 13:21:00 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ typedef struct s_mlximg
  * @brief Main MLX window's data.
  * 
  * @param img
+ * @param minimap
  * @param ptr*
  * @param win*
  * 
@@ -178,6 +179,7 @@ typedef struct s_mlximg
 typedef struct s_mlx
 {
 	t_mlximg	img;
+	t_mlximg	minimap;
 	void		*ptr;
 	void		*win;
 }		t_mlx;
@@ -210,9 +212,9 @@ typedef struct s_key
 
 typedef struct	s_minimap
 {
-	t_mlximg	img;
-	void		*ptr;
-	void		*win;
+	// t_mlximg	img;
+	// void		*ptr;
+	// void		*win;
 	int			x;
 	int			y;
 	int			box_size;
