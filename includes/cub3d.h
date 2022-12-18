@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/13 13:21:00 by gsever           ###   ########.fr       */
+/*   Updated: 2022/12/18 20:28:27 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,6 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # include <errno.h> /* OK: int errno = 0;
 	errno;
 */
-# include <limits.h> /* OK:
-*/
-# include <math.h> /* OK: Allow all math func()s. */
 # include "../libraries/libft/includes/libft.h"
 # include "../libraries/minilibx_linux/mlx.h"
 # include "../libraries/minilibx_opengl/mlx.h"
@@ -89,146 +86,83 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 	RESET	"\033[0m"
 */
 # include "key_hooks.h" /* Keyboard/Mouse Press */
-# include "map_errors.h"
+
+# include <stdbool.h>
+
+# include <math.h>
+
+# define CMD_CLEAR	"\e[1;1H\e[2J"
 
 // Usually if have problem any func()s, returning ERROR=-1
-# define ERROR					-1
-# define PROMPT					"cub3D"
+# define ERROR			-1
+# define PROMPT			"cub3D"
 
-# define WINDOW_W				1280//800
-# define WINDOW_H				1024//800
+# define WINDOW_W		600
+# define WINDOW_H		600
+# define BOX_SIZE		15
+# define PLAYER_THICKNESS	2
+# define PLAYER_WALKSPEED	1.1
+# define PLAYER_ROTATION_SPEED	1
+# define FOV			60
+# define FOV_THICKNESS	121
+# define PI	3.14159265358979323846264338327950288419716939937510582097494459230
 
-# define WHITESPACES			" \t\n"
-
-/* ---------------MAP CONTROL DEFINES---------------- */
-// " " -> Empty, 1 -> Wall, 0 -> Ground
+// " " -> Empty, 1 -> Wall, 0 -> Ground,
+// N -> North Angle, S -> South Angle, E -> East Angle, W -> West Angle,
+// \r -> Carriage Return, \n -> New Line
 # define MAP_ARGUMENTS			" 10NSEW\r\n"
-/*
-			N -> North Angle
-	W -> West Angle		E -> East Angle
-			S -> South Angle
-*/
 # define MAP_CHARACTER_ANGLE	"NSWE"
 # define MAP_ANGLE				"NOSOWEEA"
 # define MAP_COVERING			"FC"
-// \r -> Carriage Return, \n -> New Line
-# define MAP_WHITESPACES		"\r\n"
 # define RGB_CHR				"0123456789,"
-/* -------------------------------------------------- */
 
-/* -----------------MINIMAP DEFINES------------------ */
-# define SCREEN_RATE			2
-# define MINIMAP_RATE_W			(WINDOW_W / SCREEN_RATE)
-# define MINIMAP_RATE_H			(WINDOW_H / SCREEN_RATE)
-/* -------------------------------------------------- */
-
-/* ------------------PLAYER DEFINES------------------ */
-// 1º = 0.0174532925 radian
-# define ONE_DEGREE					(M_PI / 180.0)// FOV
-// 1 rad = 57.2957795131 degree
-# define ONE_RADIAN					(180.0 / M_PI)
-/*
-		π = 180º	</>	1 rad = 180 / π
-
-	66º = 11π / 30			-> 1980 / 30 = 66
-	66º = 11 * M_PI / 30	-> 1980 / 30 = 66
-	66º = 66 * (M_PI / 180.0)
-	66º = 1.15191730631626 radians
-*/
-# define PLAYER_ANGLE			(ONE_DEGREE * 66)
-# define RAY_COUNT				(PLAYER_ANGLE * 2)
-# define PLAYER_ROTATION_SPEED	0.80
-# define PLAYER_WALK_SPEED		0.09
-/* -------------------------------------------------- */
-
+# define WHITESPACES			" \t\n\r"
+# define MAP_WHITESPACES		"\r\n"
 
 /* ************************************************************************** */
-/* STRUCT DEFINES AREA													  	  */
+/* STRUCT DEFINES AREA                                                        */
 /* ************************************************************************** */
 
-/**
- * @brief MLX's image's data.
- * 
- * @param ptr* image identifier
- * @param addr* image
- * @param bits_per_pixel depth of image
- * @param size_line	number of bytes used to store one line of image
- * @param endian little or big endian --> arab and eng keyboard types.
- * 
- * @note Su anlik kullanilan ptr, addr, oluyor. Digerleri suanlik kullanilmio.
- */
-typedef struct s_mlximg
+typedef struct s_ray {
+	double	mesafe;
+	double	x;
+	double	y;
+}	t_ray;
+
+typedef struct s_key {
+	bool	up;
+	bool	down;
+	bool	right;
+	bool	left;
+	bool	r_right;
+	bool	r_left;
+}	t_key;
+
+typedef struct s_player {
+	double	x;
+	double	y;
+	double	rotation_angle;
+	double	walk_speed;
+	double	turn_speed;
+	int		thickness;
+}	t_player;
+
+typedef struct s_img
 {
 	void	*ptr;
 	int		*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	int		bpp;
+	int		line_size;
 	int		endian;
-}		t_mlximg;
+}	t_img;
 
-/**
- * @brief Main MLX window's data.
- * 
- * @param img
- * @param minimap
- * @param ptr*
- * @param win*
- * 
- * @note MLX'imizin butun islevi burada basliyor.
- */
 typedef struct s_mlx
 {
-	t_mlximg	img;
-	t_mlximg	minimap;
-	void		*ptr;
-	void		*win;
-}		t_mlx;
+	void	*ptr;
+	void	*win;
+}	t_mlx;
 
-typedef struct s_ray
-{
-	double	pos_x;// ray starting location
-	double	pos_y;// ray starting location
-	double	hit_x;// ray hit_the_wall location
-	double	hit_y;// ray hit_the_wall location
-	double	max_x;// calculated max lenght
-	double	max_y;// calculated max lenght
-}		t_ray;
-
-typedef struct s_player
-{
-	double	pos_x;// start location
-	double	pos_y;// start location
-	double	dir_x;// initial direction location
-	double	dir_y;// initial direction location
-	double	plane_x;// 0
-	double	plane_y;// 0.66 -> 66º fov look angle
-	double	angle;
-}		t_player;
-
-typedef struct s_key
-{
-	int	value;
-}		t_key;
-
-typedef struct	s_minimap
-{
-	// t_mlximg	img;
-	// void		*ptr;
-	// void		*win;
-	int			x;
-	int			y;
-	int			box_size;
-}		t_minimap;
-
-typedef struct s_map
-{
-	char	**map;
-	char	*l_free;
-	int		max_x;
-	int		max_y;
-}		t_map;
-
-typedef struct	s_texture
+typedef struct s_texture
 {
 	char	*no;
 	char	*so;
@@ -238,107 +172,106 @@ typedef struct	s_texture
 	char	*f;
 	int		*rgb_c;
 	char	*c;
-}		t_texture;
+}	t_texture;
 
 typedef struct s_main
 {
-	t_texture	texture;
-	t_map		map;
-	t_mlx		*mlx;
-	t_minimap	minimap;
+	t_ray		ray;
 	t_key		key;
 	t_player	ply;
-	t_ray		ray;
-	int			first_key;
-}		t_main;
-
+	t_texture	texture;
+	t_mlx		mlx;
+	t_img		img;
+	char		*l_free;
+	char		**map;
+	int			max_y;
+	int			max_x;
+	int			box_size;
+	double		backup_ply_x;
+	double		backup_ply_y;
+	double		backup_ply_angle;
+}	t_main;
 
 /* ************************************************************************** */
-/* FUNCTION PROTOTYPES														  */
+/* FUNCTION PROTOTYPES                                                        */
 /* ************************************************************************** */
 
-// check_all.c
-int		check_args(int	argc, char	**argv);
-int		check_map(t_main *main, char **argv);
+void	set_default(t_main *main);
+int		is_wall(double x, double y, t_main *main);
+void	cub3d(t_main *main);
+void	put_pixel(double x, int y, double color, t_img *img);
+void	draw_minimap_test(t_main *main);
+void	draw_player_test(t_main *main);
+void	draw_player_directory(t_main *main);
 
-// draw_all.c
-int		draw_mlx_window(t_main *main);
-int		loop_draw_image_to_window(t_main *main);
+//error.c
+void	linux_mlx_free(t_main *main);
+int		ft_exit(t_main *main);
+
+
+// key_button.c
+int		update_player(t_main *main);
+void	key_function(t_main *main);
+int		key_press(int keycode, t_main *main);
+int		key_release(int keycode, t_main *main);
+
+// mlx_init.c
+int		minilibx_init(t_main *main);
 
 // error.c
 int		print_error(char *s1, char *s2, char *s3, char *message);
 int		print_error_errno(char *s1, char *s2, char *s3);
 
-// free.c
-int		mlx_free_kill_all(t_main *main);
+// main.c
+int		where_is_my_hero(int *x, int *y, t_main *main);
+int		argv_check(int argc, char *map, t_main *main);
+int		main(int argc, char **argv);
 
-// hooking.c
-int		key_press(int keycode, t_main *main);
-int		key_release(int keycode, t_main *main);
-
-// init_all.c
-int		init_all(t_main *main);
-
-// init_images.c
-int		init_cub3d_image(t_main *main);
-int		init_minimap_image(t_main *main);
-
-// init_window.c
-int		init_cub3d_window(t_main *main);
-
-// map_borders.c
+// map_borders_func.c
 int		map_borders_inside(t_main *main);
 int		map_borders_left(t_main *main);
 int		map_borders_bottom(t_main *main);
 int		map_borders_right(t_main *main);
 int		map_borders_top(t_main *main);
 
-// map_check_rgb.c
-int		map_definitions_rgb_c(t_main *main);
-int		map_definitions_rgb_f(t_main *main);
-int		map_definitions_rgb(t_main *main);
+// map_definitions_check.c
 int		map_definitions_check_rgb(t_main *main);
-
-// map_check.c
 int		xpm_file_check(char *str, char *name);
 int		map_definitions_check(int count, char *line, int limit, t_main *main);
 
-// map_free.c
-void	free_definitions(t_main *main);
+// map_definitions_rgb.c
+int		map_definitions_rgb_c(t_main *main);
+int		map_definitions_rgb_f(t_main *main);
+int		map_definitions_rgb(t_main *main);
 
-// map_read.c
+// map_definitions.c
+void	free_definitions(t_main *main);
 int		map_definitions_invalid_input(char *line, int limit, t_main *main);
+char	*map_read_definitions(char *line, int *limit, int *count, int size);
 void	map_definitions_init(t_main *main);
 int		map_definitions(char *line, t_main *main);
-char	*map_read(int fd);
 
-// map_to_struct.c
+// map_map.c
 int		map_borders(t_main *main);
 int		map_max_lenght(char *line, char c);
 int		map_find_borders(char *line, int start, int *map_end);
 int		map_skip_empty_line(char *line, int limit);
 int		map_map(char *line, int start, t_main *main);
 
-// player.c
-void	update_player_all(t_main *main);
-void	init_set_player(t_main *main, int x, int y);
-
-// ray.c
-void	sent_ray(t_main *main);
-void	ray_init(t_ray *ray);
+// map.c
+char	*map_read(int fd);
+int		map_check(int fd, t_main *main);
 
 // utils_func.c
 void	free_pstr(char **line);
+int		err(char *err_output);
 char	*ft_chrjoin(char *s1, char c);
 int		ft_strncmp_edited(const char *s1, const char *s2, size_t n);
 int		ft_strcmp_edited(char *s1, char *s2);
 
-// utils_map.c
+// utils_map_split.c
 char	*map_split_stringfind(const char *s, char c, int max);
 size_t	map_split_wordcount(char *s, char c);
 char	**map_split(char *line, char c, int max);
-
-// utils_wall.c
-int		is_wall(t_main *main, double x, double y);
 
 #endif

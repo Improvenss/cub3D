@@ -6,7 +6,7 @@
 #    By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/06 23:06:05 by gsever            #+#    #+#              #
-#    Updated: 2022/12/13 13:13:00 by gsever           ###   ########.fr        #
+#    Updated: 2022/12/18 22:12:46 by gsever           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ ifeq ($(UNAME), Linux)
 	NUMPROC	:= $(shell grep -c ^processor /proc/cpuinfo)
 	MINILIBX_DIRECTORY	:= ./libraries/minilibx_linux
 	MINILIBX_FLAGS		:= -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm -lz
-	OS = "You are connected from -$(CYAN)$(UNAME)$(X)- 🐧 Welcome -$(CYAN)$(USER)$(X)- 😄!"
+	OS = "You are connected from -$(CYAN)$(UNAME)$(X)- 🐧 Welcome -$(CYAN)$(USER)$(X)- !"
 else ifeq ($(UNAME), Darwin)
 	NUMPROC	:= $(shell sysctl -n hw.ncpu)
 	MINILIBX_DIRECTORY	:= ./libraries/minilibx_opengl
@@ -97,10 +97,8 @@ else ifeq ($(UNAME), Darwin)
 endif
 # You can use --> man sysctl -> shell: sysctl -a | grep "hw.ncpu"
 
-.PHONY: all clean fclean re bonus libft run maptest leakscd
-
 all:
-	@$(MAKE) $(NAME) -j$(NUMPROC) --no-print-directory
+	@$(MAKE) $(NAME) -j $(NUMPROC) --no-print-directory
 #	@$(MAKE) -s $(NAME) -j $(NUMPROC)
 
 $(NAME): libft $(OBJECTS_DIRECTORY) $(OBJECTS)
@@ -131,9 +129,6 @@ re:
 	@$(MAKE) fclean --no-print-directory
 	@$(MAKE) all --no-print-directory
 
-bonus:
-	@echo "$(RED)ZORT$(END)"
-
 # $(MINILIBX):
 # 	@echo "$(NAME): $(GREEN)Creating $(MINILIBX)...$(RESET)"
 # 	@$(MAKE) -sC $(MINILIBX_DIRECTORY)
@@ -150,11 +145,12 @@ else
 endif
 
 run:
-	@echo "$(YELLOW)▶ RUN CMD (map_1.cub)$(END)"
+	@echo "$(RED)You can run cub3D with Makefile as follows; 'make run MAP=map_1.cub'$(END)"
+	@echo "$(YELLOW)▶ RUN CMD $(MAP)$(END)"
 	@echo "$(CYAN)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ MAP ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$(END)"
-	@cat ./map/map_1.cub
+	@cat ./map/$(MAP)
 	@echo "$(CYAN)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$(END)"
-	./cub3D ./map/map_1.cub
+	./$(NAME) ./map/$(MAP)
 
 maptest:
 	@echo "$(GREEN)Before you start testing, set the false return value in main.c to 0.$(END)"
@@ -278,7 +274,7 @@ ifeq ($(wildcard cub3D), cub3D)
 	@echo "$(CYAN)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$(END)"
 	@./cub3D ./map/test_maps/map_empty_line.cub
 	@echo "$(GREEN)┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄$(END)"
-	
+
 	@echo "$(YELLOW)▶ No map (map_no_map.cub)$(END)"
 	@echo "$(CYAN)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ MAP ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$(END)"
 	@cat ./map/test_maps/map_no_map.cub
@@ -289,5 +285,10 @@ else
 	@echo "$(RED)▶ Must be compiled! $(END)"
 endif
 
-leakscd:
-	$(LEAKS_C3D)
+valleak:
+	@valgrind -q --leak-check=yes --show-leak-kinds=all ./$(NAME) ./map/map_1.cub
+
+leaks:
+	@leaks $(NAME)
+
+.PHONY: all clean fclean re libft run maptest valleak leaks

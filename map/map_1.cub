@@ -1,4 +1,4 @@
-NO ./textures/A.xpm
+NO ./textures/eagle.xpm
 SO ./textures/B.xpm
 WE ./textures/C.xpm
 EA ./textures/D.xpm
@@ -6,8 +6,10 @@ EA ./textures/D.xpm
 F 86,125,70
 C 132,106,235
 
-11111
-10101
-1N001
-10001
-11111
+1111111111
+1001000001
+1010010001
+1100N00001
+1000000001
+1000000001
+1111111111
