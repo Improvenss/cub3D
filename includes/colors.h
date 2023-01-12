@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:42:12 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/12 17:53:08 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/12 23:45:36 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define COLOR_GREEN	0x00FF00
 # define COLOR_BLUE		0x0000FF
 # define COLOR_BLACK	0x000000
+# define COLOR_WHITE	0xFFFFFF
 # define COLOR_ORANGE	0xFFA500
 # define COLOR_YELLOW	0xFFFF00
 # define COLOR_CYAN		0x00ffff

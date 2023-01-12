@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:37:31 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/11 23:37:07 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/12 22:36:06 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ Kısıtlamalar aşağıdaki gibidir:
 	• Programınız zemin ve tavan renklerini iki farklı renge
  ayarlayabilmelidir.
 	• Program görüntüyü bir pencerede gösterir ve aşağıdaki kurallara uyar:
-		◦ Klavyenin sol ve sağ ok tuşları labirentte sola ve sağa bakmanıza
+		[OK]◦ Klavyenin sol ve sağ ok tuşları labirentte sola ve sağa bakmanıza
 	 izin vermelidir.
-		◦ W, A, S ve D tuşları, bakış açısını labirentte hareket ettirmenize
+		[OK]◦ W, A, S ve D tuşları, bakış açısını labirentte hareket ettirmenize
 	 izin vermelidir.
-		◦ ESC’ye basmak pencereyi kapatmalı ve programdan temiz bir şekilde
+		[OK]◦ ESC’ye basmak pencereyi kapatmalı ve programdan temiz bir şekilde
 	 çıkmalıdır.
-		◦ Pencere çerçevesindeki kırmızı çarpı işaretine tıklamak pencereyi
+		[OK]◦ Pencere çerçevesindeki kırmızı çarpı işaretine tıklamak pencereyi
 	 kapatmalı ve programdan temiz bir şekilde çıkmalıdır.
-		◦ minilibX kullanılması şiddetle önerilmektedir.
+		[OK]◦ minilibX kullanılması şiddetle önerilmektedir.
 	• Programınız ilk argüman olarak bir harita dosyasını .cub
  uzantısıyla almalıdır.
 		◦ Harita 6 olası karakterden oluşmalıdır:
@@ -101,8 +101,8 @@ Kısıtlamalar aşağıdaki gibidir:
 ------------------------- BONUS PART -------------------------
 
 Bonus listesi:
-	• Duvar çarpmaları.
-	• Mini harita sistemi.
+	[OK]• Duvar çarpmaları.
+	[OK]• Mini harita sistemi.
 	• Açılıp kapanabilen kapılar.
 	• Animasyonlu spritelar.
 	• Mouse yardımıyla bakış açısını değiştirme.
@@ -115,8 +115,10 @@ Akıllı davranın!
 
 * ************************************************************************** *
  * 
- * TODO: OK:check, init, set
- * TODO: struct; map, minimap, mlx_window
+ * TODO: OK:
+ * TODO: shift ile hizlanma, norminette, minimap on/off, mouse_hook_event,
+ * 	yukariya asagiya bakma, xpm image, wall'da misin degil misin 0/1/2,
+ * 	hareketli spriteler, hareketli kapilar, gereksiz rayleri kaldir.
  * @param argc 
  * @param argv 
  * @return int 

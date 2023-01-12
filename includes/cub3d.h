@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/12 17:32:25 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/12 23:37:43 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define ERROR					-1
 # define PROMPT					"cub3D"
 
-# define WINDOW_W				1920//1280//800
-# define WINDOW_H				1080//1024//800
+# define WINDOW_W				800//800
+# define WINDOW_H				600//800
 
 # define WHITESPACES			" \t\n\r"
 
@@ -143,7 +143,7 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define RAY_COUNT				(PLAYER_ANGLE * 2)
 # define PLAYER_THICKNESS		2
 # define FOV					60
-# define FOV_THICKNESS			1921
+# define FOV_THICKNESS			(WINDOW_W)
 # define PLAYER_ROTATION_SPEED	2.50
 # define PLAYER_WALK_SPEED		1.20
 /* -------------------------------------------------- */
@@ -198,10 +198,15 @@ typedef struct s_ray
 {
 	double	pos_x;// ray starting location
 	double	pos_y;// ray starting location
-	double	hit_x;// ray hit_the_wall location
-	double	hit_y;// ray hit_the_wall location
-	double	max_x;// calculated max lenght
-	double	max_y;// calculated max lenght
+	bool	is_hit_x;
+	bool	is_hit_y;
+	double	hit_x;// ray hit_the_wall location -> dx
+	double	hit_y;// ray hit_the_wall location -> dy
+	double	distance;// clear ray distance.
+	double	distance_v;// vertical distance.
+	double	distance_h;// horizontal distance;
+	int		dir_x;
+	int		dir_y;
 }		t_ray;
 
 typedef struct s_player
@@ -302,7 +307,18 @@ int		ft_exit(t_main *main);
 
 // draw_all.c
 int		draw_mlx_window(t_main *main);
-int		loop_draw_image_to_window(t_main *main);
+
+// draw_minimap.c
+void	put_pixel(int x, int y, double color, t_main *main);
+void	draw_player_directory(t_main *main);
+void	draw_player_position(t_main *main);
+void	draw_minimap(t_main *main);
+
+// draw_screen.c
+void	draw_background( t_main *main);
+void	_3D(t_main *main, int ray_count);
+void	draw_ray(t_main *main, double angle, int ray_count);
+void	raycasting(t_main *main, double angle, int ray_count);
 
 // error.c
 int		print_error(char *s1, char *s2, char *s3, char *message);
@@ -317,13 +333,6 @@ int		key_release(int keycode, t_main *main);
 
 // init_all.c
 int		init_all(t_main *main);
-
-// init_images.c
-// int		init_cub3d_image(t_main *main);
-// int		init_minimap_image(t_main *main);
-
-// init_window.c
-// int		init_cub3d_window(t_main *main);
 
 // key_button.c
 int		update_player(t_main *main);
@@ -369,9 +378,9 @@ void	update_player_all(t_main *main);
 void	set_player_default_pos(t_main *main);
 void	init_set_player(t_main *main, int x, int y);
 
-// // ray.c
-// void	sent_ray(t_main *main);
-// void	ray_init(t_ray *ray);
+// ray.c
+double	ray_vertical(t_main *main, double angle, double dir_x, double dir_y);
+double	ray_horizontal(t_main *main, double angle, double dir_x, double dir_y);
 
 // utils_func.c
 void	free_pstr(char **line);
