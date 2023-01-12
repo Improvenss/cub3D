@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 18:29:23 by akaraca           #+#    #+#             */
-/*   Updated: 2022/12/18 20:02:35 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/11 17:36:24 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,23 @@ int	update_player(t_main *main)
 
 	if (main->key.up == true)
 	{
-		newPlayerX = main->ply.x + (main->ply.walk_speed / BOX_SIZE) * cos(main->ply.rotation_angle * (PI / 180));
-		newPlayerY = main->ply.y - (main->ply.walk_speed / BOX_SIZE) * sin(main->ply.rotation_angle * (PI / 180));
+		newPlayerX = main->ply.x + (main->ply.walk_speed / BOX_SIZE) * cos(main->ply.rotation_angle * (M_PI / 180));
+		newPlayerY = main->ply.y - (main->ply.walk_speed / BOX_SIZE) * sin(main->ply.rotation_angle * (M_PI / 180));
 	}
 	if (main->key.down == true)
 	{
-		newPlayerX = main->ply.x - (main->ply.walk_speed / BOX_SIZE) * cos(main->ply.rotation_angle * (PI / 180));
-		newPlayerY = main->ply.y + (main->ply.walk_speed / BOX_SIZE) * sin(main->ply.rotation_angle * (PI / 180));
+		newPlayerX = main->ply.x - (main->ply.walk_speed / BOX_SIZE) * cos(main->ply.rotation_angle * (M_PI / 180));
+		newPlayerY = main->ply.y + (main->ply.walk_speed / BOX_SIZE) * sin(main->ply.rotation_angle * (M_PI / 180));
 	}
 	if (main->key.left == true)
 	{
-		newPlayerX = main->ply.x - (main->ply.walk_speed / BOX_SIZE) * sin(main->ply.rotation_angle * (PI / 180));
-		newPlayerY = main->ply.y - (main->ply.walk_speed / BOX_SIZE) * cos(main->ply.rotation_angle * (PI / 180));
+		newPlayerX = main->ply.x - (main->ply.walk_speed / BOX_SIZE) * sin(main->ply.rotation_angle * (M_PI / 180));
+		newPlayerY = main->ply.y - (main->ply.walk_speed / BOX_SIZE) * cos(main->ply.rotation_angle * (M_PI / 180));
 	}
 	if (main->key.right == true)
 	{
-		newPlayerX = main->ply.x + (main->ply.walk_speed / BOX_SIZE) * sin(main->ply.rotation_angle * (PI / 180));
-		newPlayerY = main->ply.y + (main->ply.walk_speed / BOX_SIZE) * cos(main->ply.rotation_angle * (PI / 180));
+		newPlayerX = main->ply.x + (main->ply.walk_speed / BOX_SIZE) * sin(main->ply.rotation_angle * (M_PI / 180));
+		newPlayerY = main->ply.y + (main->ply.walk_speed / BOX_SIZE) * cos(main->ply.rotation_angle * (M_PI / 180));
 	}
 	if (!is_wall(newPlayerX, newPlayerY, main))
 	{

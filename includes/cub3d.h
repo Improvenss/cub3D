@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/18 20:28:27 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/11 17:52:07 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define PLAYER_ROTATION_SPEED	1
 # define FOV			60
 # define FOV_THICKNESS	121
-# define PI	3.14159265358979323846264338327950288419716939937510582097494459230
+// # define PI	3.14159265358979323846264338327950288419716939937510582097494459230
 
 // " " -> Empty, 1 -> Wall, 0 -> Ground,
 // N -> North Angle, S -> South Angle, E -> East Angle, W -> West Angle,
@@ -181,7 +181,9 @@ typedef struct s_main
 	t_player	ply;
 	t_texture	texture;
 	t_mlx		mlx;
-	t_img		img;
+	t_img		screen;
+	// t_img		img;
+	t_img		mini_map;
 	char		*l_free;
 	char		**map;
 	int			max_y;

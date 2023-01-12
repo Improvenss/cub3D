@@ -52,10 +52,11 @@ void put_pixel(double x, int y, double color, t_img *img)
 	}
 }
 
-void	draw_minimap_test(t_main *main)
+void	draw_mini_map_test(t_main *main)
 {
 	int	x;
 	int y;
+	// int color = 255*(main->texture.rgb_c[0] * 65536) + (main->texture.rgb_c[1] * 256) + main->texture.rgb_c[2];
 
 	y = -1;
 	while (++y <= main->max_y)
@@ -64,11 +65,11 @@ void	draw_minimap_test(t_main *main)
 		while (++x <= main->max_x)
 		{
 			if (main->map[y][x] == '1')
-				put_pixel(BOX_SIZE * x, BOX_SIZE * y, 0xffffff, &(main->img));
+				put_pixel(BOX_SIZE * x, BOX_SIZE * y, 0xffffff, &(main->mini_map));
 			else if (main->map[y][x] == '0')
-				put_pixel(BOX_SIZE * x, BOX_SIZE * y, 0x000000, &(main->img));
-			// else
-				// put_pixel(BOX_SIZE * x, BOX_SIZE * y, -123.0, &(main->img));
+				put_pixel(BOX_SIZE * x, BOX_SIZE * y, 0x000000, &(main->mini_map));
+			else
+				put_pixel(BOX_SIZE * x, BOX_SIZE * y, -123.0, &(main->mini_map));
 		}
 	}
 }
@@ -86,7 +87,7 @@ void	draw_player_test(t_main *main)
 		x = -1 * l;
 		while (x <= l)
 		{
-			main->img.addr[(int)(WINDOW_W) * (int)(BOX_SIZE * main->ply.y + y) + (int)(BOX_SIZE * main->ply.x + x)] = 0xff0000;
+			main->mini_map.addr[(int)(WINDOW_W) * (int)(BOX_SIZE * main->ply.y + y) + (int)(BOX_SIZE * main->ply.x + x)] = 0xff0000;
 			x++;
 		}
 		y++;
@@ -97,8 +98,8 @@ void	draw_player_directory(t_main *main)
 {
 	double ydy;
 	double ydx;
-	ydy = 1 * sin((main->ply.rotation_angle + 180) * (PI / 180));
-	ydx = 1 * cos((main->ply.rotation_angle + 180) * (PI / 180));
+	ydy = 1 * sin((main->ply.rotation_angle + 180) * (M_PI / 180));
+	ydx = 1 * cos((main->ply.rotation_angle + 180) * (M_PI / 180));
 	double	ray_x;
 	double	ray_y;
 	double	dx;
@@ -116,7 +117,7 @@ void	draw_player_directory(t_main *main)
 	while (1)
 	{
 		if (!is_wall(ray_x, ray_y, main))
-			main->img.addr[WINDOW_W * (int)floor(BOX_SIZE * ray_y) + (int)floor(BOX_SIZE * ray_x)] = COLOR_ORANGE;
+			main->mini_map.addr[WINDOW_W * (int)floor(BOX_SIZE * ray_y) + (int)floor(BOX_SIZE * ray_x)] = COLOR_ORANGE;
 		else
 			break;
 		ray_x += dx / 2000;
@@ -130,8 +131,8 @@ void	draw_player_directory(t_main *main)
 // {
 // 	double ydy;
 // 	double ydx;
-// 	ydy = sin((angle + 180) * (PI / 180));
-// 	ydx = cos((angle + 180) * (PI / 180));
+// 	ydy = sin((angle + 180) * (M_PI / 180));
+// 	ydx = cos((angle + 180) * (M_PI / 180));
 // 	double	ray_x;
 // 	double	ray_y;
 // 	double	dx;
@@ -157,9 +158,58 @@ void	draw_player_directory(t_main *main)
 // 	}
 // }
 
-// void	draw_walls(t_main *main, double distance, int dir_x, int dir_y, double angle)
-// {
+void	draw_walls(t_main *main, double distance, int ray_count)
+{
+	(void)main;
+	int		location;
+	int		mid;
+	double	oran;
+	int		i;
+	int		color;
 
+	distance *= (double)BOX_SIZE;
+	mid = WINDOW_H / 2;
+	location = (WINDOW_W * mid) - ray_count;
+	oran = (double)WINDOW_H / distance;
+	if (distance > 3)
+		color = 0x00ff00 * distance;
+	else
+		color = 0xff00ff;
+	i = 0;
+	while (i < oran)
+	{
+		main->screen.addr[(location + (WINDOW_W * i))] = color;
+		main->screen.addr[(location - (WINDOW_W * i))] = color;
+		i++;
+	}
+}
+
+// void ben_3_boyut_umut(t_main *main, double distance, int ray_count)//**************************************************************************
+// {
+// 	// (void)main;
+// 	int loc;
+// 	int mid;
+// 	double oran;
+// 	int	i;
+// 	int color;
+
+// 	distance = distance * (double)BOX_SIZE;
+// 	i = 0;
+// 	mid = WINDOW_H / 2;
+// 	loc = (WINDOW_W * mid) - ray_count;
+// 	// if (ray_count == 0)
+// 		// printf("[%d]: %f\n", ray_count, distance);
+// 	oran = (double)WINDOW_H / distance;
+// 	if (distance > 3)
+// 		color = 0x00ff00 * distance;
+// 	else
+// 		color = 0xff00ff;
+// 	while (i < oran)
+// 	{
+// 		main->screen.addr[(loc + (WINDOW_W * i))] = color;
+// 		main->screen.addr[(loc - (WINDOW_W * i))] = color;
+// 		i++;
+// 	}
 // }
 
 double	ray_vertical(t_main *main, double angle, int dir_x, int dir_y)
@@ -171,7 +221,7 @@ double	ray_vertical(t_main *main, double angle, int dir_x, int dir_y)
 		vdx = main->ply.x - floor(main->ply.x);
 	else
 		vdx = ceil(main->ply.x) - main->ply.x;
-	vdy = fabs(tan(angle * (PI / 180)) * vdx);
+	vdy = fabs(tan(angle * (M_PI / 180)) * vdx);
 
 	double tmp_x = vdx*dir_x;
 	double tmp_y = vdy*dir_y;
@@ -181,7 +231,7 @@ double	ray_vertical(t_main *main, double angle, int dir_x, int dir_y)
 		while (1)
 		{
 			vdx = vdx + 1;
-			vdy = fabs(tan(angle * (PI / 180)) * vdx);
+			vdy = fabs(tan(angle * (M_PI / 180)) * vdx);
 			if (!is_wall(main->ply.x + vdx*dir_x, main->ply.y + vdy*dir_y, main))
 			{
 				tmp_x = vdx*dir_x;
@@ -207,7 +257,7 @@ double ray_horizonal(t_main *main, double angle, int dir_x, int dir_y)
 		hdy = floor(main->ply.y) - main->ply.y;
 	else
 		hdy = ceil(main->ply.y) - main->ply.y;
-	hdx = fabs(hdy / tan(angle * (PI / 180)));
+	hdx = fabs(hdy / tan(angle * (M_PI / 180)));
 
 	double tmp_y = hdy*dir_y;
 	double tmp_x = hdx*dir_x;
@@ -217,7 +267,7 @@ double ray_horizonal(t_main *main, double angle, int dir_x, int dir_y)
 		while (1)
 		{
 			hdy = hdy + 1;
-			hdx = fabs(hdy / tan(angle * (PI / 180)));
+			hdx = fabs(hdy / tan(angle * (M_PI / 180)));
 			if (!is_wall(main->ply.x + hdx*dir_x, main->ply.y + hdy*dir_y, main))
 			{
 				tmp_y = hdy*dir_y;
@@ -234,7 +284,7 @@ double ray_horizonal(t_main *main, double angle, int dir_x, int dir_y)
 	return (distance);
 }
 
-void draw_ray(double distance, int dir_x, int dir_y, t_main *main, double angle)
+void draw_ray(double distance, int dir_x, int dir_y, t_main *main, double angle, int ray_count)
 {
 	double	ray_x;
 	double	ray_y;
@@ -243,8 +293,8 @@ void draw_ray(double distance, int dir_x, int dir_y, t_main *main, double angle)
 	
 	ray_x = main->ply.x;
 	ray_y = main->ply.y;
-	dx = distance * fabs(cos(angle * (PI / 180))) * dir_x;
-	dy = distance * fabs(sin(angle * (PI / 180))) * dir_y;
+	dx = distance * fabs(cos(angle * (M_PI / 180))) * dir_x;
+	dy = distance * fabs(sin(angle * (M_PI / 180))) * dir_y;
 	dx /= distance;
 	dy /= distance;
 	while (1)
@@ -252,21 +302,37 @@ void draw_ray(double distance, int dir_x, int dir_y, t_main *main, double angle)
 		if (!is_wall(ray_x, ray_y, main))
 		{
 			if (angle == main->ply.rotation_angle)
-				main->img.addr[WINDOW_W * (int)floor(BOX_SIZE * ray_y) + (int)floor(BOX_SIZE * ray_x)] = COLOR_ORANGE;
+				main->mini_map.addr[WINDOW_W * (int)floor(BOX_SIZE * ray_y) + (int)floor(BOX_SIZE * ray_x)] = COLOR_ORANGE;
 			else
-				main->img.addr[WINDOW_W * (int)floor(BOX_SIZE * ray_y) + (int)floor(BOX_SIZE * ray_x)] = COLOR_GREEN;
+				main->mini_map.addr[WINDOW_W * (int)floor(BOX_SIZE * ray_y) + (int)floor(BOX_SIZE * ray_x)] = COLOR_GREEN;
 		}
 		else
+		{
+			draw_walls(main, distance, ray_count);
 			break;
+		}
 		ray_x += dx / 2000;
 		ray_y += dy / 2000;
 	}
+//  while (1)
+    // {
+    //     if (!is_wall(ray_x, ray_y, main))
+    //         main->mini_map.addr[(BOX_SIZE * (main->max_x +1)) * (int)floor(BOX_SIZE * ray_y) + (int)floor(BOX_SIZE * ray_x)] = 0x00ff00;
+	// 	else
+	// 	{
+	// 		//ben_3_boyut_umut_2(main, (main->ply.x + ray_x*dir_x), (main->ply.y + ray_y*dir_y), ray_count);
+	// 		ben_3_boyut_umut(main, distance, ray_count);
+	// 		break;
+	// 	}
+    //     ray_x += dx / 2000;
+    //     ray_y += dy / 2000;
+    // }
 }
 
-void	raycasting(t_main *main, double angle)
+void	raycasting(t_main *main, double angle, int ray_count)
 {
-	int dir_x = ((cos(angle * (PI / 180)) > 0) * 2) - 1;
-	int dir_y = ((sin(angle * (PI / 180)) > 0) * -2) + 1;
+	int dir_x = ((cos(angle * (M_PI / 180)) > 0) * 2) - 1;
+	int dir_y = ((sin(angle * (M_PI / 180)) > 0) * -2) + 1;
 	double distance_v;
 	double distance_h;
 	double distance;
@@ -276,8 +342,7 @@ void	raycasting(t_main *main, double angle)
 		distance = distance_v;
 	else
 		distance = distance_h;
-	draw_ray(distance, dir_x, dir_y, main, angle);
-	// draw_walls(main, distance, dir_x, dir_y, angle);
+	draw_ray(distance, dir_x, dir_y, main, angle, ray_count);
 }
 
 int	ft_loop(t_main *main)
@@ -287,16 +352,18 @@ int	ft_loop(t_main *main)
 	// while (i > 0)
 	// 	i--;
 	key_function(main);
-	draw_minimap_test(main);
+	draw_mini_map_test(main);
 	draw_player_test(main);
 
+	int	ray_count = 0;
 //*****************************************************************************
 	
 	angle = -1 * (FOV / 2.0);
 	while (angle <= (FOV / 2.0))
 	{
-		raycasting(main, main->ply.rotation_angle + angle);
+		raycasting(main, main->ply.rotation_angle + angle, ray_count);
 		angle += (FOV / 2.0) / ((FOV_THICKNESS - 1) / 2.0);
+		ray_count++;
 	}
 
 //*****************************************************************************
@@ -314,7 +381,7 @@ int	ft_loop(t_main *main)
 //-----------------------------------------------------------------------------
 	// draw_player_directory(main);
 	mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
-		main->img.ptr, 0, 0);
+		main->mini_map.ptr, 0, 0);
 	return (0);
 }
 
