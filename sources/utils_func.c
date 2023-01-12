@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaraca <akaraca@student.42.tr>            +#+  +:+       +#+        */
+/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/05 00:56:13 by akaraca           #+#    #+#             */
-/*   Updated: 2022/11/05 00:56:13 by akaraca          ###   ########.fr       */
+/*   Created: 2022/12/02 19:41:47 by gsever            #+#    #+#             */
+/*   Updated: 2022/12/02 19:42:50 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-int	err(char *err_output)
-{
-	int	i;
-
-	i = 0;
-	while (err_output[i])
-	{
-		write(2, &err_output[i], 1);
-		i++;
-	}
-	write(2, "\033[0;31m\nERROR\n\033[m", 17);
-	return (ERROR);
-}
 
 void	free_pstr(char **line)
 {
