@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:05:27 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 16:50:10 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 19:04:47 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	player_turn(t_main *main, int way, double val)
 	else if (main->ply.rotation_angle > 360)
 		main->ply.rotation_angle = 0;
 	if (way & (TURN_UP | TURN_DOWN))
-		main->key.screen_mid += (int)val * 5;
+		main->key.screen_mid += (int)val * 10;
 	if (main->key.screen_mid < 0)
 		main->key.screen_mid = 0;
 	else if (main->key.screen_mid > WINDOW_H)

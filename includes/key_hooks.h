@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 03:37:47 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 12:21:38 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 19:14:28 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 #  define KEY_S				1
 #  define KEY_D				2
 #  define KEY_R				15
+
+#  define KEY_SPACE			49
 
 #  define KEY_ESC			53
 

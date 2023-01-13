@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 00:45:58 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 13:25:53 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 19:19:39 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	init_mlx_draw(t_main *main)
 	init_set_player(main, 0, 0);
 	main->ply.walk_speed = PLAYER_WALK_SPEED;
 	main->key.screen_mid = (WINDOW_H / 2);
+	main->key.value = 0;
+	main->mouse.is_enable = false;
 	return (0);
 }
 

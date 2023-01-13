@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 17:33:25 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 19:15:48 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define ERROR					-1
 # define PROMPT					"cub3D"
 
-# define WINDOW_W				1920//800//800
-# define WINDOW_H				1080//600//800
+# define WINDOW_W				800//800
+# define WINDOW_H				600//800
 
 # define WHITESPACES			" \t\n\r"
 
@@ -144,8 +144,8 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define PLAYER_THICKNESS		2
 # define FOV					60
 # define FOV_THICKNESS			(WINDOW_W + 2)
-# define PLAYER_ROTATION_SPEED	2.50
-# define PLAYER_WALK_SPEED		1.20
+# define PLAYER_ROTATION_SPEED	1.50
+# define PLAYER_WALK_SPEED		0.80
 /* -------------------------------------------------- */
 
 
@@ -223,6 +223,13 @@ typedef struct s_player
 	double	default_pos_y;
 }		t_player;
 
+typedef struct s_mouse
+{
+	double	rotation_angle;
+	int		screen_mid;
+	bool	is_enable;
+}		t_mouse;
+
 typedef struct s_key
 {
 	int		value;
@@ -285,6 +292,7 @@ typedef struct s_main
 	t_mlximg	screen;
 	t_mlximg	mini_map;
 	t_key		key;
+	t_mouse		mouse;
 	t_player	ply;
 	t_ray		ray;
 	int			first_key;
