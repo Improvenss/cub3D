@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/12 23:37:43 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 13:25:47 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define ERROR					-1
 # define PROMPT					"cub3D"
 
-# define WINDOW_W				800//800
-# define WINDOW_H				600//800
+# define WINDOW_W				1920//800//800
+# define WINDOW_H				1080//600//800
 
 # define WHITESPACES			" \t\n\r"
 
@@ -143,7 +143,7 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define RAY_COUNT				(PLAYER_ANGLE * 2)
 # define PLAYER_THICKNESS		2
 # define FOV					60
-# define FOV_THICKNESS			(WINDOW_W)
+# define FOV_THICKNESS			(WINDOW_W + 2)
 # define PLAYER_ROTATION_SPEED	2.50
 # define PLAYER_WALK_SPEED		1.20
 /* -------------------------------------------------- */
@@ -161,7 +161,7 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
  * 
  * @param ptr* image identifier
  * @param addr* image
- * @param bits_per_pixel depth of image
+ * @param bpp depth of image
  * @param size_line	number of bytes used to store one line of image
  * @param endian little or big endian --> arab and eng keyboard types.
  * 
@@ -188,10 +188,8 @@ typedef struct s_mlximg
  */
 typedef struct s_mlx
 {
-	t_mlximg	img;
-	t_mlximg	minimap;
-	void		*ptr;
-	void		*win;
+	void	*ptr;
+	void	*win;
 }		t_mlx;
 
 typedef struct s_ray
@@ -226,7 +224,8 @@ typedef struct s_player
 
 typedef struct s_key
 {
-	int	value;
+	int		value;
+	int		screen_mid;
 }		t_key;
 
 // typedef struct s_key {
@@ -283,7 +282,6 @@ typedef struct s_main
 	t_map		map;//OK
 	t_mlx		mlx;//OK
 	t_mlximg	screen;
-	// t_minimap	minimap;
 	t_mlximg	mini_map;
 	t_key		key;
 	t_player	ply;

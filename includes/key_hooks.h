@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 03:37:47 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/12 16:29:56 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 12:21:38 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 #  define KEY_ARROW_DOWN	125
 #  define KEY_ARROW_LEFT	123
 #  define KEY_ARROW_RIGHT	124
+
+#  define KEY_L_SHIFT		257
 
 #  define GO_FORWARD		1
 #  define GO_BACKWARD		2

@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:37:31 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/12 22:36:06 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 12:29:23 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@ Akıllı davranın!
 * ************************************************************************** *
  * 
  * TODO: OK:
- * TODO: shift ile hizlanma, norminette, minimap on/off, mouse_hook_event,
+ * TODO: norminette, minimap on/off, mouse_hook_event,
  * 	yukariya asagiya bakma, xpm image, wall'da misin degil misin 0/1/2,
- * 	hareketli spriteler, hareketli kapilar, gereksiz rayleri kaldir.
+ * 	hareketli spriteler, hareketli kapilar, gereksiz rayleri kaldir, karanlik ekleme.
  * @param argc 
  * @param argv 
  * @return int 

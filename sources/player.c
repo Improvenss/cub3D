@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:05:27 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/12 16:42:08 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 13:57:13 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ void	player_turn(t_main *main, int way, double val)
 		main->ply.rotation_angle = 360;
 	else if (main->ply.rotation_angle > 360)
 		main->ply.rotation_angle = 0;
+	if (way & (TURN_UP | TURN_DOWN))
+		main->key.screen_mid += (int)val * 5;
+	if (main->key.screen_mid < 0)
+		main->key.screen_mid = 0;
+	else if (main->key.screen_mid > WINDOW_H)
+		main->key.screen_mid = WINDOW_H;
 }
 
 /**
@@ -89,6 +95,7 @@ void	set_player_default_pos(t_main *main)
 	main->ply.pos_x = main->ply.default_pos_x;
 	main->ply.pos_y = main->ply.default_pos_y;
 	main->ply.rotation_angle = main->ply.default_rotation_angle;
+	main->key.screen_mid = (double)(WINDOW_H / 2);
 }
 
 void	init_set_player(t_main *main, int x, int y)
@@ -111,10 +118,10 @@ void	init_set_player(t_main *main, int x, int y)
 					main->ply.rotation_angle = 270;
 				main->map.map[y][x] = '0';
 				main->ply.default_rotation_angle = main->ply.rotation_angle;
-				main->ply.pos_x = (double)x;
-				main->ply.default_pos_x = (double)x;
-				main->ply.pos_y = (double)y;
-				main->ply.default_pos_y = (double)y;
+				main->ply.pos_x = (double)x + 0.5;
+				main->ply.default_pos_x = (double)x + 0.5;
+				main->ply.pos_y = (double)y + 0.5;
+				main->ply.default_pos_y = (double)y + 0.5;
 				return ;
 			}
 		}

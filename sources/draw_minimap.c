@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:00:20 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/12 23:50:50 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 12:33:36 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,58 +75,58 @@ void	put_pixel(int x, int y, double color, t_main *main)//yenisi
 	}
 }
 
-/**
- * @brief Player's rotation_angle (one line) RED
- * 
-void	draw_minimap_test(t_main *main)// eskisi
-{
-	int	x;
-	int y;
-	y = -1;
-	while (++y <= main->map.max_y)
-	{
-		x = -1;
-		while (++x <= main->map.max_x)
-		{
-			if (main->map.map[y][x] == '1')
-				put_pixel(BOX_SIZE * x, BOX_SIZE * y, 0xffffff, &(main->mini_map));
-			else if (main->map.map[y][x] == '0')
-				put_pixel(BOX_SIZE * x, BOX_SIZE * y, 0x000000, &(main->mini_map));
-			// else
-				// put_pixel(BOX_SIZE * x, BOX_SIZE * y, -123.0, &(main->img));
-		}
-	}
-}
- * @param main 
- */
-void	draw_player_directory(t_main *main)
-{
-	double	ydy;
-	double	ydx;
-	double	ray_x;
-	double	ray_y;
-	double	dx;
-	double	dy;
+// /**
+//  * @brief Player's rotation_angle (one line) RED
+//  * 
+// void	draw_minimap_test(t_main *main)// eskisi
+// {
+// 	int	x;
+// 	int y;
+// 	y = -1;
+// 	while (++y <= main->map.max_y)
+// 	{
+// 		x = -1;
+// 		while (++x <= main->map.max_x)
+// 		{
+// 			if (main->map.map[y][x] == '1')
+// 				put_pixel(BOX_SIZE * x, BOX_SIZE * y, 0xffffff, &(main->mini_map));
+// 			else if (main->map.map[y][x] == '0')
+// 				put_pixel(BOX_SIZE * x, BOX_SIZE * y, 0x000000, &(main->mini_map));
+// 			// else
+// 				// put_pixel(BOX_SIZE * x, BOX_SIZE * y, -123.0, &(main->img));
+// 		}
+// 	}
+// }
+//  * @param main 
+//  */
+// void	draw_player_directory(t_main *main)
+// {
+// 	double	ydy;
+// 	double	ydx;
+// 	double	ray_x;
+// 	double	ray_y;
+// 	double	dx;
+// 	double	dy;
 
-	ydy = sin((main->ply.rotation_angle + 180) * ONE_DEGREE);
-	ydx = cos((main->ply.rotation_angle + 180) * ONE_DEGREE);
-	ray_x = main->ply.pos_x;
-	ray_y = main->ply.pos_y;
-	dx = (main->ply.pos_x - ydx) - main->ply.pos_x;
-	dy = (main->ply.pos_y + ydy) - main->ply.pos_y;
-	while (1)
-	{
-		if (!is_wall(main, ray_x, ray_y))
-			main->mini_map.addr[(BOX_SIZE * (main->map.max_x + 1))
-				* (int)floor(BOX_SIZE * ray_y)
-				+ (int)floor(BOX_SIZE * ray_x)] = COLOR_RED;
-		else
-			break;
-		ray_x += dx / 2000;
-		ray_y += dy / 2000;
-	}
-	//printf("x:%f y:%f\n", ray_x, ray_y);
-}
+// 	ydy = sin((main->ply.rotation_angle + 180) * ONE_DEGREE);
+// 	ydx = cos((main->ply.rotation_angle + 180) * ONE_DEGREE);
+// 	ray_x = main->ply.pos_x;
+// 	ray_y = main->ply.pos_y;
+// 	dx = (main->ply.pos_x - ydx) - main->ply.pos_x;
+// 	dy = (main->ply.pos_y + ydy) - main->ply.pos_y;
+// 	while (1)
+// 	{
+// 		if (!is_wall(main, ray_x, ray_y))
+// 			main->mini_map.addr[(BOX_SIZE * (main->map.max_x + 1))
+// 				* (int)floor(BOX_SIZE * ray_y)
+// 				+ (int)floor(BOX_SIZE * ray_x)] = COLOR_RED;
+// 		else
+// 			break;
+// 		ray_x += dx / (WINDOW_H / 2);
+// 		ray_y += dy / (WINDOW_H / 2);
+// 	}
+// 	//printf("x:%f y:%f\n", ray_x, ray_y);
+// }
 
 /**
  * @brief Player position with RED square.
@@ -141,15 +141,17 @@ void	draw_player_position(t_main *main)
 
 	l = (BOX_SIZE / PLAYER_THICKNESS) / 2;
 	y = -1 * l;
-	while (++y <= l)
+	while (y <= l)
 	{
 		x = -1 * l;
-		while (++x <= l)
+		while (x <= l)
 		{
 			main->mini_map.addr[(int)(BOX_SIZE * (main->map.max_x + 1))
 				* (int)(BOX_SIZE * main->ply.pos_y + y)
 				+ (int)(BOX_SIZE * main->ply.pos_x + x)] = COLOR_RED;
+			x++;
 		}
+		y++;
 	}
 }
 

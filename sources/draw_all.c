@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/12 22:56:49 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 14:11:03 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	draw_with_ray_casting(t_main *main)
 	double	angle;
 	int		ray_count;
 
-	draw_background(main);// floor and ceil
 	draw_minimap(main);
+	draw_background(main);// floor and ceil
 	angle = -1 * (FOV / 2.0);
 	ray_count = 0;
 	while (angle <= (FOV / 2.0)) // angle: -30º <= 30º -> arasinda 60º
@@ -46,7 +46,7 @@ void	draw_with_ray_casting(t_main *main)
 		ray_count++;
 	}
 	draw_player_position(main);// player's red square.
-	draw_player_directory(main);// player's rotation_angle (one line).
+	// draw_player_directory(main);// player's rotation_angle (one line).
 }
 
 int	ft_loop(t_main *main)
