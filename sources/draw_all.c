@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 14:11:03 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 17:22:03 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	draw_mlx_window(t_main *main)
 	mlx_hook(main->mlx.win, 2, 1L << 0, &key_press, main);
 	mlx_hook(main->mlx.win, 3, 1L << 1, &key_release, main);
 	mlx_hook(main->mlx.win, 17, (0L), &ft_exit, main);
+	mlx_hook(main->mlx.win, 6, (0L), &mouse_move, main);
 	mlx_loop(main->mlx.ptr);
 	return (0);
 }

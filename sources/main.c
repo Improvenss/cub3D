@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:37:31 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 12:29:23 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 15:59:05 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,9 @@ int main(int argc, char **argv)
 	printf(GREEN"MLX's window create OK:"END YELLOW" Going draw loop...\n"END);
 	draw_mlx_window(&main);// inside the loop draw to mlx's img to window.
 		return (4);
+	// free(main.texture.rgb_f);
+	// free(main.texture.rgb_c);
+	// free_definitions(&main);
+	// free_pstr(main.map.map);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 14:17:28 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 17:40:40 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ void	draw_background( t_main *main)
 	int floor = (main->texture.rgb_f[0] * 65536) + (main->texture.rgb_f[1] * 256) + main->texture.rgb_f[2];
 //	printf("ceil: %d floor: %d\n", ceil, floor);
 	// while (y < WINDOW_H / 2)
-	printf("main->key.screen_mid: %d\n", main->key.screen_mid);
+	// printf("main->key.screen_mid: %d\n", main->key.screen_mid);
 	while (y < main->key.screen_mid)// int ve double !!!!!!!!!!!!!!!
 	{
 		x = 0;
 		while (x < WINDOW_W)
 		{
 			main->screen.addr[WINDOW_W * y + x] = ceil;
-			x += 1;
+			x++;
 		}
-		y += 1;
+		y++;
 	}
 	while (y < WINDOW_H)
 	{
@@ -38,9 +38,9 @@ void	draw_background( t_main *main)
 		while (x < WINDOW_W)
 		{
 			main->screen.addr[WINDOW_W * y + x] = floor;
-			x += 1;
+			x++;
 		}
-		y += 1;
+		y++;
 	}
 }
 
@@ -50,20 +50,20 @@ void _3D(t_main *main, int ray_count)
 	double oran;
 	int	i;
 	int color;
+
 	main->ray.distance = main->ray.distance * (double)BOX_SIZE * ((double)WINDOW_H / (double)WINDOW_W);
 	i = 0;
 	// mid = WINDOW_H / 2;
 	loc = (WINDOW_W * main->key.screen_mid) - ray_count;
-	oran = ((double)WINDOW_H / 2 / main->ray.distance) * (double)BOX_SIZE;
+	oran = (((double)WINDOW_H / 2.0) / main->ray.distance) * (double)BOX_SIZE;
 	if (main->test._hith == true && main->test._hitv == false)
 		color = COLOR_D_PURPLE;
 	else if (main->test._hith == false && main->test._hitv == true)
 		color = COLOR_D_GREEN;
-	while (i <= oran && i <= main->key.screen_mid)
+	while (i <= oran && i <= WINDOW_H)
 	{
-		if (main->main->key.screen_mid)// burada kaldin devam edeceksin, asagisaki duvari minimape basiyor duzelteceksin, 
-		main->screen.addr[(loc + (WINDOW_W * i))] = color;
-		main->screen.addr[(loc - (WINDOW_W * i))] = color;
+		// main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
+		main->screen.addr[(loc + (WINDOW_W * i))] = color;// alt taraf
 		i++;
 	}
 }
@@ -91,7 +91,8 @@ void draw_ray(t_main *main, double angle, int ray_count)
 			color = COLOR_RED;
 		else
 			color = COLOR_GREEN;
-		if (!is_wall(main, main->ray.pos_x, main->ray.pos_y))
+		if (!is_wall(main, main->ray.pos_x, main->ray.pos_y)
+			&& (sqrt(((main->ply.pos_x - main->ray.pos_x) * (main->ply.pos_x - main->ray.pos_x)) + ((main->ply.pos_y - main->ray.pos_y) * (main->ply.pos_y - main->ray.pos_y))) <= main->ray.original_distance))
 			main->mini_map.addr[(BOX_SIZE * (main->map.max_x + 1))
 				* (int)floor(BOX_SIZE * main->ray.pos_y)
 				+ (int)floor(BOX_SIZE * main->ray.pos_x)] = color;// player's minimap rays.
@@ -130,5 +131,6 @@ void	raycasting(t_main *main, double angle, int ray_count)
 		main->test._hitv = false;
 	}
 	main->ray.distance = main->ray.distance * cos((main->ply.rotation_angle - angle) * ONE_DEGREE);
+	main->ray.original_distance = main->ray.distance;
 	draw_ray(main, angle, ray_count);
 }

@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 02:10:44 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 13:36:30 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 17:29:15 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,12 @@ int	key_release(int keycode, t_main *main)
 		main->ply.walk_speed = PLAYER_WALK_SPEED;
 	// printf("You removed a key["B_BLUE"%d"END"]\
 	// & key.value["B_YELLOW"%d"END"]\n", keycode, main->key.value);
+	return (0);
+}
+
+int	mouse_move(int x, int y, t_main *main)
+{
+	printf("mouse:x[%d] y[%d]\n", x, y);
+	main->ply.rotation_angle = x % 360;
 	return (0);
 }

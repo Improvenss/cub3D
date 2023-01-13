@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 13:25:47 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/13 17:33:25 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ typedef struct s_ray
 	double	hit_x;// ray hit_the_wall location -> dx
 	double	hit_y;// ray hit_the_wall location -> dy
 	double	distance;// clear ray distance.
+	double	original_distance;//kacan isinlari engelleyen.
 	double	distance_v;// vertical distance.
 	double	distance_h;// horizontal distance;
 	int		dir_x;
@@ -328,6 +329,7 @@ int		mlx_free_kill_all(t_main *main);
 // hooking.c
 int		key_press(int keycode, t_main *main);
 int		key_release(int keycode, t_main *main);
+int		mouse_move(int x, int y, t_main *main);
 
 // init_all.c
 int		init_all(t_main *main);
