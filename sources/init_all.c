@@ -6,11 +6,35 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 00:45:58 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 19:19:39 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/14 21:57:07 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static int	init_all_xpm_files(t_main *main)
+{
+	int	i;
+
+	printf("oncesi\n");
+	main->xpm[0].img.ptr = (int *)mlx_xpm_file_to_image(main->xpm[0].img.ptr,
+		main->texture.no, &main->xpm[0].width, &main->xpm[0].height);
+	printf("sonrasi\n");
+	// main->xpm.img.ptr = mlx_xpm_file_to_image(main->xpm.img.ptr, main->texture.no, &main->xpm.width, &main->xpm.height);
+	main->xpm[1].img.ptr = (int *)mlx_xpm_file_to_image(main->xpm[1].img.ptr,
+		main->texture.so, &main->xpm[1].width, &main->xpm[1].height);
+	main->xpm[2].img.ptr = (int *)mlx_xpm_file_to_image(main->xpm[2].img.ptr,
+		main->texture.ea, &main->xpm[2].width, &main->xpm[2].height);
+	main->xpm[3].img.ptr = (int *)mlx_xpm_file_to_image(main->xpm[3].img.ptr,
+		main->texture.we, &main->xpm[3].width, &main->xpm[3].height);
+	main->xpm[0].width = 8;
+	i = -1;
+	while (++i < 4)
+		main->xpm[i].img.addr = (int *)mlx_get_data_addr(main->xpm[i].img.ptr,
+			&main->xpm->img.bpp, &main->xpm->img.line_size,
+			&main->xpm->img.endian);
+	return (0);
+}
 
 static int	init_mlx_draw(t_main *main)
 {
@@ -22,28 +46,10 @@ static int	init_mlx_draw(t_main *main)
 	return (0);
 }
 
-// int	init_mlx_hooking(t_main *main)
-// {
-
-// 	mlx_loop_hook(main->mlx.ptr, ft_loop, main);
-// 	mlx_hook(main->mlx.win, 2, 1L<<0, &key_press, main);
-// 	mlx_hook(main->mlx.win, 3, 1L<<1, &key_release, main);
-// 	mlx_hook(main->mlx.win, 17, (0L), &ft_exit, main);
-// 	mlx_loop(main->mlx.ptr);
-// 	return (0);
-
-// 	// // ft_putstr_fd(B_CYAN"hooking() girildi \n"END, 1);
-// 	// mlx_hook(main->mlx.win, 2, 1L << 0, &key_press, main);
-// 	// ft_putstr_fd(B_CYAN"mlx_hook key_press OK\n"END, 1);
-// 	// mlx_hook(main->mlx.win, 3, 1L << 1, &key_release, main);
-// 	// // mlx_hook(mlx->win, 4, 0, &actions_mouse, main);
-// 	// mlx_hook(main->mlx.win, 17, 0, &mlx_free_kill_all, main);// close_window(); yapilacak
-// 	// return (0);
-// }
-
 static int	init_minimap_image(t_main *main)
 {
-	main->mini_map.ptr = mlx_new_image(main->mlx.ptr, BOX_SIZE * (main->map.max_x+1), BOX_SIZE * (main->map.max_y+1));
+	main->mini_map.ptr = mlx_new_image(main->mlx.ptr, BOX_SIZE
+		* (main->map.max_x + 1), BOX_SIZE * (main->map.max_y + 1));
 	if (main->mini_map.ptr == NULL)
 		return (print_error(PROMPT, "minimap", "mlx_new_image()", "error."));
 	main->mini_map.addr = (int *)mlx_get_data_addr(main->mini_map.ptr, &main->mini_map.bpp,
@@ -108,7 +114,8 @@ int	init_all(t_main *main)
 		return (ERROR);
 	if (init_mlx_draw(main) == ERROR)// ply_location...
 		return (ERROR);
-	// if (init_mlx_hooking(main) == ERROR)// key, mouse, click hooking area
-	// 	return (ERROR);
+	if (init_all_xpm_files(main) == ERROR)// xpm file to img.
+		return (ERROR);
+	printf("xpm: %d\n", main->xpm[0].width);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 19:15:48 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/14 21:44:48 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,26 @@ typedef struct s_map
 	int		max_y;
 }		t_map;
 
+/**
+ * @brief Just one xpm file data.
+ */
+typedef struct	s_xpm
+{
+	t_mlximg	img;
+	int			width;
+	int			height;
+}		t_xpm;
+
+// /**
+//  * @brief All xpm file's data array.
+//  * 
+//  */
+// typedef struct	s_xpm_file_arr
+// {
+// 	int		index;
+// 	t_xpm	*xpm_arr;
+// }		t_xpm_arr;
+
 typedef struct	s_texture
 {
 	char	*no;
@@ -291,6 +311,8 @@ typedef struct s_main
 	t_mlx		mlx;//OK
 	t_mlximg	screen;
 	t_mlximg	mini_map;
+	t_xpm		xpm[4];// all xpm files data array.
+	// t_xpm		xpm;
 	t_key		key;
 	t_mouse		mouse;
 	t_player	ply;

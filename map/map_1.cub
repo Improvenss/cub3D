@@ -1,7 +1,7 @@
 NO ./textures/eagle.xpm
-SO ./textures/B.xpm
-WE ./textures/C.xpm
-EA ./textures/D.xpm
+SO ./textures/greystone.xpm
+WE ./textures/purplestone.xpm
+EA ./textures/red.xpm
 
 F 255,204,204
 C 255,178,102

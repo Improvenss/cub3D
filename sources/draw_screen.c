@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 19:06:13 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/14 19:25:23 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void _3D(t_main *main, int ray_count)
 		color = COLOR_D_GREEN;
 	while (i <= oran && i <= WINDOW_H)
 	{
-		main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
+		// main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
+		// draw_xpm_to_wall(main);
 		main->screen.addr[(loc + (WINDOW_W * i))] = color;// alt taraf
 		i++;
 	}
@@ -130,7 +131,7 @@ void	raycasting(t_main *main, double angle, int ray_count)
 		main->test._hith = true;
 		main->test._hitv = false;
 	}
-	main->ray.original_distance = main->ray.distance;
-	main->ray.distance = main->ray.distance * cos((main->ply.rotation_angle - angle) * ONE_DEGREE);
+	main->ray.original_distance = main->ray.distance;//minimap's kacan isinlari icin
+	main->ray.distance = main->ray.distance * cos((main->ply.rotation_angle - angle) * ONE_DEGREE);// balik gozunu engellemek icin.
 	draw_ray(main, angle, ray_count);
 }
