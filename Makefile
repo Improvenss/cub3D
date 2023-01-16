@@ -6,7 +6,7 @@
 #    By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/06 23:06:05 by gsever            #+#    #+#              #
-#    Updated: 2023/01/16 12:34:46 by gsever           ###   ########.fr        #
+#    Updated: 2023/01/16 18:06:49 by gsever           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -137,10 +137,10 @@ re:
 #	My Library --> OK
 libft:
 ifneq ($(MAKECMDGOALS), $(filter $(MAKECMDGOALS), $(NAME)))
-# @make -sC $(MINILIBX_DIRECTORY) $(MAKECMDGOALS) --silent
+	@make -sC $(MINILIBX_DIRECTORY) $(MAKECMDGOALS) --silent
 	@make -sC $(LIBFTDIR) $(MAKECMDGOALS) --silent
 else
-# @make -sC $(MINILIBX_DIRECTORY) --silent
+	@make -sC $(MINILIBX_DIRECTORY) --silent
 	@make -sC $(LIBFTDIR) --silent
 endif
 

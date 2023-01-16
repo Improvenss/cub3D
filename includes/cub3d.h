@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/16 16:22:33 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/16 17:55:33 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,7 +322,7 @@ void	draw_ray(t_main *main, double angle, int ray_count);
 void	raycasting(t_main *main, double angle, int ray_count);
 
 // draw_xpm.c
-void	draw_xpm_to_wall(t_main *main, int location);
+void	draw_xpm_to_wall(t_main *main, int location, int oran, t_xpm xpm);
 
 // error.c
 int		print_error(char *s1, char *s2, char *s3, char *message);

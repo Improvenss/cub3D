@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/16 16:32:26 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/16 16:48:37 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,15 @@ void _3D(t_main *main, int ray_count)
 		// color = COLOR_D_PURPLE;
 	// else if (main->ray.hit_h == false && main->ray.hit_v == true)
 		// color = COLOR_D_GREEN;
-	while (i <= oran && i <= WINDOW_H)
-	{
-		// loc = //en ustten baslangic konumumuz 1 tane | icin.
-		if ((loc - (WINDOW_W * i)) >= 0)
-			draw_xpm_to_wall(main, loc - (WINDOW_W * i));
-			// main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
-		// draw_xpm_to_wall(main);
-		if ((WINDOW_H * WINDOW_W) >= (loc + (WINDOW_W * i)))
-			draw_xpm_to_wall(main, loc + (WINDOW_W * i));
-			// main->screen.addr[(loc + (WINDOW_W * i))] = color;// alt taraf
-		i++;
-	}
+	loc = loc - (WINDOW_W * oran);// en yukaridayiz.
+	if (main->ray.hit_h == true && main->ray.dir_y == -1)// kuzey
+		draw_xpm_to_wall(main, loc, 2 * oran, main->xpm[0]);
+	else if (main->ray.hit_h == true && main->ray.dir_y == 1)// guney
+		draw_xpm_to_wall(main, loc, 2 * oran, main->xpm[1]);
+	else if (main->ray.hit_v == true && main->ray.dir_x == 1)// dogu
+		draw_xpm_to_wall(main, loc, 2 * oran, main->xpm[2]);
+	else if (main->ray.hit_v == true && main->ray.dir_x == -1)// bati
+		draw_xpm_to_wall(main, loc, 2 * oran, main->xpm[3]);
 	// int loc;
 	// double oran;
 	// int	i;
