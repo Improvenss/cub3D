@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/14 19:25:23 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/16 11:51:07 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void _3D(t_main *main, int ray_count)
 		color = COLOR_D_GREEN;
 	while (i <= oran && i <= WINDOW_H)
 	{
-		// main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
+		main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
 		// draw_xpm_to_wall(main);
 		main->screen.addr[(loc + (WINDOW_W * i))] = color;// alt taraf
 		i++;
