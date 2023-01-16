@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/16 11:51:07 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/16 16:32:26 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,53 @@ void	draw_background( t_main *main)
 void _3D(t_main *main, int ray_count)
 {
 	int loc;
-	double oran;
+	int oran;
 	int	i;
-	int color;
+	// int color;
 
 	main->ray.distance = main->ray.distance * (double)BOX_SIZE * ((double)WINDOW_H / (double)WINDOW_W);
 	i = 0;
 	// mid = WINDOW_H / 2;
-	loc = (WINDOW_W * main->key.screen_mid) - ray_count;
+	loc = (WINDOW_W * main->key.screen_mid) - ray_count;// 180000. pixel
 	oran = (((double)WINDOW_H / 2.0) / main->ray.distance) * (double)BOX_SIZE;
-	if (main->test._hith == true && main->test._hitv == false)
-		color = COLOR_D_PURPLE;
-	else if (main->test._hith == false && main->test._hitv == true)
-		color = COLOR_D_GREEN;
+	// if (main->ray.hit_h == true && main->ray.hit_v == false)
+		// color = COLOR_D_PURPLE;
+	// else if (main->ray.hit_h == false && main->ray.hit_v == true)
+		// color = COLOR_D_GREEN;
 	while (i <= oran && i <= WINDOW_H)
 	{
-		main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
+		// loc = //en ustten baslangic konumumuz 1 tane | icin.
+		if ((loc - (WINDOW_W * i)) >= 0)
+			draw_xpm_to_wall(main, loc - (WINDOW_W * i));
+			// main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
 		// draw_xpm_to_wall(main);
-		main->screen.addr[(loc + (WINDOW_W * i))] = color;// alt taraf
+		if ((WINDOW_H * WINDOW_W) >= (loc + (WINDOW_W * i)))
+			draw_xpm_to_wall(main, loc + (WINDOW_W * i));
+			// main->screen.addr[(loc + (WINDOW_W * i))] = color;// alt taraf
 		i++;
 	}
+	// int loc;
+	// double oran;
+	// int	i;
+	// int color;
+
+	// main->ray.distance = main->ray.distance * (double)BOX_SIZE * ((double)WINDOW_H / (double)WINDOW_W);
+	// i = 0;
+	// // mid = WINDOW_H / 2;
+	// loc = (WINDOW_W * main->key.screen_mid) - ray_count;
+	// oran = (((double)WINDOW_H / 2.0) / main->ray.distance) * (double)BOX_SIZE;
+	// if (main->ray.hit_h == true && main->ray.hit_v == false)
+	// 	color = COLOR_D_PURPLE;
+	// else if (main->ray.hit_h == false && main->ray.hit_v == true)
+	// 	color = COLOR_D_GREEN;
+	// while (i <= oran && i <= WINDOW_H)
+	// {
+	// 	// main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
+	// 	draw_xpm_to_wall(main, loc - (WINDOW_W * i), color);
+	// 	draw_xpm_to_wall(main, loc + (WINDOW_W * i), color);
+	// 	// main->screen.addr[(loc + (WINDOW_W * i))] = color;// alt taraf
+	// 	i++;
+	// }
 }
 
 /**
@@ -99,7 +126,10 @@ void draw_ray(t_main *main, double angle, int ray_count)
 				+ (int)floor(BOX_SIZE * main->ray.pos_x)] = color;// player's minimap rays.
 		else
 		{
-			// (void)ray_count;
+			main->ray.pos_x -= main->ray.hit_x / (WINDOW_H / 2);
+			main->ray.pos_y -= main->ray.hit_y / (WINDOW_H / 2);
+			// printf("pos_x: %f\n", main->ray.pos_x);
+			// printf("pos_y: %f\n", main->ray.pos_y);
 			_3D(main, ray_count);
 			break;
 		}
@@ -122,14 +152,14 @@ void	raycasting(t_main *main, double angle, int ray_count)
 	if (main->ray.distance_v < main->ray.distance_h)
 	{
 		main->ray.distance = main->ray.distance_v;
-		main->test._hith = false;
-		main->test._hitv = true;
+		main->ray.hit_h = false;
+		main->ray.hit_v = true;
 	}
 	else
 	{
 		main->ray.distance = main->ray.distance_h;
-		main->test._hith = true;
-		main->test._hitv = false;
+		main->ray.hit_h = true;
+		main->ray.hit_v = false;
 	}
 	main->ray.original_distance = main->ray.distance;//minimap's kacan isinlari icin
 	main->ray.distance = main->ray.distance * cos((main->ply.rotation_angle - angle) * ONE_DEGREE);// balik gozunu engellemek icin.

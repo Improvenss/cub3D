@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/14 21:44:48 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/16 16:22:33 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,8 +194,8 @@ typedef struct s_mlx
 
 typedef struct s_ray
 {
-	double	pos_x;// ray starting location
-	double	pos_y;// ray starting location
+	double	pos_x;// ray end start_to_end end location
+	double	pos_y;// ray starting_to_end end location
 	bool	is_hit_x;
 	bool	is_hit_y;
 	double	hit_x;// ray hit_the_wall location -> dx
@@ -204,6 +204,8 @@ typedef struct s_ray
 	double	original_distance;//kacan isinlari engelleyen.
 	double	distance_v;// vertical distance.
 	double	distance_h;// horizontal distance;
+	bool	hit_h;
+	bool	hit_v;
 	int		dir_x;
 	int		dir_y;
 }		t_ray;
@@ -235,26 +237,6 @@ typedef struct s_key
 	int		value;
 	int		screen_mid;
 }		t_key;
-
-// typedef struct s_key {
-// 	bool	up;
-// 	bool	down;
-// 	bool	right;
-// 	bool	left;
-// 	bool	r_right;
-// 	bool	r_left;
-// }	t_key;
-
-
-// typedef struct	s_minimap
-// {
-// 	// t_mlximg	img;
-// 	// void		*ptr;
-// 	// void		*win;
-// 	int			x;
-// 	int			y;
-// 	int			box_size;
-// }		t_minimap;
 
 typedef struct s_map
 {
@@ -296,14 +278,6 @@ typedef struct	s_texture
 	char	*c;
 }		t_texture;
 
-typedef struct s_test
-{
-	bool	_hith;
-	bool	_hitv;
-	double	_dir_x;
-	double	_dir_y;
-}	t_test;
-
 typedef struct s_main
 {
 	t_texture	texture;
@@ -311,14 +285,12 @@ typedef struct s_main
 	t_mlx		mlx;//OK
 	t_mlximg	screen;
 	t_mlximg	mini_map;
-	t_xpm		xpm[4];// all xpm files data array.
+	t_xpm		xpm[4];// all xpm Giles data array.
 	// t_xpm		xpm;
 	t_key		key;
 	t_mouse		mouse;
 	t_player	ply;
 	t_ray		ray;
-	int			first_key;
-	t_test		test;
 }		t_main;
 
 
@@ -348,6 +320,9 @@ void	draw_background( t_main *main);
 void	_3D(t_main *main, int ray_count);
 void	draw_ray(t_main *main, double angle, int ray_count);
 void	raycasting(t_main *main, double angle, int ray_count);
+
+// draw_xpm.c
+void	draw_xpm_to_wall(t_main *main, int location);
 
 // error.c
 int		print_error(char *s1, char *s2, char *s3, char *message);

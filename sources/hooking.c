@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 02:10:44 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/14 18:28:34 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/16 14:32:55 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 int	key_press(int keycode, t_main *main)
 {
 	if (keycode == KEY_ESC)
+	{
+		system("leaks cub3D");
 		exit(0);//ft_free_and_close(); need add.
+	}
 	else if (keycode == KEY_W)
 		main->key.value |= GO_FORWARD;
 	else if (keycode == KEY_S)

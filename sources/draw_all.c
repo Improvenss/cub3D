@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 17:22:03 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:41:17 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,26 @@
 
 void	draw_text_on_window(t_main *main)
 {
+	char	*tmp;
+
 	mlx_string_put(main->mlx.ptr, main->mlx.win, WINDOW_W - 80,
 		WINDOW_H - 20, COLOR_TUNDORA, "H - Help");
+	tmp = ft_itoa((int)main->ply.rotation_angle);
 	mlx_string_put(main->mlx.ptr, main->mlx.win, WINDOW_W - 80,
-		WINDOW_H - 120, COLOR_TUNDORA, ft_itoa((int)main->ply.rotation_angle));
+		WINDOW_H - 120, COLOR_TUNDORA, tmp);
+	free(tmp);
 	mlx_string_put(main->mlx.ptr, main->mlx.win, WINDOW_W - 140,
 		WINDOW_H - 150, COLOR_TUNDORA, "x:");
+	tmp = ft_itoa((int)main->ply.pos_x);
 	mlx_string_put(main->mlx.ptr, main->mlx.win, WINDOW_W - 120,
-		WINDOW_H - 150, COLOR_TUNDORA, ft_itoa((int)main->ply.pos_x));
+		WINDOW_H - 150, COLOR_TUNDORA, tmp);
+	free(tmp);
 	mlx_string_put(main->mlx.ptr, main->mlx.win, WINDOW_W - 100,
-		WINDOW_H - 150, COLOR_TUNDORA, "x:");
+		WINDOW_H - 150, COLOR_TUNDORA, "y:");
+	tmp = ft_itoa((int)main->ply.pos_y);
 	mlx_string_put(main->mlx.ptr, main->mlx.win, WINDOW_W - 80,
-		WINDOW_H - 150, COLOR_TUNDORA, ft_itoa((int)main->ply.pos_y));
+		WINDOW_H - 150, COLOR_TUNDORA, tmp);
+	free(tmp);
 	// mlx_string_put(main->mlx.ptr, main->mlx.win, WINDOW_W - 80,
 		// WINDOW_H - 20 - 100, COLOR_TUNDORA, ft_itoa(main->key.value));
 }
@@ -37,14 +45,22 @@ void	draw_with_ray_casting(t_main *main)
 
 	draw_minimap(main);
 	draw_background(main);// floor and ceil
-	angle = -1 * (FOV / 2.0);
+	angle = main->ply.rotation_angle - (FOV / 2.0);
 	ray_count = 0;
-	while (angle <= (FOV / 2.0)) // angle: -30º <= 30º -> arasinda 60º
+	while (ray_count <= FOV_THICKNESS) // angle: -30º <= 30º -> arasinda 60º
 	{
-		raycasting(main, main->ply.rotation_angle + angle, ray_count);
-		angle += (FOV / 2.0) / (FOV_THICKNESS / 2.0);
+		raycasting(main, angle, ray_count);
+		angle += (double)FOV / (double)FOV_THICKNESS;
 		ray_count++;
 	}
+	// angle = -1 * (FOV / 2.0);
+	// ray_count = 0;
+	// while (angle <= (FOV / 2.0)) // angle: -30º <= 30º -> arasinda 60º
+	// {
+	// 	raycasting(main, main->ply.rotation_angle + angle, ray_count);
+	// 	angle += (FOV / 2.0) / (FOV_THICKNESS / 2.0);
+	// 	ray_count++;
+	// }
 	draw_player_position(main);// player's red square.
 	// draw_player_directory(main);// player's rotation_angle (one line).
 }

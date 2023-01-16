@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 00:45:58 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/16 11:50:42 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/16 13:11:20 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,14 @@ static int	init_all_xpm_files(t_main *main)
 {
 	int	i;
 
-	printf("oncesi\n");
 	main->xpm[0].img.ptr = (int *)mlx_xpm_file_to_image(main->mlx.ptr,
 		main->texture.no, &main->xpm[0].width, &main->xpm[0].height);
-	printf("sonrasi\n");
-	// main->xpm.img.ptr = mlx_xpm_file_to_image(main->xpm.img.ptr, main->texture.no, &main->xpm.width, &main->xpm.height);
 	main->xpm[1].img.ptr = (int *)mlx_xpm_file_to_image(main->mlx.ptr,
 		main->texture.so, &main->xpm[1].width, &main->xpm[1].height);
 	main->xpm[2].img.ptr = (int *)mlx_xpm_file_to_image(main->mlx.ptr,
 		main->texture.ea, &main->xpm[2].width, &main->xpm[2].height);
 	main->xpm[3].img.ptr = (int *)mlx_xpm_file_to_image(main->mlx.ptr,
 		main->texture.we, &main->xpm[3].width, &main->xpm[3].height);
-	main->xpm[0].width = 8;
 	i = -1;
 	while (++i < 4)
 		main->xpm[i].img.addr = (int *)mlx_get_data_addr(main->xpm[i].img.ptr,
@@ -116,6 +112,5 @@ int	init_all(t_main *main)
 		return (ERROR);
 	if (init_all_xpm_files(main) == ERROR)// xpm file to img.
 		return (ERROR);
-	printf("xpm: %d\n", main->xpm[0].width);
 	return (0);
 }
