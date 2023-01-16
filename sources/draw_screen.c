@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/16 16:48:37 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/16 21:36:40 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void _3D(t_main *main, int ray_count)
 {
 	int loc;
 	int oran;
-	int	i;
+	// int	i;
 	// int color;
 
 	main->ray.distance = main->ray.distance * (double)BOX_SIZE * ((double)WINDOW_H / (double)WINDOW_W);
-	i = 0;
+	// i = 0;
 	// mid = WINDOW_H / 2;
 	loc = (WINDOW_W * main->key.screen_mid) - ray_count;// 180000. pixel
 	oran = (((double)WINDOW_H / 2.0) / main->ray.distance) * (double)BOX_SIZE;
