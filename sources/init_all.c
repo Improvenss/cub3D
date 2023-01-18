@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 00:45:58 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/18 17:31:27 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/18 17:56:50 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
  */
 static void	init_all_xpm_sprites(t_main *main)
 {
+	main->texture.sprite[0] = "./textures/pikachu_64px.xpm";
+	main->texture.sprite[1] = "./textures/niggachu_64px.xpm";
 	main->xpm[4].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
 		main->texture.sprite[0], &main->xpm[4].width, &main->xpm[4].height);
 	main->xpm[5].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
