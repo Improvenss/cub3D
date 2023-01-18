@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/18 17:41:40 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/18 18:08:14 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define MAP_ARGUMENTS			" 10NSEW\r\nMZCO"
 # define MAP_CHARS				" 10NSEWMZCO"
 # define MAP_W_OUT_ONE			"0NSEWMZCO"
+# define MAP_CANT_GO			"1MZC"
 /*
 			N -> North Angle
 	W -> West Angle		E -> East Angle
