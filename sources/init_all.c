@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: akaraca <akaraca@student.42.tr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 00:45:58 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/16 23:38:53 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/17 15:41:41 by akaraca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 static int	init_all_xpm_files(t_main *main)
 {
 	int	i;
-
-	main->xpm[0].img.ptr = (int *)mlx_xpm_file_to_image(main->mlx.ptr,
+	main->xpm[0].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
 		main->texture.no, &main->xpm[0].width, &main->xpm[0].height);
-	main->xpm[1].img.ptr = (int *)mlx_xpm_file_to_image(main->mlx.ptr,
+	main->xpm[1].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
 		main->texture.so, &main->xpm[1].width, &main->xpm[1].height);
-	main->xpm[2].img.ptr = (int *)mlx_xpm_file_to_image(main->mlx.ptr,
+	main->xpm[2].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
 		main->texture.ea, &main->xpm[2].width, &main->xpm[2].height);
-	main->xpm[3].img.ptr = (int *)mlx_xpm_file_to_image(main->mlx.ptr,
+	main->xpm[3].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
 		main->texture.we, &main->xpm[3].width, &main->xpm[3].height);
 	i = -1;
 	while (++i < 4)

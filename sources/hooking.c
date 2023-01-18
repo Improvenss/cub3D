@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooking.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: akaraca <akaraca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 02:10:44 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/16 14:32:55 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/18 11:43:25 by akaraca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	key_press(int keycode, t_main *main)
 {
 	if (keycode == KEY_ESC)
 	{
-		system("leaks cub3D");
+		// system("leaks cub3D");
 		exit(0);//ft_free_and_close(); need add.
 	}
 	else if (keycode == KEY_W)
@@ -39,7 +39,7 @@ int	key_press(int keycode, t_main *main)
 		set_player_default_pos(main);
 	else if (keycode == KEY_L_SHIFT)
 		main->ply.walk_speed = PLAYER_WALK_SPEED + 1.50;
-	// printf("You press a key["B_CYAN"%d"END"]\
+	// printf("You press a key["B_CYAN"%d"END"]
 	// & key.value["B_YELLOW"%d"END"]\n", keycode, main->key.value);
 	return (0);
 }
@@ -66,7 +66,7 @@ int	key_release(int keycode, t_main *main)
 		main->ply.walk_speed = PLAYER_WALK_SPEED;
 	else if (keycode == KEY_SPACE)
 		main->mouse.is_enable = true;
-	// printf("You removed a key["B_BLUE"%d"END"]\
+	// printf("You removed a key["B_BLUE"%d"END"]
 	// & key.value["B_YELLOW"%d"END"]\n", keycode, main->key.value);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: akaraca <akaraca@student.42.tr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/16 17:55:33 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/17 15:41:44 by akaraca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define SCREEN_RATE			2
 # define MINIMAP_RATE_W			(WINDOW_W / SCREEN_RATE)
 # define MINIMAP_RATE_H			(WINDOW_H / SCREEN_RATE)
-# define BOX_SIZE				15
+# define BOX_SIZE				16
 /* -------------------------------------------------- */
 
 /* ------------------PLAYER DEFINES------------------ */
@@ -254,6 +254,8 @@ typedef struct	s_xpm
 	t_mlximg	img;
 	int			width;
 	int			height;
+	// void		*ptr;
+	// int			*addr;
 }		t_xpm;
 
 // /**

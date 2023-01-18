@@ -3,45 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   draw_xpm.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: akaraca <akaraca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:48:49 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/17 00:31:47 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/18 15:24:11 by akaraca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/**
- * @brief 
- * 
- * Gerekli argler:
- * 	 Hangi duvara carptiginin bilinmesi gerekiyor;
- * 		dir_x, dir_y, hit_v, hit_h, hit_x, hit_y
- * bpp: 32, line_size: 256, endian: 0
- * @param main 
- * @param location 
- * @param color 
- */
 void	draw_xpm_to_wall(t_main *main, int location, int oran, t_xpm xpm)
 {
 	int	i = -1;
-	if (main->ray.hit_h == true && main->ray.dir_y == -1)
+	int find_pixel = 0;
+	if (main->ray.hit_h == true)// && main->ray.dir_y == -1)
+		find_pixel = ((main->ray.pos_x - floor(main->ray.pos_x)) * xpm.width); // resimdeki pixel sütun konumunu bulur.
+	else if (main->ray.hit_v == true)
+		find_pixel = ((main->ray.pos_y - floor(main->ray.pos_y)) * xpm.width); // resimdeki pixel sütun konumunu bulur.
+	int img_loc = (xpm.width * xpm.height / 2) + find_pixel;
+	while (++i <= oran)
 	{
-		int	screen_oran = (main->ray.hit_x - floor(main->ray.hit_x)) * BOX_SIZE; //A
-		int	img_oran = (screen_oran * xpm.img.bpp) / BOX_SIZE; //L
-		// printf("bpp: %d, line_size: %d, endian: %d\n", xpm.img.bpp, xpm.img.line_size, xpm.img.endian);
-		printf("screen_orn %d, img_oran %d\n", screen_oran, img_oran);
-		while (++i <= oran)
-		{
-			// main->screen.addr[main->xpm[i].width * j]
-			main->screen.addr[location + (WINDOW_W * i)] = xpm.img.addr[img_oran + (xpm.img.bpp * i)];
-		}
-		// main->screen.addr[location] = color;//ust taraf
-	}
-	else
-	{
-		while (++i <= oran)
-			main->screen.addr[location + (WINDOW_W * i)] = xpm.img.addr[i];
+		if ((location - (WINDOW_W * i)) >= 0) //yukarı
+			main->screen.addr[(location - (WINDOW_W * i))] = xpm.img.addr[img_loc - xpm.width * (int)((double)i * (double)xpm.width / (double)(oran * 2))];//xpm.img.addr[img_loc - (xpm.width * ((i / (WINDOW_H / main->xpm[0].height)) % xpm.height))];
+		if ((WINDOW_H * WINDOW_W) >= (location + (WINDOW_W * i))) // aşağı
+			main->screen.addr[(location + (WINDOW_W * i))] = xpm.img.addr[img_loc + xpm.width * (int)((double)i * (double)xpm.width / (double)(oran * 2))];//xpm.img.addr[img_loc + (xpm.width * ((i / (WINDOW_H / main->xpm[0].height)) % xpm.height))];
 	}
 }
+
+// /**
+//  * @brief 
+//  * 
+//  * Gerekli argler:
+//  * 	 Hangi duvara carptiginin bilinmesi gerekiyor;
+//  * 		dir_x, dir_y, hit_v, hit_h, hit_x, hit_y
+//  * bpp: 32, line_size: 256, endian: 0
+//  * @param main 
+//  * @param location 
+//  * @param color 
+//  */
+// void	draw_xpm_to_wall(t_main *main, int location, int oran, t_xpm xpm)
+// {
+// 	int	i = -1;
+// 	if (main->ray.hit_h == true && main->ray.dir_y == -1)
+// 	{
+// 		int	find_pixel = ((main->ray.pos_x - floor(main->ray.pos_x)) * xpm.width);
+// 		i = -1;
+// 		while (++i <= oran && (WINDOW_H * WINDOW_W) >= (location + (WINDOW_W * i)) && (location + (WINDOW_W * i)) >= 0)
+// 		{
+// 			main->screen.addr[location + (WINDOW_W * i)] = xpm.img.addr[find_pixel + (xpm.width * ((i / (WINDOW_H / main->xpm[0].height)) % xpm.height))];
+// 		}
+// 	}
+// 	// else
+// 	// {
+// 	// 	(void)xpm;
+// 	// 	while (++i <= oran && i <= WINDOW_H)
+// 	// 		main->screen.addr[location + (WINDOW_W * i)] = 0xffffff;
+// 	// }
+// }

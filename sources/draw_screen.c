@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_screen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: akaraca <akaraca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/16 21:36:40 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/18 15:20:52 by akaraca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,37 +46,12 @@ void	draw_background( t_main *main)
 
 void _3D(t_main *main, int ray_count)
 {
-	int loc;
-	int oran;
-	// int	i;
-	// int color;
-
-	main->ray.distance = main->ray.distance * (double)BOX_SIZE * ((double)WINDOW_H / (double)WINDOW_W);
-	// i = 0;
-	// mid = WINDOW_H / 2;
-	loc = (WINDOW_W * main->key.screen_mid) - ray_count;// 180000. pixel
-	oran = (((double)WINDOW_H / 2.0) / main->ray.distance) * (double)BOX_SIZE;
-	// if (main->ray.hit_h == true && main->ray.hit_v == false)
-		// color = COLOR_D_PURPLE;
-	// else if (main->ray.hit_h == false && main->ray.hit_v == true)
-		// color = COLOR_D_GREEN;
-	loc = loc - (WINDOW_W * oran);// en yukaridayiz.
-	if (main->ray.hit_h == true && main->ray.dir_y == -1)// kuzey
-		draw_xpm_to_wall(main, loc, 2 * oran, main->xpm[0]);
-	else if (main->ray.hit_h == true && main->ray.dir_y == 1)// guney
-		draw_xpm_to_wall(main, loc, 2 * oran, main->xpm[1]);
-	else if (main->ray.hit_v == true && main->ray.dir_x == 1)// dogu
-		draw_xpm_to_wall(main, loc, 2 * oran, main->xpm[2]);
-	else if (main->ray.hit_v == true && main->ray.dir_x == -1)// bati
-		draw_xpm_to_wall(main, loc, 2 * oran, main->xpm[3]);
 	// int loc;
 	// double oran;
 	// int	i;
 	// int color;
-
 	// main->ray.distance = main->ray.distance * (double)BOX_SIZE * ((double)WINDOW_H / (double)WINDOW_W);
 	// i = 0;
-	// // mid = WINDOW_H / 2;
 	// loc = (WINDOW_W * main->key.screen_mid) - ray_count;
 	// oran = (((double)WINDOW_H / 2.0) / main->ray.distance) * (double)BOX_SIZE;
 	// if (main->ray.hit_h == true && main->ray.hit_v == false)
@@ -85,12 +60,26 @@ void _3D(t_main *main, int ray_count)
 	// 	color = COLOR_D_GREEN;
 	// while (i <= oran && i <= WINDOW_H)
 	// {
-	// 	// main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
-	// 	draw_xpm_to_wall(main, loc - (WINDOW_W * i), color);
-	// 	draw_xpm_to_wall(main, loc + (WINDOW_W * i), color);
-	// 	// main->screen.addr[(loc + (WINDOW_W * i))] = color;// alt taraf
+	// 	if ((loc - (WINDOW_W * i)) >= 0)
+	// 		main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
+	// 	if ((WINDOW_H * WINDOW_W) >= (loc + (WINDOW_W * i)))
+	// 		main->screen.addr[(loc + (WINDOW_W * i))] = color;// alt taraf
 	// 	i++;
 	// }
+
+	int loc;
+	int oran;
+	main->ray.distance = main->ray.distance * (double)BOX_SIZE * ((double)WINDOW_H / (double)WINDOW_W);
+	loc = (WINDOW_W * main->key.screen_mid) - ray_count;// 180000. pixel
+	oran = (((double)WINDOW_H / 2.0) / main->ray.distance) * (double)BOX_SIZE;
+	if (main->ray.hit_h == true && main->ray.dir_y == -1)// kuzey
+		draw_xpm_to_wall(main, loc, oran, main->xpm[0]);
+	else if (main->ray.hit_h == true && main->ray.dir_y == 1)// guney
+		draw_xpm_to_wall(main, loc, oran, main->xpm[1]);
+	else if (main->ray.hit_v == true && main->ray.dir_x == 1)// dogu
+		draw_xpm_to_wall(main, loc, oran, main->xpm[2]);
+	else if (main->ray.hit_v == true && main->ray.dir_x == -1)// bati
+		draw_xpm_to_wall(main, loc, oran, main->xpm[3]);
 }
 
 /**

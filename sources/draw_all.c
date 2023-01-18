@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: akaraca <akaraca@student.42.tr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/16 15:41:17 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/17 21:05:08 by akaraca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ void	draw_with_ray_casting(t_main *main)
 		angle += (double)FOV / (double)FOV_THICKNESS;
 		ray_count++;
 	}
+
+	// raycasting(main, main->ply.rotation_angle, (FOV_THICKNESS - 1)/2);
+
+
 	// angle = -1 * (FOV / 2.0);
 	// ray_count = 0;
 	// while (angle <= (FOV / 2.0)) // angle: -30º <= 30º -> arasinda 60º
