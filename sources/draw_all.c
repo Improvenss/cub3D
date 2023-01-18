@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaraca <akaraca@student.42.tr>            +#+  +:+       +#+        */
+/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/17 21:05:08 by akaraca          ###   ########.fr       */
+/*   Updated: 2023/01/18 16:12:25 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_with_ray_casting(t_main *main)
 	draw_background(main);// floor and ceil
 	angle = main->ply.rotation_angle - (FOV / 2.0);
 	ray_count = 0;
-	while (ray_count <= FOV_THICKNESS) // angle: -30º <= 30º -> arasinda 60º
+	while (ray_count < FOV_THICKNESS) // angle: -30º <= 30º -> arasinda 60º
 	{
 		raycasting(main, angle, ray_count);
 		angle += (double)FOV / (double)FOV_THICKNESS;

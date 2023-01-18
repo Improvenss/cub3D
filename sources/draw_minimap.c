@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:00:20 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 12:33:36 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/18 17:35:51 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,9 @@ void	draw_minimap(t_main *main)// yenisi
 			if (main->map.map[y][x] == '1')
 				put_pixel(BOX_SIZE * x, BOX_SIZE * y,
 					COLOR_WHITE, main);
+			else if (main->map.map[y][x] == 'M' || main->map.map[y][x] == 'Z')
+				put_pixel(BOX_SIZE * x, BOX_SIZE * y,
+					COLOR_RED, main);
 			else if (main->map.map[y][x] == '0')
 				put_pixel(BOX_SIZE * x, BOX_SIZE * y,
 					COLOR_BLACK, main);

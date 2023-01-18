@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 20:37:03 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/05 14:12:05 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/18 17:43:40 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int map_max_lenght(char *line, char c)
 	lenght = 0;
 	while (line[i])
 	{
-		if (ft_strchr(" 10NSEW", line[i]))
+		if (ft_strchr(MAP_CHARS, line[i]))//if (ft_strchr(" 10NSEW", line[i]))
 			lenght++;
 		if (line[i] == c)
 		{
@@ -93,7 +93,7 @@ int	map_find_borders(char *line, int start, int *map_end)
 	{
 		if (line[i] && ft_strchr(MAP_CHARACTER_ANGLE, line[i]))
 			count++;
-		if (ft_strchr("01NSEW", line[i]))
+		if (ft_strchr(MAP_CHARS, line[i]))// if (ft_strchr("01NSEW", line[i]))
 			*map_end = i;
 		i++;
 	}
@@ -113,7 +113,7 @@ int	map_skip_empty_line(char *line, int limit)
 	int		i;
 
 	i = limit;
-	while (ft_strchr(" \r\n", line[i]) && !ft_strchr("10NSEW", line[i]))
+	while (ft_strchr(MAP_WHITESPACES, line[i]) && !ft_strchr(MAP_CHARS, line[i]))// while (ft_strchr(" \r\n", line[i]) && !ft_strchr("10NSEW", line[i]))
 	{
 		if (line[i] == '\r')
 			limit = i;

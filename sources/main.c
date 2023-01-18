@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaraca <akaraca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:37:31 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/18 12:04:30 by akaraca          ###   ########.fr       */
+/*   Updated: 2023/01/18 17:38:20 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,11 @@ Akıllı davranın!
  * 
  * TODO: OK:
  * TODO: norminette, minimap on/off, mouse_hook_event,
- * 	yukariya asagiya bakma, xpm image, wall'da misin degil misin 0/1/2,
- * 	hareketli spriteler, hareketli kapilar, gereksiz rayleri kaldir, karanlik ekleme.
+ * 	wall'da misin degil misin 0/1/2, map control asamalarinda degisiklik yapildi
+ * 	hareketli spriteler, hareketli kapilar,karanlik ekleme.
+ * 
+ * NOTE: M-Z sprites, O open door, C close door.
+ * 
  * @param argc 
  * @param argv 
  * @return int 

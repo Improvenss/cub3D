@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaraca <akaraca@student.42.tr>            +#+  +:+       +#+        */
+/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/17 15:41:44 by akaraca          ###   ########.fr       */
+/*   Updated: 2023/01/18 17:41:40 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,18 +104,20 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define WHITESPACES			" \t\n\r"
 
 /* ---------------MAP CONTROL DEFINES---------------- */
-// " " -> Empty, 1 -> Wall, 0 -> Ground
-# define MAP_ARGUMENTS			" 10NSEW\r\n"
+// " " -> Empty, 1 -> Wall, 0 -> Ground, M -> Sprite, Z -> second sprite
+# define MAP_ARGUMENTS			" 10NSEW\r\nMZCO"
+# define MAP_CHARS				" 10NSEWMZCO"
+# define MAP_W_OUT_ONE			"0NSEWMZCO"
 /*
 			N -> North Angle
 	W -> West Angle		E -> East Angle
 			S -> South Angle
 */
-# define MAP_CHARACTER_ANGLE	"NSWE"
-# define MAP_ANGLE				"NOSOWEEA"
+# define MAP_CHARACTER_ANGLE	"NSEW"
+# define MAP_ANGLE				"NOSOEAWE"
 # define MAP_COVERING			"FC"
 // \r -> Carriage Return, \n -> New Line
-# define MAP_WHITESPACES		"\r\n"
+# define MAP_WHITESPACES		" \r\n"
 # define RGB_CHR				"0123456789,"
 /* -------------------------------------------------- */
 
@@ -143,7 +145,7 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define RAY_COUNT				(PLAYER_ANGLE * 2)
 # define PLAYER_THICKNESS		2
 # define FOV					60
-# define FOV_THICKNESS			(WINDOW_W + 2)
+# define FOV_THICKNESS			(WINDOW_W)
 # define PLAYER_ROTATION_SPEED	1.50
 # define PLAYER_WALK_SPEED		0.80
 /* -------------------------------------------------- */
@@ -278,6 +280,8 @@ typedef struct	s_texture
 	char	*f;
 	int		*rgb_c;
 	char	*c;
+	char	*sprite[2];
+	char	*door;
 }		t_texture;
 
 typedef struct s_main
@@ -287,7 +291,7 @@ typedef struct s_main
 	t_mlx		mlx;//OK
 	t_mlximg	screen;
 	t_mlximg	mini_map;
-	t_xpm		xpm[4];// all xpm Giles data array.
+	t_xpm		xpm[6];// all xpm files data array.
 	// t_xpm		xpm;
 	t_key		key;
 	t_mouse		mouse;

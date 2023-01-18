@@ -1,7 +1,7 @@
-NO ./textures/pika.xpm
-SO ./textures/greystone.xpm
-WE ./textures/purplestone.xpm
-EA ./textures/red.xpm
+NO ./textures/pikachu_64px.xpm
+SO ./textures/niggachu_64px.xpm
+WE ./textures/spider_left.xpm
+EA ./textures/spider_right.xpm
 
 F 86,123,70
 C 132,106,235

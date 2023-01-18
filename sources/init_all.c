@@ -3,18 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   init_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaraca <akaraca@student.42.tr>            +#+  +:+       +#+        */
+/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 00:45:58 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/17 15:41:41 by akaraca          ###   ########.fr       */
+/*   Updated: 2023/01/18 17:31:27 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief 
+ * 
+ * [5-6] = Sprites.
+ * @param main 
+ * @return int 
+ */
+static void	init_all_xpm_sprites(t_main *main)
+{
+	main->xpm[4].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
+		main->texture.sprite[0], &main->xpm[4].width, &main->xpm[4].height);
+	main->xpm[5].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
+		main->texture.sprite[1], &main->xpm[5].width, &main->xpm[5].height);
+}
+
+/**
+ * @brief 
+ * 
+ * [0-1-2-3] = Walls, [4] = Door, [5-6] = Sprites.
+ * @param main 
+ * @return int 
+ */
 static int	init_all_xpm_files(t_main *main)
 {
 	int	i;
+
 	main->xpm[0].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
 		main->texture.no, &main->xpm[0].width, &main->xpm[0].height);
 	main->xpm[1].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
@@ -23,8 +46,11 @@ static int	init_all_xpm_files(t_main *main)
 		main->texture.ea, &main->xpm[2].width, &main->xpm[2].height);
 	main->xpm[3].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
 		main->texture.we, &main->xpm[3].width, &main->xpm[3].height);
+	main->xpm[4].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
+		main->texture.door, &main->xpm[4].width, &main->xpm[4].height);
+	init_all_xpm_sprites(main);
 	i = -1;
-	while (++i < 4)
+	while (++i < 6)
 		main->xpm[i].img.addr = (int *)mlx_get_data_addr(main->xpm[i].img.ptr,
 			&main->xpm[i].img.bpp, &main->xpm[i].img.line_size,
 			&main->xpm[i].img.endian);

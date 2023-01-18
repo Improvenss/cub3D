@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 20:10:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/11 23:30:02 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/18 17:33:42 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	map_definitions_check(int count, char *line, int limit, t_main *main)
 	if (xpm_file_check(main->texture.no, "NO") == ERROR \
 	|| xpm_file_check(main->texture.so, "SO") == ERROR \
 	|| xpm_file_check(main->texture.we, "WE") == ERROR \
-	|| xpm_file_check(main->texture.ea, "EA") == ERROR)
+	|| xpm_file_check(main->texture.we, "EA") == ERROR)
 	{
 		free_definitions(main);
 		return (ERROR);

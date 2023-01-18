@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 20:45:23 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/05 11:51:55 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/18 17:19:40 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	map_borders_inside(t_main *main)
 	{
 		while (main->map.map[y][x])
 		{
-			if (ft_strchr("0NSEW", main->map.map[y][x]) \
+			if (ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]) \
 			&& (ft_strchr(" \0", main->map.map[y][x - 1]) \
 			|| ft_strchr(" \0", main->map.map[y][x + 1]) \
 			|| ft_strchr(" \0", main->map.map[y - 1][x - 1]) \
@@ -54,7 +54,7 @@ int	map_borders_left(t_main *main)
 		{
 			if (main->map.map[y][x] == '1')
 				count++;
-			else if (count == 0 && ft_strchr("0NSEW", main->map.map[y][x]))
+			else if (count == 0 && ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
 				return (print_error(PROMPT, ERR_BORDER, ERR_ARG_OOB, "LEFT"));
 			x++;
 		}
@@ -82,7 +82,7 @@ int	map_borders_bottom(t_main *main)
 		{
 			if (main->map.map[y][x] == '1')
 				count++;
-			else if (count == 0 && ft_strchr("0NSEW", main->map.map[y][x]))
+			else if (count == 0 && ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
 				return (print_error(PROMPT, ERR_BORDER, ERR_ARG_OOB, "BOTTOM"));
 			y--;
 		}
@@ -110,7 +110,7 @@ int map_borders_right(t_main *main)
 		{
 			if (main->map.map[y][x] == '1')
 				count++;
-			else if (count == 0 && ft_strchr("0NSEW", main->map.map[y][x]))
+			else if (count == 0 && ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
 				return (print_error(PROMPT, ERR_BORDER, ERR_ARG_OOB, "RIGHT"));
 			x--;
 		}
@@ -138,7 +138,7 @@ int	map_borders_top(t_main *main)
 		{
 			if (main->map.map[y][x] == '1')
 				count++;
-			else if (count == 0 && ft_strchr("0NSEW", main->map.map[y][x]))
+			else if (count == 0 && ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
 				return (print_error(PROMPT, ERR_BORDER, ERR_ARG_OOB, "TOP"));
 			y++;
 		}

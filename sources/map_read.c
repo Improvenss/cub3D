@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 19:58:30 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/11 23:17:46 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/18 16:49:45 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	map_definitions_init(t_main *main)
 	main->texture.ea = NULL;
 	main->texture.f = NULL;
 	main->texture.c = NULL;
+	main->texture.sprite[0] = NULL;
 }
 
 /**

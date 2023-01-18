@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_xpm.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaraca <akaraca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:48:49 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/18 15:24:11 by akaraca          ###   ########.fr       */
+/*   Updated: 2023/01/18 16:12:03 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	draw_xpm_to_wall(t_main *main, int location, int oran, t_xpm xpm)
 	else if (main->ray.hit_v == true)
 		find_pixel = ((main->ray.pos_y - floor(main->ray.pos_y)) * xpm.width); // resimdeki pixel sütun konumunu bulur.
 	int img_loc = (xpm.width * xpm.height / 2) + find_pixel;
-	while (++i <= oran)
+	while (++i < oran)
 	{
 		if ((location - (WINDOW_W * i)) >= 0) //yukarı
 			main->screen.addr[(location - (WINDOW_W * i))] = xpm.img.addr[img_loc - xpm.width * (int)((double)i * (double)xpm.width / (double)(oran * 2))];//xpm.img.addr[img_loc - (xpm.width * ((i / (WINDOW_H / main->xpm[0].height)) % xpm.height))];
