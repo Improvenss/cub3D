@@ -54,13 +54,13 @@ Mkfile.old
 dkms.conf
 
 # Misc
-main.c
-*.xpm
-*.png
-*.xpm42
-*.png
+# main.c
+# *.xpm
+# *.png
+# *.xpm42
+# *.png
 .vscode/
 lib/glfw/
 
 # Special shader files
-mlx_*_shader.c
+# mlx_*_shader.c
