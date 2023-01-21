@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:05:27 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/13 19:04:47 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 02:41:21 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,27 @@ void	player_move(t_main *main, int way, double val)
 
 	last_location_x = main->ply.pos_x;
 	last_location_y = main->ply.pos_y;
+	// val *= 4;
 	if (way & (GO_FORWARD | GO_BACKWARD))
 	{
 		main->ply.pos_x += val * ((main->ply.walk_speed / BOX_SIZE)
 			* cos(main->ply.rotation_angle * ONE_DEGREE));
-		if (is_wall(main, main->ply.pos_x, main->ply.pos_y))
+		if (next_step_is_wall(main, main->ply.pos_x, main->ply.pos_y))
 			main->ply.pos_x = last_location_x;
 		main->ply.pos_y -= val * ((main->ply.walk_speed / BOX_SIZE)
 			* sin(main->ply.rotation_angle * ONE_DEGREE));
-		if (is_wall(main, main->ply.pos_x, main->ply.pos_y))
+		if (next_step_is_wall(main, main->ply.pos_x, main->ply.pos_y))
 			main->ply.pos_y = last_location_y;
 	}
 	if (way & (GO_LEFT | GO_RIGHT))
 	{
 		main->ply.pos_x += val * ((main->ply.walk_speed / BOX_SIZE)
 			* sin(main->ply.rotation_angle * ONE_DEGREE));
-		if (is_wall(main, main->ply.pos_x, main->ply.pos_y))
+		if (next_step_is_wall(main, main->ply.pos_x, main->ply.pos_y))
 			main->ply.pos_x = last_location_x;
 		main->ply.pos_y += val * ((main->ply.walk_speed / BOX_SIZE)
 			* cos(main->ply.rotation_angle * ONE_DEGREE));
-		if (is_wall(main, main->ply.pos_x, main->ply.pos_y))
+		if (next_step_is_wall(main, main->ply.pos_x, main->ply.pos_y))
 			main->ply.pos_y = last_location_y;
 	}
 }

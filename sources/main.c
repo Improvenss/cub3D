@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:37:31 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/18 17:38:20 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 02:47:21 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ Akıllı davranın!
  * 	hareketli spriteler, hareketli kapilar,karanlik ekleme.
  * 
  * NOTE: M-Z sprites, O open door, C close door.
+ * 
+ * NOTE: Press e and check which box you are.
  * 
  * @param argc 
  * @param argv 

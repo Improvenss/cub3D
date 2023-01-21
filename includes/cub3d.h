@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/18 18:08:14 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 02:20:14 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define MAP_ARGUMENTS			" 10NSEW\r\nMZCO"
 # define MAP_CHARS				" 10NSEWMZCO"
 # define MAP_W_OUT_ONE			"0NSEWMZCO"
-# define MAP_CANT_GO			"1MZC"
+# define MAP_PLY_CANT_GO			"1MZC"
+# define MAP_RAY_CAN_GO			"0NSEWMZO"
+# define HIT					1
+// # define WALL					1
 /*
 			N -> North Angle
 	W -> West Angle		E -> East Angle
@@ -211,6 +214,26 @@ typedef struct s_ray
 	bool	hit_v;
 	int		dir_x;
 	int		dir_y;
+	//*******
+	// double	pos_x;// ray end start_to_end end location
+	// double	pos_y;// ray starting_to_end end location
+	// bool	is_hit_x;
+	// bool	is_hit_y;
+	// double	hit_x;// ray hit_the_wall location -> dx
+	// double	hit_y;// ray hit_the_wall location -> dy
+	// double	distance;// clear ray distance.
+	// double	original_distance;//kacan isinlari engelleyen.
+	// double	distance_v;// vertical distance.
+	// double	distance_h;// horizontal distance;
+	// bool	hit_h;
+	// bool	hit_v;
+	// bool	is_wall;
+	// int		dir_x;
+	// int		dir_y;
+	// bool	is_sprite[2];
+	// // double	sprite_distance;
+	bool	is_door;
+	// double	minimap_ray_color;
 }		t_ray;
 
 typedef struct s_player
@@ -239,6 +262,7 @@ typedef struct s_key
 {
 	int		value;
 	int		screen_mid;
+	bool	door_open_command;
 }		t_key;
 
 typedef struct s_map
@@ -283,7 +307,16 @@ typedef struct	s_texture
 	char	*c;
 	char	*sprite[2];
 	char	*door;
+	char	*crosshair;
 }		t_texture;
+
+typedef struct s_sprite
+{
+	bool	is_hit;
+	double	s_x;
+	double	s_y;
+	double	distance;
+}		t_sprite;
 
 typedef struct s_main
 {
@@ -292,10 +325,11 @@ typedef struct s_main
 	t_mlx		mlx;//OK
 	t_mlximg	screen;
 	t_mlximg	mini_map;
-	t_xpm		xpm[6];// all xpm files data array.
+	t_xpm		xpm[8];// all xpm files data array.
 	// t_xpm		xpm;
 	t_key		key;
 	t_mouse		mouse;
+	t_sprite	sprite;
 	t_player	ply;
 	t_ray		ray;
 }		t_main;
@@ -308,6 +342,9 @@ typedef struct s_main
 // check_all.c
 int		check_args(int	argc, char	**argv);
 int		check_map(t_main *main, char **argv);
+
+// door.c
+void	check_door_open_or_close(t_main *main, double x, double y);
 
 //exit.c
 void	linux_mlx_free(t_main *main);
@@ -330,6 +367,8 @@ void	raycasting(t_main *main, double angle, int ray_count);
 
 // draw_xpm.c
 void	draw_xpm_to_wall(t_main *main, int location, int oran, t_xpm xpm);
+void	draw_xpm_to_sprite(t_main *main, int location, int oran, t_xpm xpm);
+void	put_xpm_to_sprite(t_main *main, int location, t_xpm xpm);
 
 // error.c
 int		print_error(char *s1, char *s2, char *s3, char *message);
@@ -347,8 +386,6 @@ int		mouse_move(int x, int y, t_main *main);
 int		init_all(t_main *main);
 
 // key_button.c
-int		update_player(t_main *main);
-void	key_function(t_main *main);
 int		key_press(int keycode, t_main *main);
 int		key_release(int keycode, t_main *main);
 
@@ -406,6 +443,7 @@ size_t	map_split_wordcount(char *s, char c);
 char	**map_split(char *line, char c, int max);
 
 // utils_wall.c
+int	next_step_is_wall(t_main *main, double x, double y);
 int		is_wall(t_main *main, double x, double y);
 int		is_wall_v2(t_main *main, double x, double y);
 

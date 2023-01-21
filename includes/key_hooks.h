@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaraca <akaraca@student.42.tr>            +#+  +:+       +#+        */
+/*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 03:37:47 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/16 19:57:03 by akaraca          ###   ########.fr       */
+/*   Updated: 2023/01/21 22:58:34 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@
 #  define KEY_S				1
 #  define KEY_D				2
 #  define KEY_R				15
+#  define KEY_E				14
+
+#  define KEY_NUM_1			18
+#  define KEY_NUM_2			19
+#  define KEY_NUM_3			20
+#  define KEY_NUM_4			21
+#  define KEY_NUM_5			23
+#  define KEY_NUM_6			22
+#  define KEY_NUM_7			26
+#  define KEY_NUM_8			28
+#  define KEY_NUM_9			25
+#  define KEY_NUM_0			29
 
 #  define KEY_SPACE			49
 

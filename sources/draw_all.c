@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/18 16:12:25 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 02:08:38 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	draw_with_ray_casting(t_main *main)
 	ray_count = 0;
 	while (ray_count < FOV_THICKNESS) // angle: -30º <= 30º -> arasinda 60º
 	{
-		raycasting(main, angle, ray_count);
+		// if ((int)main->ply.rotation_angle == (int)angle)
+			raycasting(main, angle, ray_count);
 		angle += (double)FOV / (double)FOV_THICKNESS;
 		ray_count++;
 	}
@@ -77,6 +78,9 @@ int	ft_loop(t_main *main)
 		main->screen.ptr, 0, 0);
 	mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
 		main->mini_map.ptr, 0, 0);
+	mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
+		main->xpm[7].img.ptr, ((WINDOW_W / 2) - main->xpm[7].width / 2),
+		((WINDOW_H / 2) - main->xpm[7].height / 2));
 	draw_text_on_window(main);// txt put to window
 	// printf("player x[%f] y[%f]", main->ply.pos_x, main->ply.pos_y);
 	// printf("ply.rotation_angle[%f]\n", main->ply.rotation_angle);

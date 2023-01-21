@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/18 18:02:01 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 02:46:38 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ void _3D(t_main *main, int ray_count)
 	main->ray.distance = main->ray.distance * (double)BOX_SIZE * ((double)WINDOW_H / (double)WINDOW_W);
 	loc = (WINDOW_W * main->key.screen_mid) - ray_count;// 180000. pixel
 	oran = (((double)WINDOW_H / 2.0) / main->ray.distance) * (double)BOX_SIZE;
+	if (oran > 4000)// duvarimizin uzakligimiza gore bastirilan yuksekligini belirtiyor. Cok yaklastigimiz icin bu deger 40.000 flaan oluyor hesaplarken programda kasma meydana geliyor. O yuzden 4000'de sinirlandirdim, duvara cok yaklastigimizda cok genis gozukuyor ama o kadar olacak.
+		oran = 4000;
+	// printf("oran: %d\n", oran);
 	if (main->ray.hit_h == true && main->ray.dir_y == -1)// kuzey
 		draw_xpm_to_wall(main, loc, oran, main->xpm[0]);
 	else if (main->ray.hit_h == true && main->ray.dir_y == 1)// guney
@@ -80,6 +83,17 @@ void _3D(t_main *main, int ray_count)
 		draw_xpm_to_wall(main, loc, oran, main->xpm[2]);
 	else if (main->ray.hit_v == true && main->ray.dir_x == -1)// bati
 		draw_xpm_to_wall(main, loc, oran, main->xpm[3]);
+	
+	// if (main->ray.original_distance > main->sprite.distance)
+	// {
+		if (main->sprite.is_hit == true)
+		{
+			// printf("s_dist:%f\n", main->sprite.distance);
+			// printf("w_dist:%f\n", main->ray.distance);
+			// draw_xpm_to_sprite(main, loc, oran, main->xpm[5]);
+			// put_xpm_to_sprite(main, loc, main->xpm[4]);
+		}
+	// }
 }
 
 /**
@@ -91,7 +105,7 @@ void _3D(t_main *main, int ray_count)
  */
 void draw_ray(t_main *main, double angle, int ray_count)
 {
-	double	color;
+	// double	color;
 
 	main->ray.pos_x = main->ply.pos_x;
 	main->ray.pos_y = main->ply.pos_y;
@@ -101,17 +115,22 @@ void draw_ray(t_main *main, double angle, int ray_count)
 		* fabs(sin(angle * ONE_DEGREE)) * main->ray.dir_y;
 	while (1)
 	{
-		if (main->ply.rotation_angle == angle)
-			color = COLOR_RED;
-		else
-			color = COLOR_GREEN;
+			// color = COLOR_RED;
+		// else
+			// color = COLOR_GREEN;
 		if (!is_wall(main, main->ray.pos_x, main->ray.pos_y)
 			&& (sqrt(((main->ply.pos_x - main->ray.pos_x) * (main->ply.pos_x - main->ray.pos_x)) + ((main->ply.pos_y - main->ray.pos_y) * (main->ply.pos_y - main->ray.pos_y))) <= main->ray.original_distance))
 			main->mini_map.addr[(BOX_SIZE * (main->map.max_x + 1))
 				* (int)floor(BOX_SIZE * main->ray.pos_y)
-				+ (int)floor(BOX_SIZE * main->ray.pos_x)] = color;// player's minimap rays.
+				+ (int)floor(BOX_SIZE * main->ray.pos_x)] = COLOR_GREEN;// player's minimap rays.
 		else
 		{
+			if ((int)floor(main->ply.rotation_angle) == (int)floor(angle))
+			{
+				// printf("rotation: %f, angle: %f\n\n", main->ply.rotation_angle, angle);
+				// printf("rotation: %d, angle: %d\n", (int)floor(main->ply.rotation_angle), (int)floor(angle));
+				check_door_open_or_close(main, main->ray.pos_x, main->ray.pos_y);
+			}
 			main->ray.pos_x -= main->ray.hit_x / (WINDOW_H / 2);
 			main->ray.pos_y -= main->ray.hit_y / (WINDOW_H / 2);
 			// printf("pos_x: %f\n", main->ray.pos_x);
