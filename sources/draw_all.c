@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 17:43:19 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 20:59:35 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	draw_with_ray_casting(t_main *main)
 	while (ray_count < FOV_THICKNESS)
 	{
 		// if ((int)main->ply.rotation_angle == (int)angle)
-		raycasting(main, angle, ray_count);
+			raycasting(main, angle, ray_count);
 		angle += (double)FOV / (double)FOV_THICKNESS;
 		ray_count++;
 	}

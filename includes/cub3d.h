@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 17:47:53 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 21:32:21 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,8 @@ typedef struct s_ray
 	// bool	is_sprite[2];
 	// // double	sprite_distance;
 	bool	is_door;
+	// double	door_open_pos_x;// If ray find opened door ('O') saving location.
+	// double	door_open_pos_y;// If ray find opened door ('O') saving location.
 	// double	minimap_ray_color;
 }		t_ray;
 

@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 17:30:50 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 21:13:06 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void _3D(t_main *main, int ray_count)
 			// put_xpm_to_sprite(main, loc, main->xpm[4]);
 		}
 	// }
+	// if (main->ray.is_door == true)
+		// draw_xpm_to_wall(main, loc, oran, main->xpm[4]);
 }
 
 /**
