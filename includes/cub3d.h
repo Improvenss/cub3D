@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/23 01:05:45 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/23 01:41:42 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 typedef struct s_mlximg
 {
 	void	*ptr;
-	int		*addr;
+	int		*addr;// bunu char* yapinca my_mlx_pixel_put() dogru calisiyor cunku 1 byte'ye biz 4 byte veriyoruz falan falan :D
 	int		bpp;
 	int		line_size;
 	int		endian;
