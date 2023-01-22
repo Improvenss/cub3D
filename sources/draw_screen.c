@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 21:13:06 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 22:04:51 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void draw_ray(t_main *main, double angle, int ray_count)
 		* fabs(sin(angle * ONE_DEGREE)) * main->ray.dir_y;
 	while (1)
 	{
-		if (!is_wall(main, main->ray.pos_x, main->ray.pos_y)
+		if (!is_wall(main, main->ray.pos_x, main->ray.pos_y, angle)
 			&& (sqrt(((main->ply.pos_x - main->ray.pos_x) * (main->ply.pos_x - main->ray.pos_x)) + ((main->ply.pos_y - main->ray.pos_y) * (main->ply.pos_y - main->ray.pos_y))) <= main->ray.original_distance))
 			main->mini_map.addr[(BOX_SIZE * (main->map.max_x + 1))
 				* (int)floor(BOX_SIZE * main->ray.pos_y)

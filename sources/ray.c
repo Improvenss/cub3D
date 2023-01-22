@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:10:56 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 17:54:56 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 22:11:28 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ double	ray_horizontal(t_main *main, double angle, double dir_x, double dir_y)
 	tmp_x = hdx * dir_x;
 	tmp_y = hdy * dir_y;
 	if (!is_wall(main, main->ply.pos_x + hdx * dir_x,
-			main->ply.pos_y + hdy * dir_y))
+			main->ply.pos_y + hdy * dir_y, -123.0))
 	{
 		while (main->ply.pos_x + hdx * dir_x >= 0
 			&& main->ply.pos_x + hdx * dir_x <= main->map.max_x
