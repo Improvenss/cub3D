@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 22:05:08 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 22:51:32 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,7 @@ typedef struct s_key
 	int		value;
 	int		screen_mid;
 	bool	door_open_command;
+	bool	show_mini_map;
 }		t_key;
 
 typedef struct s_map

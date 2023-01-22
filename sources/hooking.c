@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 02:10:44 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 17:11:26 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 23:16:45 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ int	key_press(int keycode, t_main *main)
 	return (0);
 }
 
+void	key_release_part_2(int keycode, t_main *main)
+{
+	// if (keycode == KEY_H)
+		// open_help_page(main);
+	if (keycode == KEY_M)
+		main->key.show_mini_map = !main->key.show_mini_map;
+}
+
 /**
  * @brief 
  * 
@@ -82,6 +90,7 @@ int	key_release(int keycode, t_main *main)
 		main->ply.walk_speed = PLAYER_WALK_SPEED;
 	else if (keycode == KEY_SPACE)
 		main->mouse.is_enable = !main->mouse.is_enable;
+	key_release_part_2(keycode, main);
 	return (0);
 }
 

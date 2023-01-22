@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 17:23:45 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 17:29:13 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 22:55:03 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ int	init_mlx_draw(t_main *main)
 	main->key.value = 0;
 	main->mouse.is_enable = false;
 	main->key.door_open_command = false;
+	main->key.show_mini_map = false;
 	return (0);
 }

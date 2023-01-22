@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 20:59:35 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 23:06:29 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	draw_text_on_window(t_main *main)
  * @brief 
  * 
 	// draw_player_directory(main);// player's rotation_angle (one line).
+
+		// if ((int)main->ply.rotation_angle == (int)angle)
  * 
  * @param main 
  */
@@ -48,18 +50,19 @@ void	draw_with_ray_casting(t_main *main)
 	double	angle;
 	int		ray_count;
 
-	draw_minimap(main);
+	if (main->key.show_mini_map == true)
+		draw_minimap(main);
 	draw_background(main);
 	angle = main->ply.rotation_angle - (FOV / 2.0);
 	ray_count = 0;
 	while (ray_count < FOV_THICKNESS)
 	{
-		// if ((int)main->ply.rotation_angle == (int)angle)
 			raycasting(main, angle, ray_count);
 		angle += (double)FOV / (double)FOV_THICKNESS;
 		ray_count++;
 	}
-	draw_player_position(main);
+	if (main->key.show_mini_map == true)
+		draw_player_position(main);
 }
 
 /**
@@ -77,8 +80,9 @@ int	ft_loop(t_main *main)
 	draw_with_ray_casting(main);
 	mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
 		main->screen.ptr, 0, 0);
-	mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
-		main->mini_map.ptr, 0, 0);
+	if (main->key.show_mini_map == true)
+		mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
+			main->mini_map.ptr, 0, 0);
 	mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
 		main->xpm[7].img.ptr, ((WINDOW_W / 2) - main->xpm[7].width / 2),
 		((WINDOW_H / 2) - main->xpm[7].height / 2));
