@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 23:33:44 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/23 00:46:12 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/23 01:15:04 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	my_mlx_pixel_put(t_mlximg *img, int x, int y, int color)
 {
-	int	*dest;
+	char	*dest;
 
-	dest = img->addr + (y * img->line_size + x * (img->bpp / 8));
+	dest = (char *)img->addr + (y * img->line_size + x * (img->bpp / 8));
 	*(unsigned int *)dest = color;
 }

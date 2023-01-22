@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/23 00:44:15 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/23 01:05:45 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,6 +345,7 @@ void	linux_mlx_free(t_main *main);
 int		ft_exit(t_main *main);
 
 // help_page.c
+void	draw_information(t_main *main);
 void	open_help_page(t_main *main);
 
 // draw_all.c

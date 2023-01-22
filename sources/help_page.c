@@ -6,30 +6,30 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 23:21:37 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/23 00:51:13 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/23 01:34:05 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	draw_information(t_main *main)
+void	draw_information(t_main *main)
 {
 	mlx_string_put(main->mlx.ptr, main->mlx.win, (int)(WINDOW_W / 2) - 100,
-		(WINDOW_H / 2) - 200, COLOR_SILVER,
-		"Controls: W A S D -> Player Movement");
+		(WINDOW_H / 2) - 150, COLOR_SILVER,
+		"Controls:        - W A S D -> Player Movement");
 	mlx_string_put(main->mlx.ptr, main->mlx.win, (int)(WINDOW_W / 2) - 100,
-		(WINDOW_H / 2) - 180, COLOR_SILVER,
-		"Controls: ⬅️ ⬆️ ⬇️ ➡️ -> Player View Point");
+		(WINDOW_H / 2) - 100, COLOR_SILVER,
+		"Controls:        - Arrows -> Player View Point");
 	mlx_string_put(main->mlx.ptr, main->mlx.win, (int)(WINDOW_W / 2) - 100,
-		(WINDOW_H / 2) - 160, COLOR_SILVER, "Reset:	R");
+		(WINDOW_H / 2) - 50, COLOR_SILVER, "Reset:           - R");
 	mlx_string_put(main->mlx.ptr, main->mlx.win, (int)(WINDOW_W / 2) - 100,
-		(WINDOW_H / 2) - 140, COLOR_SILVER, "Door:	Open/Close:	E");
+		(WINDOW_H / 2), COLOR_SILVER, "Door:            - E -> Open/Close");
 	mlx_string_put(main->mlx.ptr, main->mlx.win, (int)(WINDOW_W / 2) - 100,
-		(WINDOW_H / 2) - 120, COLOR_SILVER, "Mouse Control: Space");
+		(WINDOW_H / 2) + 50, COLOR_SILVER, "Mouse Control:   - Space");
 	mlx_string_put(main->mlx.ptr, main->mlx.win, (int)(WINDOW_W / 2) - 100,
-		(WINDOW_H / 2) - 100, COLOR_SILVER, "Close Help: H");
+		(WINDOW_H / 2) + 100, COLOR_SILVER, "Close Help:      - H");
 	mlx_string_put(main->mlx.ptr, main->mlx.win, (int)(WINDOW_W / 2) - 100,
-		(WINDOW_H / 2) - 80, COLOR_SILVER, "Exit Program: ESC");
+		(WINDOW_H / 2) + 150, COLOR_SILVER, "Exit Program:    - ESC");
 }
 
 void	open_help_page(t_main *main)
@@ -45,6 +45,6 @@ void	open_help_page(t_main *main)
 			my_mlx_pixel_put(&main->screen, x, y, COLOR_BLACK);
 	}
 	mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
-		main->mlx.win, 0, 0);
+		main->screen.ptr, 0, 0);
 	draw_information(main);
 }
