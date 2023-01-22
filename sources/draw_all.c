@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 23:06:29 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 23:23:40 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,22 @@ void	draw_with_ray_casting(t_main *main)
  */
 int	ft_loop(t_main *main)
 {
-	update_player_all(main);
-	draw_with_ray_casting(main);
-	mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
-		main->screen.ptr, 0, 0);
-	if (main->key.show_mini_map == true)
+	if (main->key.help_page == true)
+		open_help_page(main);
+	else
+	{
+		update_player_all(main);
+		draw_with_ray_casting(main);
 		mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
-			main->mini_map.ptr, 0, 0);
-	mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
-		main->xpm[7].img.ptr, ((WINDOW_W / 2) - main->xpm[7].width / 2),
-		((WINDOW_H / 2) - main->xpm[7].height / 2));
-	draw_text_on_window(main);
+			main->screen.ptr, 0, 0);
+		if (main->key.show_mini_map == true)
+			mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
+				main->mini_map.ptr, 0, 0);
+		mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
+			main->xpm[7].img.ptr, ((WINDOW_W / 2) - main->xpm[7].width / 2),
+			((WINDOW_H / 2) - main->xpm[7].height / 2));
+		draw_text_on_window(main);
+	}
 	return (0);
 }
 

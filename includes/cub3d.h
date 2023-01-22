@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 22:51:32 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/23 00:44:15 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,7 @@ typedef struct s_key
 	int		screen_mid;
 	bool	door_open_command;
 	bool	show_mini_map;
+	bool	help_page;
 }		t_key;
 
 typedef struct s_map
@@ -343,6 +344,9 @@ void	check_door_open_or_close(t_main *main, double x, double y);
 void	linux_mlx_free(t_main *main);
 int		ft_exit(t_main *main);
 
+// help_page.c
+void	open_help_page(t_main *main);
+
 // draw_all.c
 int		draw_mlx_window(t_main *main);
 
@@ -350,6 +354,9 @@ int		draw_mlx_window(t_main *main);
 void	put_pixel(int x, int y, double color, t_main *main);
 void	draw_player_position(t_main *main);
 void	draw_minimap(t_main *main);
+
+// draw_pixel.c
+void	my_mlx_pixel_put(t_mlximg *img, int x, int y, int color);
 
 // draw_screen.c
 void	draw_background( t_main *main);

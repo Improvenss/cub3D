@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 02:10:44 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 23:16:45 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 23:22:46 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	key_press(int keycode, t_main *main)
 
 void	key_release_part_2(int keycode, t_main *main)
 {
-	// if (keycode == KEY_H)
-		// open_help_page(main);
-	if (keycode == KEY_M)
+	if (keycode == KEY_H)
+		main->key.help_page = !main->key.help_page;
+	else if (keycode == KEY_M)
 		main->key.show_mini_map = !main->key.show_mini_map;
 }
 

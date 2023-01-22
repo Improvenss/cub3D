@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:48:49 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 16:49:22 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 23:56:27 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,29 @@
 // 	}
 // }
 
-// void	draw_xpm_to_sprite(t_main *main, int location, int oran, t_xpm xpm)
-// {
-// 	(void)main;
-// 	(void)xpm;
-// 	(void)oran;
-// 	int i = -1;
+void	draw_xpm_to_sprite(t_main *main, int location, int oran, t_xpm xpm)
+{
+	(void)main;
+	(void)xpm;
+	(void)oran;
+	int i = -1;
 
-// 	int find_pixel = 0;
-// 	if (main->ray.hit_h == true)
-// 		find_pixel = ((main->ray.pos_x - floor(main->ray.pos_x)) * xpm.width); // resimdeki pixel sütun konumunu bulur.
-// 	else if (main->ray.hit_v == true)
-// 		find_pixel = ((main->ray.pos_y - floor(main->ray.pos_y)) * xpm.width); // resimdeki pixel sütun konumunu bulur.
-// 	int img_loc = (xpm.width * (xpm.height / 2)) + find_pixel;
-// 	while (++i < oran)
-// 	{
-// 		if ((location - (WINDOW_W * i)) >= 0) //yukarı
-// 			main->screen.addr[(location - (WINDOW_W * i))] = xpm.img.addr[img_loc - xpm.width * (int)((double)i * ((double)xpm.width / (double)(oran * 2)))];
-// 			// main->screen.addr[(location - (WINDOW_W * i))] = xpm.img.addr[(location - (WINDOW_W * i))];
-// 		// if ((WINDOW_H * WINDOW_W) >= (location + (WINDOW_W * i))) // aşağı
-// 			// main->screen.addr[(location + (WINDOW_W * i))] = xpm.img.addr[img_loc - xpm.width * (int)((double)i * ((double)xpm.width / (double)(oran * 2)))];
-// 			// main->screen.addr[(location + (WINDOW_W * i))] = xpm.img.addr[(location - (WINDOW_W * i))];
-// 	}
-// }
+	int find_pixel = 0;
+	if (main->ray.hit_h == true)
+		find_pixel = ((main->ray.pos_x - floor(main->ray.pos_x)) * xpm.width); // resimdeki pixel sütun konumunu bulur.
+	else if (main->ray.hit_v == true)
+		find_pixel = ((main->ray.pos_y - floor(main->ray.pos_y)) * xpm.width); // resimdeki pixel sütun konumunu bulur.
+	int img_loc = (xpm.width * (xpm.height / 2)) + find_pixel;
+	while (++i < oran)
+	{
+		if ((location - (WINDOW_W * i)) >= 0) //yukarı
+			main->screen.addr[(location - (WINDOW_W * i))] = xpm.img.addr[img_loc - xpm.width * (int)((double)i * ((double)xpm.width / (double)(oran * 2)))];
+			// main->screen.addr[(location - (WINDOW_W * i))] = xpm.img.addr[(location - (WINDOW_W * i))];
+		// if ((WINDOW_H * WINDOW_W) >= (location + (WINDOW_W * i))) // aşağı
+			// main->screen.addr[(location + (WINDOW_W * i))] = xpm.img.addr[img_loc - xpm.width * (int)((double)i * ((double)xpm.width / (double)(oran * 2)))];
+			// main->screen.addr[(location + (WINDOW_W * i))] = xpm.img.addr[(location - (WINDOW_W * i))];
+	}
+}
 
 void	draw_xpm_to_wall(t_main *main, int location, int oran, t_xpm xpm)
 {

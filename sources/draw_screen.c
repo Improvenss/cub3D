@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 23:14:11 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/23 00:51:30 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,10 @@ void _3D(t_main *main, int ray_count)
 			// printf("s_dist:%f\n", main->sprite.distance);
 			// printf("w_dist:%f\n", main->ray.distance);
 			// draw_xpm_to_sprite(main, loc, oran, main->xpm[5]);
+			// draw_xpm_to_sprite(main, loc, oran, main->xpm[5]);
 			// put_xpm_to_sprite(main, loc, main->xpm[4]);
 		}
 	// }
-	// if (main->ray.is_door == true)
-		// draw_xpm_to_wall(main, loc, oran, main->xpm[4]);
 }
 
 /**
