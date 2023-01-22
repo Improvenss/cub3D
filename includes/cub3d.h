@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 02:20:14 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:47:53 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,8 @@ typedef struct s_player
 	double	default_rotation_angle;
 	double	default_pos_x;
 	double	default_pos_y;
+	double	last_location_x;
+	double	last_location_y;
 }		t_player;
 
 typedef struct s_mouse
@@ -281,19 +283,7 @@ typedef struct	s_xpm
 	t_mlximg	img;
 	int			width;
 	int			height;
-	// void		*ptr;
-	// int			*addr;
 }		t_xpm;
-
-// /**
-//  * @brief All xpm file's data array.
-//  * 
-//  */
-// typedef struct	s_xpm_file_arr
-// {
-// 	int		index;
-// 	t_xpm	*xpm_arr;
-// }		t_xpm_arr;
 
 typedef struct	s_texture
 {
@@ -355,7 +345,6 @@ int		draw_mlx_window(t_main *main);
 
 // draw_minimap.c
 void	put_pixel(int x, int y, double color, t_main *main);
-void	draw_player_directory(t_main *main);
 void	draw_player_position(t_main *main);
 void	draw_minimap(t_main *main);
 
@@ -374,16 +363,24 @@ void	put_xpm_to_sprite(t_main *main, int location, t_xpm xpm);
 int		print_error(char *s1, char *s2, char *s3, char *message);
 int		print_error_errno(char *s1, char *s2, char *s3);
 
-// free.c
-int		mlx_free_kill_all(t_main *main);
-
 // hooking.c
 int		key_press(int keycode, t_main *main);
 int		key_release(int keycode, t_main *main);
 int		mouse_move(int x, int y, t_main *main);
 
+// init_all_2.c
+void	init_all_xpm_others(t_main *main);
+void	init_all_xpm_sprites(t_main *main);
+int		init_all_xpm_files(t_main *main);
+int		init_mlx_draw(t_main *main);
+
 // init_all.c
 int		init_all(t_main *main);
+
+// init_cub3d.c
+int		init_cub3d_image(t_main *main);
+int		init_cub3d_window(t_main *main);
+int		init_cub3d(t_main *main);
 
 // key_button.c
 int		key_press(int keycode, t_main *main);
@@ -422,6 +419,10 @@ int		map_find_borders(char *line, int start, int *map_end);
 int		map_skip_empty_line(char *line, int limit);
 int		map_map(char *line, int start, t_main *main);
 
+// player_move.c
+void	player_turn(t_main *main, int way, double val);
+void	player_move(t_main *main, int way, double val);
+
 // player.c
 void	update_player_all(t_main *main);
 void	set_player_default_pos(t_main *main);
@@ -443,7 +444,7 @@ size_t	map_split_wordcount(char *s, char c);
 char	**map_split(char *line, char c, int max);
 
 // utils_wall.c
-int	next_step_is_wall(t_main *main, double x, double y);
+int		next_step_is_wall(t_main *main, double x, double y);
 int		is_wall(t_main *main, double x, double y);
 int		is_wall_v2(t_main *main, double x, double y);
 

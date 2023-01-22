@@ -6,97 +6,60 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:05:27 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 02:41:21 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:05:17 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/**
- * @brief Left & Right rotation okay but now we are not doing up & down look.
- * 
- * @param main main structure
- * @param way up | down | left | right -> bitwise val.
- * @param val + or -
- */
-void	player_turn(t_main *main, int way, double val)
-{
-	if (way & (TURN_LEFT | TURN_RIGHT))
-		main->ply.rotation_angle -= val * PLAYER_ROTATION_SPEED;
-	if (main->ply.rotation_angle < 0)
-		main->ply.rotation_angle = 360;
-	else if (main->ply.rotation_angle > 360)
-		main->ply.rotation_angle = 0;
-	if (way & (TURN_UP | TURN_DOWN))
-		main->key.screen_mid += (int)val * 10;
-	if (main->key.screen_mid < 0)
-		main->key.screen_mid = 0;
-	else if (main->key.screen_mid > WINDOW_H)
-		main->key.screen_mid = WINDOW_H;
-}
-
-/**
- * @brief W A S D steps for player.
- */
-void	player_move(t_main *main, int way, double val)
-{
-	double	last_location_x;
-	double	last_location_y;
-
-	last_location_x = main->ply.pos_x;
-	last_location_y = main->ply.pos_y;
-	// val *= 4;
-	if (way & (GO_FORWARD | GO_BACKWARD))
-	{
-		main->ply.pos_x += val * ((main->ply.walk_speed / BOX_SIZE)
-			* cos(main->ply.rotation_angle * ONE_DEGREE));
-		if (next_step_is_wall(main, main->ply.pos_x, main->ply.pos_y))
-			main->ply.pos_x = last_location_x;
-		main->ply.pos_y -= val * ((main->ply.walk_speed / BOX_SIZE)
-			* sin(main->ply.rotation_angle * ONE_DEGREE));
-		if (next_step_is_wall(main, main->ply.pos_x, main->ply.pos_y))
-			main->ply.pos_y = last_location_y;
-	}
-	if (way & (GO_LEFT | GO_RIGHT))
-	{
-		main->ply.pos_x += val * ((main->ply.walk_speed / BOX_SIZE)
-			* sin(main->ply.rotation_angle * ONE_DEGREE));
-		if (next_step_is_wall(main, main->ply.pos_x, main->ply.pos_y))
-			main->ply.pos_x = last_location_x;
-		main->ply.pos_y += val * ((main->ply.walk_speed / BOX_SIZE)
-			* cos(main->ply.rotation_angle * ONE_DEGREE));
-		if (next_step_is_wall(main, main->ply.pos_x, main->ply.pos_y))
-			main->ply.pos_y = last_location_y;
-	}
-}
-
 void	update_player_all(t_main *main)
 {
-	if (main->key.value & GO_FORWARD)// W
+	if (main->key.value & GO_FORWARD)
 		player_move(main, GO_FORWARD, 1.0);
-	if (main->key.value & GO_BACKWARD)// S
+	if (main->key.value & GO_BACKWARD)
 		player_move(main, GO_BACKWARD, -1.0);
-	if (main->key.value & GO_RIGHT)// D
+	if (main->key.value & GO_RIGHT)
 		player_move(main, GO_RIGHT, 1.0);
-	if (main->key.value & GO_LEFT)// A
+	if (main->key.value & GO_LEFT)
 		player_move(main, GO_LEFT, -1.0);
-	if (main->key.value & TURN_RIGHT)// ➡
+	if (main->key.value & TURN_RIGHT)
 		player_turn(main, TURN_RIGHT, 1.0);
-	if (main->key.value & TURN_LEFT)// ⬅
+	if (main->key.value & TURN_LEFT)
 		player_turn(main, TURN_LEFT, -1.0);
-	if (main->key.value & TURN_UP)// ⬆
+	if (main->key.value & TURN_UP)
 		player_turn(main, TURN_UP, 1.0);
-	if (main->key.value & TURN_DOWN)// ⬇
+	if (main->key.value & TURN_DOWN)
 		player_turn(main, TURN_DOWN, -1.0);
-	return ;
 }
 
+/**
+ * @brief Set the player default pos object
+ * 
+ * When user press R key from keyboard working here.
+ * @param main 
+ */
 void	set_player_default_pos(t_main *main)
 {
 	main->ply.pos_x = main->ply.default_pos_x;
 	main->ply.pos_y = main->ply.default_pos_y;
 	main->ply.rotation_angle = main->ply.default_rotation_angle;
 	main->key.screen_mid = (double)(WINDOW_H / 2);
+}
+
+/**
+ * @brief Saving player's starting positions. Preparing data for R key.
+ * 
+ * @param main 
+ * @param x 
+ * @param y 
+ */
+void	save_player_default_location(t_main *main, int x, int y)
+{
+	main->ply.default_rotation_angle = main->ply.rotation_angle;
+	main->ply.pos_x = (double)x + 0.5;
+	main->ply.default_pos_x = (double)x + 0.5;
+	main->ply.pos_y = (double)y + 0.5;
+	main->ply.default_pos_y = (double)y + 0.5;
 }
 
 void	init_set_player(t_main *main, int x, int y)
@@ -118,14 +81,9 @@ void	init_set_player(t_main *main, int x, int y)
 				else if (main->map.map[y][x] == 'S')
 					main->ply.rotation_angle = 270;
 				main->map.map[y][x] = '0';
-				main->ply.default_rotation_angle = main->ply.rotation_angle;
-				main->ply.pos_x = (double)x + 0.5;
-				main->ply.default_pos_x = (double)x + 0.5;
-				main->ply.pos_y = (double)y + 0.5;
-				main->ply.default_pos_y = (double)y + 0.5;
+				save_player_default_location(main, x, y);
 				return ;
 			}
 		}
 	}
-	return ;
 }

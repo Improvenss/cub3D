@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 02:46:38 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:30:50 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,6 @@ void	draw_background( t_main *main)
 
 void _3D(t_main *main, int ray_count)
 {
-	// int loc;
-	// double oran;
-	// int	i;
-	// int color;
-	// main->ray.distance = main->ray.distance * (double)BOX_SIZE * ((double)WINDOW_H / (double)WINDOW_W);
-	// i = 0;
-	// loc = (WINDOW_W * main->key.screen_mid) - ray_count;
-	// oran = (((double)WINDOW_H / 2.0) / main->ray.distance) * (double)BOX_SIZE;
-	// if (main->ray.hit_h == true && main->ray.hit_v == false)
-	// 	color = COLOR_D_PURPLE;
-	// else if (main->ray.hit_h == false && main->ray.hit_v == true)
-	// 	color = COLOR_D_GREEN;
-	// while (i <= oran && i <= WINDOW_H)
-	// {
-	// 	if ((loc - (WINDOW_W * i)) >= 0)
-	// 		main->screen.addr[(loc - (WINDOW_W * i))] = color;//ust taraf
-	// 	if ((WINDOW_H * WINDOW_W) >= (loc + (WINDOW_W * i)))
-	// 		main->screen.addr[(loc + (WINDOW_W * i))] = color;// alt taraf
-	// 	i++;
-	// }
-
 	int loc;
 	int oran;
 	main->ray.distance = main->ray.distance * (double)BOX_SIZE * ((double)WINDOW_H / (double)WINDOW_W);
@@ -105,8 +84,6 @@ void _3D(t_main *main, int ray_count)
  */
 void draw_ray(t_main *main, double angle, int ray_count)
 {
-	// double	color;
-
 	main->ray.pos_x = main->ply.pos_x;
 	main->ray.pos_y = main->ply.pos_y;
 	main->ray.hit_x = main->ray.distance
@@ -115,9 +92,6 @@ void draw_ray(t_main *main, double angle, int ray_count)
 		* fabs(sin(angle * ONE_DEGREE)) * main->ray.dir_y;
 	while (1)
 	{
-			// color = COLOR_RED;
-		// else
-			// color = COLOR_GREEN;
 		if (!is_wall(main, main->ray.pos_x, main->ray.pos_y)
 			&& (sqrt(((main->ply.pos_x - main->ray.pos_x) * (main->ply.pos_x - main->ray.pos_x)) + ((main->ply.pos_y - main->ray.pos_y) * (main->ply.pos_y - main->ray.pos_y))) <= main->ray.original_distance))
 			main->mini_map.addr[(BOX_SIZE * (main->map.max_x + 1))

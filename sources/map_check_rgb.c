@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 20:26:09 by gsever            #+#    #+#             */
-/*   Updated: 2022/12/05 11:52:58 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:38:21 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	map_definitions_rgb_c(t_main *main)
 			free(main->map.l_free);
 			if (main->texture.rgb_c[count - 1] > 255)
 				return (ERROR);
-			//printf("#%d#\n", main->texture.rgb_c[count - 1]);
 			l = i + 1;
 		}
 		i++;
@@ -58,7 +57,6 @@ int	map_definitions_rgb_f(t_main *main)
 			free(main->map.l_free);
 			if (main->texture.rgb_f[count - 1] > 255)
 				return (ERROR);
-			// printf("#%d#\n", main->texture.rgb_f[count - 1]);
 			l = i + 1;
 		}
 		i++;
@@ -76,7 +74,6 @@ int	map_definitions_rgb(t_main *main)
 		free(main->texture.rgb_c);
 		return (print_error(PROMPT, NULL, NULL, RED ERR_MAP_F END));
 	}
-
 	if (map_definitions_rgb_c(main) == ERROR)
 	{
 		free(main->texture.rgb_f);

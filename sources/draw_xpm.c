@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:48:49 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 02:07:34 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 16:49:22 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	// mlx_put_image_to_window(main->mlx.ptr, main->mlx.win, xpm.img.ptr, location, main->key.screen_mid);
 // }
 
-// void	draw_xpm_to_sprite(t_main *main, int location, int oran, t_xpm xmp)
+// void	draw_xpm_to_sprite(t_main *main, int location, int oran, t_xpm xpm)
 // {
 // 	int	
 // }

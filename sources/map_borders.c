@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 20:45:23 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/18 17:19:40 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:40:31 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	map_borders_inside(t_main *main)
 {
 	int	x;
-	int y;
+	int	y;
 
 	x = 0;
 	y = 0;
@@ -54,14 +54,14 @@ int	map_borders_left(t_main *main)
 		{
 			if (main->map.map[y][x] == '1')
 				count++;
-			else if (count == 0 && ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
+			else if (count == 0
+				&& ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
 				return (print_error(PROMPT, ERR_BORDER, ERR_ARG_OOB, "LEFT"));
 			x++;
 		}
 		x = 0;
 		if (count == 0)
-			return(print_error(PROMPT, ERR_BORDER, ERR_EMPTY_L, "LEFT"));
-		//printf("--->count:%d\n", count);
+			return (print_error(PROMPT, ERR_BORDER, ERR_EMPTY_L, "LEFT"));
 		y++;
 	}
 	return (0);
@@ -82,20 +82,20 @@ int	map_borders_bottom(t_main *main)
 		{
 			if (main->map.map[y][x] == '1')
 				count++;
-			else if (count == 0 && ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
+			else if (count == 0
+				&& ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
 				return (print_error(PROMPT, ERR_BORDER, ERR_ARG_OOB, "BOTTOM"));
 			y--;
 		}
 		y = main->map.max_y;
 		if (count == 0)
 			return (print_error(PROMPT, ERR_BORDER, ERR_EMPTY_L, "BOTTOM"));
-		//printf("--->count:%d\n", count);
 		x++;
 	}
 	return (0);
 }
 
-int map_borders_right(t_main *main)
+int	map_borders_right(t_main *main)
 {
 	int	x;
 	int	y;
@@ -110,14 +110,14 @@ int map_borders_right(t_main *main)
 		{
 			if (main->map.map[y][x] == '1')
 				count++;
-			else if (count == 0 && ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
+			else if (count == 0
+				&& ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
 				return (print_error(PROMPT, ERR_BORDER, ERR_ARG_OOB, "RIGHT"));
 			x--;
 		}
 		x = main->map.max_x;
 		if (count == 0)
 			return (print_error(PROMPT, ERR_BORDER, ERR_EMPTY_L, "RIGHT"));
-		//printf("--->count:%d\n", count);
 		y++;
 	}
 	return (0);
@@ -125,9 +125,9 @@ int map_borders_right(t_main *main)
 
 int	map_borders_top(t_main *main)
 {
-	int x;
-	int y;
-	int count;
+	int	x;
+	int	y;
+	int	count;
 
 	x = 0;
 	y = 0;
@@ -138,16 +138,15 @@ int	map_borders_top(t_main *main)
 		{
 			if (main->map.map[y][x] == '1')
 				count++;
-			else if (count == 0 && ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
+			else if (count == 0
+				&& ft_strchr(MAP_W_OUT_ONE, main->map.map[y][x]))
 				return (print_error(PROMPT, ERR_BORDER, ERR_ARG_OOB, "TOP"));
 			y++;
 		}
 		y = 0;
 		if (count == 0)
 			return (print_error(PROMPT, ERR_BORDER, ERR_EMPTY_L, "TOP"));
-		//printf("--->count:%d\n", count);
 		x++;
 	}
 	return (0);
 }
-

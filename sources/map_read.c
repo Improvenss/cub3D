@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 19:58:30 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/18 16:49:45 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:35:57 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*map_read_definitions(char *line, int *limit, int *count, int size)
 	int		i;
 	char	*str;
 
-	str = NULL; 
+	str = NULL;
 	if ((*limit) == 0 || line[(*limit) - 1] == '\n')
 	{
 		(*count)++;
@@ -37,7 +37,6 @@ char	*map_read_definitions(char *line, int *limit, int *count, int size)
 		i = *limit;
 		while (line[i] && !ft_strchr(WHITESPACES, line[i]))
 			i++;
-		// if (line[i] == '\n')
 		if (line[i] == '\n' || line[i] == '\r')
 			i--;
 		else

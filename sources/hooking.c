@@ -6,19 +6,26 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 02:10:44 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 00:00:07 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:11:26 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief 
+ * 
+ * system("leaks cub3D");
+	printf("You press a key["B_CYAN"%d"END"]\
+		& key.value["B_YELLOW"%d"END"]\n", keycode, main->key.value);
+ * @param keycode 
+ * @param main 
+ * @return int 
+ */
 int	key_press(int keycode, t_main *main)
 {
 	if (keycode == KEY_ESC)
-	{
-		// system("leaks cub3D");
-		exit(0);//ft_free_and_close(); need add.
-	}
+		exit(0);
 	else if (keycode == KEY_W)
 		main->key.value |= GO_FORWARD;
 	else if (keycode == KEY_S)
@@ -41,11 +48,18 @@ int	key_press(int keycode, t_main *main)
 		main->ply.walk_speed = PLAYER_WALK_SPEED + 1.50;
 	else if (keycode == KEY_E)
 		main->key.door_open_command = true;
-	// printf("You press a key["B_CYAN"%d"END"]
-	// & key.value["B_YELLOW"%d"END"]\n", keycode, main->key.value);
 	return (0);
 }
 
+/**
+ * @brief 
+ * 
+ * 	printf("You removed a key["B_BLUE"%d"END"]\
+		& key.value["B_YELLOW"%d"END"]\n", keycode, main->key.value);
+ * @param keycode 
+ * @param main 
+ * @return int 
+ */
 int	key_release(int keycode, t_main *main)
 {
 	if (keycode == KEY_W)
@@ -67,25 +81,33 @@ int	key_release(int keycode, t_main *main)
 	else if (keycode == KEY_L_SHIFT)
 		main->ply.walk_speed = PLAYER_WALK_SPEED;
 	else if (keycode == KEY_SPACE)
-		main->mouse.is_enable = !main->mouse.is_enable;// or--> main->mouse.is_enable = main->mouse.is_enable ? false : true;
-	// else if (keycode == KEY_E)
-		// main->key.door_open_command = false;
-	// printf("You removed a key["B_BLUE"%d"END"]\
-	// & key.value["B_YELLOW"%d"END"]\n", keycode, main->key.value);
+		main->mouse.is_enable = !main->mouse.is_enable;
 	return (0);
 }
 
+/**
+ * @brief 
+ * 
+	// mlx_mouse_move(main->mlx.ptr, main->mlx.win,
+main->ply.rotation_angle, main->key.screen_mid);
+	// printf("mouse pos:[%d]\n", mlx_mouse_get_pos(main->mlx.ptr,
+main->mlx.win, mouse_x, mouse_y));
+	// mlx_mouse_hide(main->mlx.ptr, main->mlx.win);
+	// if (x > 360)
+		// mlx_mouse_move(main->mlx.ptr, main->mlx.win, 360, 360);
+
+		// printf("mouse:x[%d] y[%d]\n", x, y);
+ * @param x 
+ * @param y 
+ * @param main 
+ * @return int 
+ */
 int	mouse_move(int x, int y, t_main *main)
 {
-	// int	*mouse_x = 0;
-	// int	*mouse_y = 0;
 	if (main->mouse.is_enable)
 	{
-		// mlx_mouse_move(main->mlx.ptr, main->mlx.win, main->ply.rotation_angle, main->key.screen_mid);
-		// printf("mouse pos:[%d]\n", mlx_mouse_get_pos(main->mlx.ptr, main->mlx.win, mouse_x, mouse_y));
 		main->ply.rotation_angle = -1.0 * (x % 360);
 		main->key.screen_mid = -1.0 * (y % WINDOW_H);
-		// printf("mouse:x[%d] y[%d]\n", x, y);
 	}
 	return (0);
 }

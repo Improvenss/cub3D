@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:27:54 by akaraca           #+#    #+#             */
-/*   Updated: 2023/01/11 21:57:35 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:35:29 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	linux_mlx_free(t_main *main)
 	}
 }
 
-int ft_exit(t_main *main)
+int	ft_exit(t_main *main)
 {
 	free(main->texture.rgb_f);
 	free(main->texture.rgb_c);

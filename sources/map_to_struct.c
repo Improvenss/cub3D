@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 20:37:03 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/18 17:43:40 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:42:39 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@
  *		|<----------v
  * 		  BOTTOM			
  * 
+ * 	int write = 0;
+	printf("//----------MAP----------//\n");
+	while (main->map->map[write])
+		printf("#%s#\n",main->map[write++]);
+	printf("//----------MAP----------//\n");
+ * 
  * @param main 
  * @return int 
  */
 int	map_borders(t_main *main)
 {
-	// int write = 0;
-	// printf("//----------MAP----------//\n");
-	// while (main->map->map[write])
-	// 	printf("#%s#\n",main->map[write++]);
-	// printf("//----------MAP----------//\n");
-
 	main->map.max_x = (ft_strlen(main->map.map[0]) - 1);
 	main->map.max_y = 0;
 	while (main->map.map[main->map.max_y])
@@ -53,18 +53,18 @@ int	map_borders(t_main *main)
 	return (0);
 }
 
-int map_max_lenght(char *line, char c)
+int	map_max_lenght(char *line, char c)
 {
-	int i;
-	int lenght;
-	int max;
-	
+	int	i;
+	int	lenght;
+	int	max;
+
 	i = 0;
 	max = 0;
 	lenght = 0;
 	while (line[i])
 	{
-		if (ft_strchr(MAP_CHARS, line[i]))//if (ft_strchr(" 10NSEW", line[i]))
+		if (ft_strchr(MAP_CHARS, line[i]))
 			lenght++;
 		if (line[i] == c)
 		{
@@ -93,7 +93,7 @@ int	map_find_borders(char *line, int start, int *map_end)
 	{
 		if (line[i] && ft_strchr(MAP_CHARACTER_ANGLE, line[i]))
 			count++;
-		if (ft_strchr(MAP_CHARS, line[i]))// if (ft_strchr("01NSEW", line[i]))
+		if (ft_strchr(MAP_CHARS, line[i]))
 			*map_end = i;
 		i++;
 	}
@@ -113,7 +113,8 @@ int	map_skip_empty_line(char *line, int limit)
 	int		i;
 
 	i = limit;
-	while (ft_strchr(MAP_WHITESPACES, line[i]) && !ft_strchr(MAP_CHARS, line[i]))// while (ft_strchr(" \r\n", line[i]) && !ft_strchr("10NSEW", line[i]))
+	while (ft_strchr(MAP_WHITESPACES, line[i])
+		&& !ft_strchr(MAP_CHARS, line[i]))
 	{
 		if (line[i] == '\r')
 			limit = i;
@@ -138,7 +139,7 @@ int	map_map(char *line, int start, t_main *main)
 		return (ERROR);
 	}
 	main->map.l_free = ft_substr(line, start, (map_end - start + 1));
-	main->map.map = map_split(main->map.l_free, '\n',\
+	main->map.map = map_split(main->map.l_free, '\n', \
 		map_max_lenght(main->map.l_free, '\n'));
 	free(main->map.l_free);
 	return (map_borders(main));

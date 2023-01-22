@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:37:31 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 02:47:21 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/22 17:34:17 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,13 +124,20 @@ Akıllı davranın!
  * 
  * NOTE: Press e and check which box you are.
  * 
+ * 
+ * 	// free(main.texture.rgb_f);
+	// free(main.texture.rgb_c);
+	// free_definitions(&main);
+	// free_pstr(main.map.map);
+ * 
+ * 
  * @param argc 
  * @param argv 
  * @return int 
  */
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_main		main;
+	t_main	main;
 
 	printf(GREEN"Program started:"END YELLOW" Argumans checking...\n"END);
 	if (check_args(argc, argv) == ERROR)
@@ -142,11 +149,6 @@ int main(int argc, char **argv)
 	if (init_all(&main) == ERROR)
 		return (3);
 	printf(GREEN"MLX's window create OK:"END YELLOW" Going draw loop...\n"END);
-	draw_mlx_window(&main);// inside the loop draw to mlx's img to window.
-		return (4);
-	// free(main.texture.rgb_f);
-	// free(main.texture.rgb_c);
-	// free_definitions(&main);
-	// free_pstr(main.map.map);
+	draw_mlx_window(&main);
 	return (0);
 }
