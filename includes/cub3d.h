@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/23 01:41:42 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/23 13:16:07 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,6 +326,7 @@ typedef struct s_main
 	t_sprite	sprite;
 	t_player	ply;
 	t_ray		ray;
+	int			xpm_number;
 }		t_main;
 
 
@@ -338,6 +339,7 @@ int		check_args(int	argc, char	**argv);
 int		check_map(t_main *main, char **argv);
 
 // door.c
+void	check_which_texture_put(t_main *main, double x, double y);
 void	check_door_open_or_close(t_main *main, double x, double y);
 
 //exit.c

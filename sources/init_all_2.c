@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 17:23:45 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 23:19:45 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/23 14:03:09 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_all_xpm_others(t_main *main)
 
 void	init_all_xpm_sprites(t_main *main)
 {
-	main->texture.door = "./textures/spider_door.xpm";
+	main->texture.door = "./textures/fbi_flying_door.xpm";
 	main->xpm[4].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
 			main->texture.door, &main->xpm[4].width, &main->xpm[4].height);
 	main->texture.sprite[0] = "./textures/tonneau.xpm";

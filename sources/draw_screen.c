@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/23 00:51:30 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/23 13:19:36 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	draw_background( t_main *main)
 		x = 0;
 		while (x < WINDOW_W)
 		{
-			main->screen.addr[WINDOW_W * y + x] = ceil;
+			// main->screen.addr[WINDOW_W * y + x] = ceil;
+			my_mlx_pixel_put(&main->screen, x, y, ceil);
 			x++;
 		}
 		y++;
@@ -37,12 +38,15 @@ void	draw_background( t_main *main)
 		x = 0;
 		while (x < WINDOW_W)
 		{
-			main->screen.addr[WINDOW_W * y + x] = floor;
+			// main->screen.addr[WINDOW_W * y + x] = floor;
+			my_mlx_pixel_put(&main->screen, x, y, floor);
 			x++;
 		}
 		y++;
 	}
 }
+
+// void	draw_square_n_s_e_w()
 
 void _3D(t_main *main, int ray_count)
 {
@@ -54,15 +58,31 @@ void _3D(t_main *main, int ray_count)
 	oran = (((double)WINDOW_H / 2.0) / main->ray.distance) * (double)BOX_SIZE;
 	if (oran > 4000)
 		oran = 4000;
-	if (main->ray.hit_h == true && main->ray.dir_y == -1)
-		draw_xpm_to_wall(main, loc, oran, main->xpm[0]);
-	else if (main->ray.hit_h == true && main->ray.dir_y == 1)
-		draw_xpm_to_wall(main, loc, oran, main->xpm[1]);
-	else if (main->ray.hit_v == true && main->ray.dir_x == 1)
-		draw_xpm_to_wall(main, loc, oran, main->xpm[2]);
-	else if (main->ray.hit_v == true && main->ray.dir_x == -1)
-		draw_xpm_to_wall(main, loc, oran, main->xpm[3]);
-	
+	if (main->xpm_number == -1)
+	{
+		if (main->ray.hit_h == true && main->ray.dir_y == -1)
+			draw_xpm_to_wall(main, loc, oran, main->xpm[0]);
+		else if (main->ray.hit_h == true && main->ray.dir_y == 1)
+			draw_xpm_to_wall(main, loc, oran, main->xpm[1]);
+		else if (main->ray.hit_v == true && main->ray.dir_x == 1)
+			draw_xpm_to_wall(main, loc, oran, main->xpm[2]);
+		else if (main->ray.hit_v == true && main->ray.dir_x == -1)
+			draw_xpm_to_wall(main, loc, oran, main->xpm[3]);
+	}
+	else
+	{
+		// printf("main->xpm_number[%d]\n", main->xpm_number);
+		if (main->ray.hit_h == true && main->ray.dir_y == -1)
+			draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
+		else if (main->ray.hit_h == true && main->ray.dir_y == 1)
+			draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
+		else if (main->ray.hit_v == true && main->ray.dir_x == 1)
+			draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
+		else if (main->ray.hit_v == true && main->ray.dir_x == -1)
+			draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
+	}
+	// else if (main->xpm_number == 4)
+
 	// if (main->ray.original_distance > main->sprite.distance)
 	// {
 		if (main->sprite.is_hit == true)
@@ -114,6 +134,7 @@ void draw_ray(t_main *main, double angle, int ray_count)
 				check_door_open_or_close(main, main->ray.pos_x,
 					main->ray.pos_y);
 			}
+			check_which_texture_put(main, main->ray.pos_x, main->ray.pos_y);
 			main->ray.pos_x -= main->ray.hit_x / (WINDOW_H / 2);
 			main->ray.pos_y -= main->ray.hit_y / (WINDOW_H / 2);
 			// printf("pos_x: %f\n", main->ray.pos_x);

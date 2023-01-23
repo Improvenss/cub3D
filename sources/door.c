@@ -6,11 +6,29 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 22:53:41 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 22:12:58 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/23 13:20:53 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	check_which_texture_put(t_main *main, double x, double y)
+{
+	int	x_x;
+	int	y_y;
+
+	x_x = floor(x);
+	y_y = floor(y);
+	if (main->map.map[y_y][x_x] == '1')
+		main->xpm_number = -1;
+	else if (main->map.map[y_y][x_x] == 'C')
+		main->xpm_number = 4;
+	else if (main->map.map[y_y][x_x] == 'M')
+		main->xpm_number = 5;
+	else if (main->map.map[y_y][x_x] == 'Z')
+		main->xpm_number = 6;
+		// printf("main_icindeki->xpm_number[%d]\n", main->xpm_number);
+}
 
 void	check_door_open_or_close(t_main *main, double x, double y)
 {
