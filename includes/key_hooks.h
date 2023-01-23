@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 03:37:47 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 22:49:34 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/23 11:54:26 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,21 @@
 #  define KEY_A				97
 #  define KEY_S				115
 #  define KEY_D				100
+#  define KEY_H				104
 #  define KEY_R				114
+#  define KEY_E				101
+#  define KEY_M				109
+
+#  define KEY_NUM_1			49
+#  define KEY_NUM_2			50
+#  define KEY_NUM_3			51
+#  define KEY_NUM_4			52
+#  define KEY_NUM_5			53
+#  define KEY_NUM_6			54
+#  define KEY_NUM_7			55
+#  define KEY_NUM_8			56
+#  define KEY_NUM_9			57
+#  define KEY_NUM_0			48
 
 #  define KEY_SPACE			32
 
