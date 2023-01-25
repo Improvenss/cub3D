@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/23 13:16:07 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:16:03 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define MAP_ARGUMENTS			" 10NSEW\r\nMZCO"
 # define MAP_CHARS				" 10NSEWMZCO"
 # define MAP_W_OUT_ONE			"0NSEWMZCO"
-# define MAP_PLY_CANT_GO			"1MZC"
-# define MAP_RAY_CAN_GO			"0NSEWMZO"
+# define MAP_PLY_CANT_GO		"1C"//"1MZC"
+# define MAP_RAY_CAN_GO			"0NSEWMZO"//"0NSEWMZO"
 # define HIT					1
 // # define WALL					1
 /*
@@ -154,7 +154,10 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define PLAYER_WALK_SPEED		0.80
 /* -------------------------------------------------- */
 
-
+/* --------------DEFINES_VERTICAL/HORIZONTAL------- */
+# define VERTICAL				0
+# define HORIZONTAL				1
+/* -------------------------------------------------- */
 
 
 
@@ -214,6 +217,12 @@ typedef struct s_ray
 	bool	hit_v;
 	int		dir_x;
 	int		dir_y;
+	double	next_ray_step_x;
+	double	next_ray_step_y;
+	// int		location;
+	// int		oran;
+	// int		find_pixel;
+	// int		img_loc;
 	//*******
 	// double	pos_x;// ray end start_to_end end location
 	// double	pos_y;// ray starting_to_end end location
@@ -228,13 +237,9 @@ typedef struct s_ray
 	// bool	hit_h;
 	// bool	hit_v;
 	// bool	is_wall;
-	// int		dir_x;
-	// int		dir_y;
 	// bool	is_sprite[2];
 	// // double	sprite_distance;
 	bool	is_door;
-	// double	door_open_pos_x;// If ray find opened door ('O') saving location.
-	// double	door_open_pos_y;// If ray find opened door ('O') saving location.
 	// double	minimap_ray_color;
 }		t_ray;
 
@@ -307,9 +312,22 @@ typedef struct	s_texture
 typedef struct s_sprite
 {
 	bool	is_hit;
-	double	s_x;
-	double	s_y;
+	double	pos_x;
+	double	pos_y;
 	double	distance;
+
+	// double	hit_v_x;// vertical x konumu
+	// double	hit_v_y;// vertical y konumu
+	// double	hit_h_x;// horizontal x konumu
+	// double	hit_h_y;// horizontal y konumu
+	double	oran_v;
+	double	oran_h;
+	double	oran;
+	double	dist_v;
+	double	dist_h;
+	bool	is_sprite;
+	bool	is_sprite_ray_vertical;
+	bool	is_sprite_ray_horizontal;
 }		t_sprite;
 
 typedef struct s_main
@@ -320,7 +338,6 @@ typedef struct s_main
 	t_mlximg	screen;
 	t_mlximg	mini_map;
 	t_xpm		xpm[8];// all xpm files data array.
-	// t_xpm		xpm;
 	t_key		key;
 	t_mouse		mouse;
 	t_sprite	sprite;
@@ -369,7 +386,7 @@ void	raycasting(t_main *main, double angle, int ray_count);
 
 // draw_xpm.c
 void	draw_xpm_to_wall(t_main *main, int location, int oran, t_xpm xpm);
-void	draw_xpm_to_sprite(t_main *main, int location, int oran, t_xpm xpm);
+void	draw_xpm_to_sprite(t_main *main, int location, t_xpm xpm);
 void	put_xpm_to_sprite(t_main *main, int location, t_xpm xpm);
 
 // error.c
@@ -459,6 +476,7 @@ char	**map_split(char *line, char c, int max);
 // utils_wall.c
 int		next_step_is_wall(t_main *main, double x, double y);
 int		is_wall(t_main *main, double x, double y, double angle);
-int		is_wall_v2(t_main *main, double x, double y);
+int		is_wall_v2(t_main *main, double x, double y, int status, int dir_x, int dir_y);
+// int		is_wall_v2(t_main *main, double x, double y);
 
 #endif

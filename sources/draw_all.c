@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 23:23:40 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:21:25 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ void	draw_with_ray_casting(t_main *main)
 	draw_background(main);
 	angle = main->ply.rotation_angle - (FOV / 2.0);
 	ray_count = 0;
+	main->sprite.distance = 0;
 	while (ray_count < FOV_THICKNESS)
 	{
+		// if ((int)main->ply.rotation_angle == (int)angle)
 			raycasting(main, angle, ray_count);
 		angle += (double)FOV / (double)FOV_THICKNESS;
 		ray_count++;
@@ -76,6 +78,8 @@ void	draw_with_ray_casting(t_main *main)
  */
 int	ft_loop(t_main *main)
 {
+	// static int	loop_count;
+	// printf("Loop Count:%d\n", loop_count++);
 	if (main->key.help_page == true)
 		open_help_page(main);
 	else

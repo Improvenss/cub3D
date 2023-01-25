@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 22:53:41 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/23 13:20:53 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:02:50 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	check_which_texture_put(t_main *main, double x, double y)
 		main->xpm_number = -1;
 	else if (main->map.map[y_y][x_x] == 'C')
 		main->xpm_number = 4;
-	else if (main->map.map[y_y][x_x] == 'M')
-		main->xpm_number = 5;
 	else if (main->map.map[y_y][x_x] == 'Z')
+		main->xpm_number = 5;
+	else if (main->map.map[y_y][x_x] == 'M')
 		main->xpm_number = 6;
 		// printf("main_icindeki->xpm_number[%d]\n", main->xpm_number);
 }
@@ -45,12 +45,12 @@ void	check_door_open_or_close(t_main *main, double x, double y)
 			{
 				if (main->map.map[y_y][x_x] == 'C')
 					main->map.map[y_y][x_x] = 'O';
-				printf(GREEN"Door Opened: map[%d][%d]=%c\n"END, x_x, y_y,
-					main->map.map[y_y][x_x]);
+				printf(GREEN"Door Opened: map[%d][%d]=%c, ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y,
+					main->map.map[y_y][x_x], x, y);
 			}
 			else if (!ft_strchr("O", main->map.map[y_y][x_x]))
-				printf("Location: map[%d][%d]=%c\n"END, x_x, y_y,
-					main->map.map[y_y][x_x]);
+				printf("Location: map[%d][%d]=%c, ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y,
+					main->map.map[y_y][x_x], x, y);
 		}
 		main->key.door_open_command = false;
 	}
