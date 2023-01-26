@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/25 23:19:58 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/27 00:44:55 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ void _3D(t_main *main, int ray_count)
 			draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
 	}
 
-	if (main->ray.original_distance > main->sprite.distance)
+	if (main->ray.original_distance > main->sprite.distance)// sprite'nin duvarin arkasindayken de gozukmesini engelliyor
 	{
-		if (main->sprite.is_sprite_ray_horizontal == true || main->sprite.is_sprite_ray_vertical == true)
-		{
+		// if (main->sprite.is_sprite_ray_horizontal == true || main->sprite.is_sprite_ray_vertical == true)
+		// {
 			// printf("s_dist:%f\n", main->sprite.distance);
 			// printf("w_dist:%f\n", main->ray.distance);
 			draw_xpm_to_sprite(main, loc, main->xpm[5]);
-		}
+		// }
 	}
 }
 
@@ -142,6 +142,7 @@ void draw_ray(t_main *main, double angle, int ray_count)
 			main->ray.pos_y -= main->ray.next_ray_step_y;
 			// printf("cizdirdikten onceki pos_x: %f\n", main->ray.pos_x);
 			// printf("cizdirdikten onceki pos_y: %f\n", main->ray.pos_y);
+			// printf("cizdirdikten onceki ray.distance[%f]\n", main->ray.distance);
 			_3D(main, ray_count);
 			// printf("cizdirdikten sonraki ray.distance[%f]\n", main->ray.distance);
 			break;
@@ -155,13 +156,13 @@ void	raycasting(t_main *main, double angle, int ray_count)
 {
 	main->ray.dir_x = ((cos(angle * ONE_DEGREE) > 0) * 2) - 1;
 	main->ray.dir_y = ((sin(angle * ONE_DEGREE) > 0) * -2) + 1;
-	main->ray.is_hit_x = false;
-	main->ray.is_hit_y = false;
+	main->ray.is_hit_vertical = false;
+	main->ray.is_hit_horizontal = false;
 	// main->sprite.is_hit = false;
-	main->sprite.is_sprite_ray_vertical = false;
+	// main->sprite.is_sprite_ray_vertical = false;
 	main->ray.distance_v = ray_vertical(main, angle,
 		main->ray.dir_x, main->ray.dir_y); //dikey
-	main->sprite.is_sprite_ray_horizontal = false;
+	// main->sprite.is_sprite_ray_horizontal = false;
 	main->ray.distance_h = ray_horizontal(main, angle,
 		main->ray.dir_x, main->ray.dir_y); //yatay
 	if (main->ray.distance_v < main->ray.distance_h) //son çizim, duvar oluyor.
@@ -178,17 +179,17 @@ void	raycasting(t_main *main, double angle, int ray_count)
 		main->ray.hit_v = false;
 		// main->sprite.oran = main->sprite.oran_h;
 	} 
-	if (main->sprite.dist_v < main->sprite.dist_h)// sprite için distance karşılaştırması.
-	{
-		// printf("vert\n");
-		main->sprite.oran = main->sprite.oran_v;
-	}
-	else
-	{
-		// printf("horiz\n");
-		main->sprite.oran = main->sprite.oran_h;
-		// printf("oran_v:%f\n", main->sprite.oran);
-	}
+	// if (main->sprite.dist_v < main->sprite.dist_h)// sprite için distance karşılaştırması.
+	// {
+	// 	// printf("vert\n");
+	// 	main->sprite.oran = main->sprite.oran_v;
+	// }
+	// else
+	// {
+	// 	// printf("horiz\n");
+	// 	main->sprite.oran = main->sprite.oran_h;
+	// 	// printf("oran_v:%f\n", main->sprite.oran);
+	// }
 	main->ray.original_distance = main->ray.distance;//minimap's kacan isinlari icin
 	main->ray.distance = main->ray.distance * cos((main->ply.rotation_angle - angle) * ONE_DEGREE);// balik gozunu engellemek icin.
 	draw_ray(main, angle, ray_count);

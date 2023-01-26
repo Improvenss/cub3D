@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:53:55 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/25 23:19:11 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/27 01:04:50 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,59 +67,79 @@ ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y,
 	return (1);
 }
 
-int is_wall_v2(t_main *main, double x, double y, int status, int dir_x, int dir_y)
+int is_wall_v2(t_main *main, double x, double y, int status, int dir_x, int dir_y, double angle)
 {
 	int x_x;
 	int y_y;
 
+	(void)status;
+	(void)dir_x;
+	(void)dir_y;
 	x_x = (int)floor(x);
 	y_y = (int)floor(y);
 	if (ft_strchr("Z", main->map.map[y_y][x_x]))
 	{
-		if (status == VERTICAL && main->sprite.is_sprite_ray_vertical == false)
-		{
-			x = x + 0.0001*dir_x;
-			// printf("dir_y:%d\n", dir_y);
-			main->sprite.dist_v =  sqrt(((main->ply.pos_x - x)*(main->ply.pos_x - x)) + ((main->ply.pos_y - y)*(main->ply.pos_y - y)));
-			if (dir_y > 0)// yani + ise.
-			{
-				main->sprite.oran_v = y - floor(y);
-				// printf("vertical\n");
-				// printf("oran_v:%f\n", main->sprite.oran_v);
-			}
-			else if (dir_y < 0)// yani - ise.
-			{
-				main->sprite.oran_v = ceil(y) - y;
-				main->sprite.oran_v = 1 - main->sprite.oran_v;
-				// printf("vertical\n");
-				// printf("oran_v:%f\n", main->sprite.oran_v);
-			}
-			main->sprite.is_sprite_ray_vertical = true;
-		}
-		if (status == HORIZONTAL && main->sprite.is_sprite_ray_horizontal == false)
-		{
-			y = y + 0.0001*dir_y;
-			main->sprite.dist_h =  sqrt(((main->ply.pos_x - x)*(main->ply.pos_x - x)) + ((main->ply.pos_y - y)*(main->ply.pos_y - y)));
-			if (dir_x < 0)// yani + ise.
-			{
-				main->sprite.oran_h = ceil(x) - x;
-				main->sprite.oran_h = 1 - main->sprite.oran_h;
-				// printf("oran_h:%f\n", main->sprite.oran_h);
-				// printf("-x:%f, sprite.oran:%f, oran_h:%f\n", x, main->sprite.oran, main->sprite.oran_h);
-			}
-			else if (dir_x > 0)// yani - ise.
-			{
-				main->sprite.oran_h = x - floor(x);
-				// printf("oran_h:%f\n", main->sprite.oran_h);
-			}
-			main->sprite.is_sprite_ray_horizontal = true;
-		}
-		if (main->sprite.distance == 0)
-		{
+		// if (status == VERTICAL && main->sprite.is_sprite_ray_vertical == false)
+		// {
+		// 	x = x + 0.0001*dir_x;
+		// 	// printf("dir_y:%d\n", dir_y);
+		// 	main->sprite.dist_v =  sqrt(((main->ply.pos_x - x)*(main->ply.pos_x - x)) + ((main->ply.pos_y - y)*(main->ply.pos_y - y)));
+		// 	if (dir_y > 0)// yani + ise.spo
+		// 	{
+		// 		main->sprite.oran_v = y - floor(y);
+		// 		// printf("vertical\n");
+		// 		// printf("oran_v:%f\n", main->sprite.oran_v);
+		// 	}
+		// 	else if (dir_y < 0)// yani - ise.
+		// 	{
+		// 		main->sprite.oran_v = ceil(y) - y;
+		// 		main->sprite.oran_v = 1 - main->sprite.oran_v;
+		// 		// printf("vertical\n");
+		// 		// printf("oran_v:%f\n", main->sprite.oran_v);
+		// 	}
+		// 	main->sprite.is_sprite_ray_vertical = true;
+		// }
+		// if (status == HORIZONTAL && main->sprite.is_sprite_ray_horizontal == false)
+		// {
+		// 	y = y + 0.0001*dir_y;
+		// 	main->sprite.dist_h =  sqrt(((main->ply.pos_x - x)*(main->ply.pos_x - x)) + ((main->ply.pos_y - y)*(main->ply.pos_y - y)));
+		// 	if (dir_x < 0)// yani + ise.
+		// 	{
+		// 		main->sprite.oran_h = ceil(x) - x;
+		// 		main->sprite.oran_h = 1 - main->sprite.oran_h;
+		// 		// printf("oran_h:%f\n", main->sprite.oran_h);
+		// 		// printf("-x:%f, sprite.oran:%f, oran_h:%f\n", x, main->sprite.oran, main->sprite.oran_h);
+		// 	}
+		// 	else if (dir_x > 0)// yani - ise.
+		// 	{
+		// 		main->sprite.oran_h = x - floor(x);
+		// 		// printf("oran_h:%f\n", main->sprite.oran_h);
+		// 	}
+		// 	main->sprite.is_sprite_ray_horizontal = true;
+		// }
+		// if (main->sprite.distance == 0)
+		// {
 			main->sprite.pos_x = x_x + 0.5;
 			main->sprite.pos_y = y_y + 0.5;
 			main->sprite.distance = sqrt(((main->ply.pos_x - main->sprite.pos_x)*(main->ply.pos_x - main->sprite.pos_x)) + ((main->ply.pos_y - main->sprite.pos_y)*(main->ply.pos_y - main->sprite.pos_y)));
-		}
+			if (angle >= 0.0 && angle <= 90.0)
+			{
+				main->sprite.A = angle;// ray's angle.
+				main->sprite.B = atan(fabs(main->sprite.pos_y - main->ply.pos_y) / fabs(main->sprite.pos_x - main->ply.pos_x));// sprite ile player'in arasindaki cizginin acisi.
+				main->sprite.angle = fabs(main->sprite.A - main->sprite.B);
+				// printf("Ray NUM[%d]: angle:%f A:%f, B:%f, sprite_angle:%f\n", main->ray.ray_number, angle, main->sprite.A, main->sprite.B, main->sprite.angle);
+			}
+			// if (angle >= 90.0 && angle <= 180.0)
+			// {
+			// 	double A = angle;
+			// 	double B = 90.0 - (atan2(fabs(main->sprite.pos_y - main->ply.pos_y), fabs(main->sprite.pos_x - main->ply.pos_x)) * ONE_RADIAN);
+			// 	double sprite_angle = A - B;
+			// 	printf("A: %f, B: %f, sprite_angle: %f\n", A, B, sprite_angle);
+			// 	(void)A;
+			// 	(void)B;
+			// 	(void)sprite_angle;
+			// }
+		// }
 	}
 	// return (ft_strchr("0NSEWZ", main->map.map[y_y][x_x]) == NULL);
 	return (ft_strchr(MAP_RAY_CAN_GO, main->map.map[y_y][x_x]) == NULL);// isinimiz bunlarin icinden gecebilir, haricindekilerden gecemez//return (ft_strchr("0NSEWMZ", main->map.map[y_y][x_x]) == NULL);

@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:10:56 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/25 21:48:10 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/26 23:59:35 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,31 @@ double	ray_vertical(t_main *main, double angle, double dir_x, double dir_y)
 		vdx = ceil(main->ply.pos_x) - main->ply.pos_x;
 	vdy = fabs(tan(angle * ONE_DEGREE) * vdx);
 
-	double tmp_x = vdx*dir_x;
-	double tmp_y = vdy*dir_y;
-	// printf("Box:Vx: %f Vy:%f\n", tmp_x, tmp_y);
-	while (main->ply.pos_x + vdx*dir_x - 0.0001 >= 0 && main->ply.pos_x + vdx*dir_x - 0.0001 <= main->map.max_x
-	&& main->ply.pos_y + vdy*dir_y >= 0 && main->ply.pos_y + vdy*dir_y <= main->map.max_y)
+	double loc_x = vdx*dir_x;
+	double loc_y = vdy*dir_y;
+	// printf("Box:Vx: %f Vy:%f\n", loc_x, loc_y);
+	while (main->ply.pos_x + vdx*dir_x - 0.0001 >= 0
+		&& main->ply.pos_x + vdx*dir_x - 0.0001 <= main->map.max_x
+		&& main->ply.pos_y + vdy*dir_y >= 0
+		&& main->ply.pos_y + vdy*dir_y <= main->map.max_y)
 	{
-		vdx = vdx + 0.0001;
-		if (is_wall_v2(main, main->ply.pos_x + vdx*dir_x, main->ply.pos_y + vdy*dir_y, VERTICAL, dir_x, dir_y))
+		vdx += 0.0001;
+		if (is_wall_v2(main, main->ply.pos_x + vdx*dir_x, main->ply.pos_y + vdy*dir_y, VERTICAL, dir_x, dir_y, angle))
 		{
-			main->ray.is_hit_y = true;
+			main->ray.is_hit_vertical = true;
 			// printf("V:ture\n");
-			tmp_x = vdx*dir_x;
-			tmp_y = vdy*dir_y;
-			// printf("Vx: %f Vy:%f\n", tmp_x, tmp_y);
+			loc_x = vdx*dir_x;
+			loc_y = vdy*dir_y;
+			// printf("Vx: %f Vy:%f\n", loc_x, loc_y);
 			// printf("Px: %f Py:%f\n", main->ply.pos_x, main->ply.pos_y);
 			break;
 		}
-		vdx = vdx + 1 - 0.0001;
+		vdx += 1 - 0.0001;
 		vdy = fabs(tan(angle * ONE_DEGREE) * vdx);
 	}
 	double distance;
-	if (main->ray.is_hit_y == true)
-		distance = sqrt((tmp_x*tmp_x) + (tmp_y*tmp_y));
+	if (main->ray.is_hit_vertical == true)
+		distance = sqrt((loc_x*loc_x) + (loc_y*loc_y));
 	else
 		distance = 10000;
 	return (distance);
@@ -62,31 +64,36 @@ double	ray_horizontal(t_main *main, double angle, double dir_x, double dir_y)
 		hdy = ceil(main->ply.pos_y) - main->ply.pos_y;
 	hdx = fabs(hdy / tan(angle * ONE_DEGREE));
 
-	double tmp_y = hdy*dir_y;
-	double tmp_x = hdx*dir_x;
-// printf("Box:Hx: %f Hy:%f\n", tmp_x, tmp_y);
-	while (main->ply.pos_x + hdx*dir_x >= 0 && main->ply.pos_x + hdx*dir_x <= main->map.max_x
-	&& main->ply.pos_y + hdy*dir_y - 0.0001 >= 0 && main->ply.pos_y + hdy*dir_y - 0.0001 <= main->map.max_y)
+	double loc_y = hdy*dir_y;
+	double loc_x = hdx*dir_x;
+	// printf("loc_x:%f, hdx:%f, dir_x:%f\n", loc_x, hdx, dir_x);
+// printf("Box:Hx: %f Hy:%f\n", loc_x, loc_y);
+	while (main->ply.pos_x + hdx*dir_x >= 0
+		&& main->ply.pos_x + hdx*dir_x <= main->map.max_x
+		&& main->ply.pos_y + hdy*dir_y - 0.0001 >= 0
+		&& main->ply.pos_y + hdy*dir_y - 0.0001 <= main->map.max_y)
 	{
-		hdy = hdy + 0.001;
-		if (is_wall_v2(main, main->ply.pos_x + hdx*dir_x, main->ply.pos_y + hdy*dir_y, HORIZONTAL, dir_x, dir_y))
+		hdy += 0.001;
+		if (is_wall_v2(main, main->ply.pos_x + hdx*dir_x, main->ply.pos_y + hdy*dir_y, HORIZONTAL, dir_x, dir_y, angle))
 		{
-			main->ray.is_hit_x = true;
+			main->ray.is_hit_horizontal = true;
 		// printf("H:ture\n");
-			tmp_x = hdx*dir_x;
-			tmp_y = hdy*dir_y;
-		// printf("Hx: %f Hy:%f\n", tmp_x, tmp_y);
+			loc_x = hdx*dir_x;
+			loc_y = hdy*dir_y;
+		// printf("Hx: %f Hy:%f\n", loc_x, loc_y);
 		// printf("Px: %f Py:%f\n", main->ply.pos_x, main->ply.pos_y);
 			break;
 		}
-		hdy = hdy + 1 - 0.001;
+		hdy += 1 - 0.001;
 		hdx = fabs(hdy / tan(angle * ONE_DEGREE));
 	}
+	// printf("loc_x:%f, loc_y:%f\n", loc_x, loc_y);
 	double distance;
-	if (main->ray.is_hit_x == true)
-		distance = sqrt((tmp_x*tmp_x) + (tmp_y*tmp_y));
+	if (main->ray.is_hit_horizontal == true)
+		distance = sqrt((loc_x*loc_x) + (loc_y*loc_y));
 	else
 		distance = 10000;
+	// printf("ray_horizontal -> distance: %f\n", distance);
 	return (distance);
 }
 

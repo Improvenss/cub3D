@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/25 23:16:03 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/26 21:57:01by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,8 +205,8 @@ typedef struct s_ray
 {
 	double	pos_x;// ray end start_to_end end location
 	double	pos_y;// ray starting_to_end end location
-	bool	is_hit_x;
-	bool	is_hit_y;
+	bool	is_hit_vertical;
+	bool	is_hit_horizontal;
 	double	hit_x;// ray hit_the_wall location -> dx
 	double	hit_y;// ray hit_the_wall location -> dy
 	double	distance;// clear ray distance.
@@ -219,6 +219,7 @@ typedef struct s_ray
 	int		dir_y;
 	double	next_ray_step_x;
 	double	next_ray_step_y;
+	int		ray_number;// sagdan baslayarak sirasiyla atilan raylerin numarasi.
 	// int		location;
 	// int		oran;
 	// int		find_pixel;
@@ -314,6 +315,8 @@ typedef struct s_sprite
 	bool	is_hit;
 	double	pos_x;
 	double	pos_y;
+	double	distance_v;// raycasting().ray_vertical().is_wall_v2()'nin icinde ray'ler duvara uzaklik hesaplanmak icin giderken sprite'ye denk gelirse sprite'nin vertical(dikey)'deki distance(uzaklik)'sini alacak.
+	double	distance_h;// raycasting().ray_horizontal().is_wall_v2()'nin icinde ray'ler duvara uzaklik hesaplanmak icin giderken sprite'ye denk gelirse sprite'nin horizontal(yatay)'deki distance(uzaklik)'sini alacak.
 	double	distance;
 
 	// double	hit_v_x;// vertical x konumu
@@ -328,6 +331,10 @@ typedef struct s_sprite
 	bool	is_sprite;
 	bool	is_sprite_ray_vertical;
 	bool	is_sprite_ray_horizontal;
+
+	double	A;
+	double	B;
+	double	angle;// player'le sprite arasindaki cizginin aci degeri.
 }		t_sprite;
 
 typedef struct s_main
@@ -476,7 +483,7 @@ char	**map_split(char *line, char c, int max);
 // utils_wall.c
 int		next_step_is_wall(t_main *main, double x, double y);
 int		is_wall(t_main *main, double x, double y, double angle);
-int		is_wall_v2(t_main *main, double x, double y, int status, int dir_x, int dir_y);
+int		is_wall_v2(t_main *main, double x, double y, int status, int dir_x, int dir_y, double angle);
 // int		is_wall_v2(t_main *main, double x, double y);
 
 #endif
