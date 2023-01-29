@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 00:07:38 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 00:41:19 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,9 +151,11 @@ void	raycasting(t_main *main, double angle, int ray_count)
 		// printf("py:%f sy:%f\n", main->ply.pos_y, main->sprite.s_y);
 		// printf("angle:%f sprit_angle:%f\n", angle, main->sprite.angle);
 		main->sprite.value = 0;
-		printf("sprite.angle before[%f]\n", main->sprite.angle);
+		// printf("sprite.angle before[%f]\n", main->sprite.angle);
+		// printf("ply.pos_x[%f], ply.pos_y[%f]\n", main->ply.pos_x, main->ply.pos_y);
 		main->sprite.angle = atan2(fabs(main->ply.pos_y - main->sprite.pos_y), fabs(main->ply.pos_x - main->sprite.pos_x)) * ONE_RADIAN; // doğru değere sahip
-		printf("sprite.angle after[%f]\n", main->sprite.angle);
+		// printf("sprite.pos_x[%f], sprite.pos_y[%f]\n", main->sprite.pos_x, main->sprite.pos_y);
+		// printf("sprite.angle after[%f]\n", main->sprite.angle);
 
 		if ((main->ray.dir_x > 0 && main->ray.dir_y > 0) || (main->ray.dir_x < 0 && main->ray.dir_y < 0))
 			main->sprite.angle = (180.0 - main->sprite.angle);

@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:53:55 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/29 22:27:50 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 00:49:33 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int is_wall_v2(t_main *main, double x, double y, double angle)
 ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y, main->map.map[y_y][x_x], x, y);
 		main->sprite.pos_x = x_x + 0.5;
 		main->sprite.pos_y = y_y + 0.5;
+		// printf("sprite.distance before[%f]\n", main->sprite.distance);
 		main->sprite.distance = sqrt(powf(main->ply.pos_x - main->sprite.pos_x, 2) + powf(main->ply.pos_y - main->sprite.pos_y, 2));
+		// printf("sprite.distance after[%f]\n", main->sprite.distance);
 		main->sprite.is_hit = true;
 		// static int	times_entered;
 		// printf("x: %f, y: %f, floor_x: %d, floor_y: %d\n", x, y, x_x, y_y);
