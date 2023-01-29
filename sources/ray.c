@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:10:56 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/26 23:59:35 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/29 22:12:22 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ double	ray_vertical(t_main *main, double angle, double dir_x, double dir_y)
 		&& main->ply.pos_y + vdy*dir_y <= main->map.max_y)
 	{
 		vdx += 0.0001;
-		if (is_wall_v2(main, main->ply.pos_x + vdx*dir_x, main->ply.pos_y + vdy*dir_y, VERTICAL, dir_x, dir_y, angle))
+		if (is_wall_v2(main, main->ply.pos_x + vdx*dir_x, main->ply.pos_y + vdy*dir_y, angle))
 		{
 			main->ray.is_hit_vertical = true;
 			// printf("V:ture\n");
@@ -74,7 +74,7 @@ double	ray_horizontal(t_main *main, double angle, double dir_x, double dir_y)
 		&& main->ply.pos_y + hdy*dir_y - 0.0001 <= main->map.max_y)
 	{
 		hdy += 0.001;
-		if (is_wall_v2(main, main->ply.pos_x + hdx*dir_x, main->ply.pos_y + hdy*dir_y, HORIZONTAL, dir_x, dir_y, angle))
+		if (is_wall_v2(main, main->ply.pos_x + hdx*dir_x, main->ply.pos_y + hdy*dir_y, angle))
 		{
 			main->ray.is_hit_horizontal = true;
 		// printf("H:ture\n");

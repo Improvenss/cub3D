@@ -332,8 +332,8 @@ typedef struct s_sprite
 	bool	is_sprite_ray_vertical;
 	bool	is_sprite_ray_horizontal;
 
-	double	A;
-	double	B;
+	double	value;
+	double	length;
 	double	angle;// player'le sprite arasindaki cizginin aci degeri.
 }		t_sprite;
 
@@ -351,6 +351,7 @@ typedef struct s_main
 	t_player	ply;
 	t_ray		ray;
 	int			xpm_number;
+	int			xpm_number_sprite;
 }		t_main;
 
 
@@ -483,7 +484,6 @@ char	**map_split(char *line, char c, int max);
 // utils_wall.c
 int		next_step_is_wall(t_main *main, double x, double y);
 int		is_wall(t_main *main, double x, double y, double angle);
-int		is_wall_v2(t_main *main, double x, double y, int status, int dir_x, int dir_y, double angle);
-// int		is_wall_v2(t_main *main, double x, double y);
+int		is_wall_v2(t_main *main, double x, double y, double angle);
 
 #endif

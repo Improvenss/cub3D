@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/27 01:06:21 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/29 22:18:54 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ void	draw_with_ray_casting(t_main *main)
  */
 int	ft_loop(t_main *main)
 {
-	// static int	loop_count;
-	// printf(GREEN"Loop Count:%d\n"END, loop_count++);
+	static int	loop_count;
+	printf(GREEN"Loop Count:%d\n"END, loop_count++);
 	if (main->key.help_page == true)
 		open_help_page(main);
 	else

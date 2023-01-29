@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/27 00:44:55 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/29 22:42:05 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,10 @@ void _3D(t_main *main, int ray_count)
 			draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
 	}
 
-	if (main->ray.original_distance > main->sprite.distance)// sprite'nin duvarin arkasindayken de gozukmesini engelliyor
-	{
-		// if (main->sprite.is_sprite_ray_horizontal == true || main->sprite.is_sprite_ray_vertical == true)
-		// {
-			// printf("s_dist:%f\n", main->sprite.distance);
-			// printf("w_dist:%f\n", main->ray.distance);
+	if ((main->ray.original_distance > main->sprite.distance)
+		&& main->sprite.is_hit == true
+		&& main->xpm_number == -1)// sprite'nin duvarin arkasindayken de gozukmesini engelliyor
 			draw_xpm_to_sprite(main, loc, main->xpm[5]);
-		// }
-	}
 }
 
 /**
@@ -108,7 +103,7 @@ void draw_ray(t_main *main, double angle, int ray_count)
 		* fabs(cos(angle * ONE_DEGREE)) * main->ray.dir_x;
 	main->ray.hit_y = main->ray.distance
 		* fabs(sin(angle * ONE_DEGREE)) * main->ray.dir_y;
-	main->sprite.is_hit = false;// Isinimiz daha herhangi bir sprite'ye carpmadi.
+	// main->sprite.is_hit = false;// Isinimiz daha herhangi bir sprite'ye carpmadi.
 	main->ray.next_ray_step_x = main->ray.hit_x / (WINDOW_H / 2);
 	main->ray.next_ray_step_y = main->ray.hit_y / (WINDOW_H / 2);
 	while (1)
@@ -158,38 +153,50 @@ void	raycasting(t_main *main, double angle, int ray_count)
 	main->ray.dir_y = ((sin(angle * ONE_DEGREE) > 0) * -2) + 1;
 	main->ray.is_hit_vertical = false;
 	main->ray.is_hit_horizontal = false;
-	// main->sprite.is_hit = false;
-	// main->sprite.is_sprite_ray_vertical = false;
+	main->sprite.is_hit = false;
 	main->ray.distance_v = ray_vertical(main, angle,
 		main->ray.dir_x, main->ray.dir_y); //dikey
-	// main->sprite.is_sprite_ray_horizontal = false;
 	main->ray.distance_h = ray_horizontal(main, angle,
 		main->ray.dir_x, main->ray.dir_y); //yatay
-	if (main->ray.distance_v < main->ray.distance_h) //son çizim, duvar oluyor.
+	if (main->ray.distance_v < main->ray.distance_h)
 	{
 		main->ray.distance = main->ray.distance_v;
 		main->ray.hit_h = false;
 		main->ray.hit_v = true;
-		// main->sprite.oran = main->sprite.oran_v;
 	}
 	else
 	{
 		main->ray.distance = main->ray.distance_h;
 		main->ray.hit_h = true;
 		main->ray.hit_v = false;
-		// main->sprite.oran = main->sprite.oran_h;
-	} 
-	// if (main->sprite.dist_v < main->sprite.dist_h)// sprite için distance karşılaştırması.
-	// {
-	// 	// printf("vert\n");
-	// 	main->sprite.oran = main->sprite.oran_v;
-	// }
-	// else
-	// {
-	// 	// printf("horiz\n");
-	// 	main->sprite.oran = main->sprite.oran_h;
-	// 	// printf("oran_v:%f\n", main->sprite.oran);
-	// }
+	}
+	if (main->sprite.is_hit == true)
+	{
+		// printf("px:%f sx:%f\n", main->ply.pos_x, main->sprite.s_x);
+		// printf("py:%f sy:%f\n", main->ply.pos_y, main->sprite.s_y);
+		// printf("angle:%f sprit_angle:%f\n", angle, main->sprite.angle);
+		main->sprite.value = 0;
+
+		main->sprite.angle = atan2(fabs(main->ply.pos_y - main->sprite.pos_y), fabs(main->ply.pos_x - main->sprite.pos_x)) * ONE_RADIAN; // doğru değere sahip
+
+		if ((main->ray.dir_x > 0 && main->ray.dir_y > 0) || (main->ray.dir_x < 0 && main->ray.dir_y < 0))
+			main->sprite.angle = (180.0 - main->sprite.angle);
+
+		if (angle > main->sprite.angle)
+		{
+			main->sprite.angle = angle - main->sprite.angle;
+			main->sprite.length = tan(main->sprite.angle * ONE_DEGREE) * main->sprite.distance;
+			if (main->sprite.length <= 0.5 && main->sprite.length >= -0.5)
+				main->sprite.value = 0.5 - main->sprite.length;
+		}
+		else if (angle < main->sprite.angle)
+		{
+			main->sprite.angle = main->sprite.angle - angle;
+			main->sprite.length = tan(main->sprite.angle * ONE_DEGREE) * main->sprite.distance;
+			if (main->sprite.length <= 0.5 && main->sprite.length >= -0.5)
+				main->sprite.value = main->sprite.length + 0.5;
+		}
+	}
 	main->ray.original_distance = main->ray.distance;//minimap's kacan isinlari icin
 	main->ray.distance = main->ray.distance * cos((main->ply.rotation_angle - angle) * ONE_DEGREE);// balik gozunu engellemek icin.
 	draw_ray(main, angle, ray_count);
