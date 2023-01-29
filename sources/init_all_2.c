@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 17:23:45 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/25 23:19:24 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/29 23:06:55 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	init_all_xpm_files(t_main *main)
 	init_all_xpm_sprites(main);
 	init_all_xpm_others(main);
 	i = -1;
-	while (++i < 7)
+	while (++i < TEXTURE_NUMBER)
 		main->xpm[i].img.addr = (int *)mlx_get_data_addr(main->xpm[i].img.ptr,
 				&main->xpm[i].img.bpp, &main->xpm[i].img.line_size,
 				&main->xpm[i].img.endian);

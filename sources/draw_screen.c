@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/29 22:42:05 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 00:07:38 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,76 +15,51 @@
 void	draw_background( t_main *main)
 {
 //White RGB code = 255*65536+255*256+255 = #FFFFFF        başına bitanadaha koy şaffaflığ ıçın
-	int	y = 0;
-	int	x = 0;
+	int	y;
+	int	x;
 	int ceil = (main->texture.rgb_c[0] * 65536) + (main->texture.rgb_c[1] * 256) + main->texture.rgb_c[2];
 	int floor = (main->texture.rgb_f[0] * 65536) + (main->texture.rgb_f[1] * 256) + main->texture.rgb_f[2];
-//	printf("ceil: %d floor: %d\n", ceil, floor);
-	// while (y < WINDOW_H / 2)
-	// printf("main->key.screen_mid: %d\n", main->key.screen_mid);
-	while (y < main->key.screen_mid)// int ve double !!!!!!!!!!!!!!!
+	y = -1;
+	while (++y < main->key.screen_mid)
 	{
-		x = 0;
-		while (x < WINDOW_W)
+		x = -1;
+		while (++x < WINDOW_W)
 		{
 			// main->screen.addr[WINDOW_W * y + x] = ceil;
 			my_mlx_pixel_put(&main->screen, x, y, ceil);
-			x++;
 		}
-		y++;
 	}
-	while (y < WINDOW_H)
+	while (y++ < WINDOW_H)
 	{
-		x = 0;
-		while (x < WINDOW_W)
+		x = -1;
+		while (++x < WINDOW_W)
 		{
 			// main->screen.addr[WINDOW_W * y + x] = floor;
 			my_mlx_pixel_put(&main->screen, x, y, floor);
-			x++;
 		}
-		y++;
 	}
 }
 
-// void	draw_square_n_s_e_w()
-
+/**
+ * @brief Drawing(rendering) like 3D to the screen.
+ * 
+ * @param main 
+ * @param ray_count main->screen img's ray number.
+ */
 void _3D(t_main *main, int ray_count)
 {
-	int loc;
-	int oran;
+	int	loc;
+	int	oran;
+
 	main->ray.distance = main->ray.distance * (double)BOX_SIZE
 		* ((double)WINDOW_H / (double)WINDOW_W);
 	loc = (WINDOW_W * main->key.screen_mid) - ray_count;
 	oran = (((double)WINDOW_H / 2.0) / main->ray.distance) * (double)BOX_SIZE;
 	if (oran > 4000)
 		oran = 4000;
-	if (main->xpm_number == -1)
-	{
-		if (main->ray.hit_h == true && main->ray.dir_y == -1)
-			draw_xpm_to_wall(main, loc, oran, main->xpm[0]);
-		else if (main->ray.hit_h == true && main->ray.dir_y == 1)
-			draw_xpm_to_wall(main, loc, oran, main->xpm[1]);
-		else if (main->ray.hit_v == true && main->ray.dir_x == 1)
-			draw_xpm_to_wall(main, loc, oran, main->xpm[2]);
-		else if (main->ray.hit_v == true && main->ray.dir_x == -1)
-			draw_xpm_to_wall(main, loc, oran, main->xpm[3]);
-	}
-	else
-	{
-		// printf("main->xpm_number[%d]\n", main->xpm_number);
-		if (main->ray.hit_h == true && main->ray.dir_y == -1)
-			draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
-		else if (main->ray.hit_h == true && main->ray.dir_y == 1)
-			draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
-		else if (main->ray.hit_v == true && main->ray.dir_x == 1)
-			draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
-		else if (main->ray.hit_v == true && main->ray.dir_x == -1)
-			draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
-	}
-
+	draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
 	if ((main->ray.original_distance > main->sprite.distance)
-		&& main->sprite.is_hit == true
-		&& main->xpm_number == -1)// sprite'nin duvarin arkasindayken de gozukmesini engelliyor
+		&& main->sprite.is_hit == true)// sprite'nin duvarin arkasindayken de gozukmesini engelliyor
 			draw_xpm_to_sprite(main, loc, main->xpm[5]);
 }
 
@@ -176,26 +151,29 @@ void	raycasting(t_main *main, double angle, int ray_count)
 		// printf("py:%f sy:%f\n", main->ply.pos_y, main->sprite.s_y);
 		// printf("angle:%f sprit_angle:%f\n", angle, main->sprite.angle);
 		main->sprite.value = 0;
-
+		printf("sprite.angle before[%f]\n", main->sprite.angle);
 		main->sprite.angle = atan2(fabs(main->ply.pos_y - main->sprite.pos_y), fabs(main->ply.pos_x - main->sprite.pos_x)) * ONE_RADIAN; // doğru değere sahip
+		printf("sprite.angle after[%f]\n", main->sprite.angle);
 
 		if ((main->ray.dir_x > 0 && main->ray.dir_y > 0) || (main->ray.dir_x < 0 && main->ray.dir_y < 0))
 			main->sprite.angle = (180.0 - main->sprite.angle);
-
-		if (angle > main->sprite.angle)
-		{
-			main->sprite.angle = angle - main->sprite.angle;
-			main->sprite.length = tan(main->sprite.angle * ONE_DEGREE) * main->sprite.distance;
-			if (main->sprite.length <= 0.5 && main->sprite.length >= -0.5)
-				main->sprite.value = 0.5 - main->sprite.length;
-		}
-		else if (angle < main->sprite.angle)
-		{
-			main->sprite.angle = main->sprite.angle - angle;
-			main->sprite.length = tan(main->sprite.angle * ONE_DEGREE) * main->sprite.distance;
-			if (main->sprite.length <= 0.5 && main->sprite.length >= -0.5)
-				main->sprite.value = main->sprite.length + 0.5;
-		}
+		// if (main->ply.pos_y >= main->sprite.pos_y + 0.5)
+		// {
+			if (angle > main->sprite.angle)
+			{
+				main->sprite.angle = angle - main->sprite.angle;
+				main->sprite.length = tan(main->sprite.angle * ONE_DEGREE) * main->sprite.distance;
+				if (main->sprite.length <= 0.5 && main->sprite.length >= -0.5)
+					main->sprite.value = 0.5 - main->sprite.length;
+			}
+			else if (angle < main->sprite.angle)
+			{
+				main->sprite.angle = main->sprite.angle - angle;
+				main->sprite.length = tan(main->sprite.angle * ONE_DEGREE) * main->sprite.distance;
+				if (main->sprite.length <= 0.5 && main->sprite.length >= -0.5)
+					main->sprite.value = main->sprite.length + 0.5;
+			}
+		// }
 	}
 	main->ray.original_distance = main->ray.distance;//minimap's kacan isinlari icin
 	main->ray.distance = main->ray.distance * cos((main->ply.rotation_angle - angle) * ONE_DEGREE);// balik gozunu engellemek icin.

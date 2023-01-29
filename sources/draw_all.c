@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/29 22:18:54 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/29 23:43:02 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,16 @@ void	draw_text_on_window(t_main *main)
 }
 
 /**
- * @brief 
+ * @brief We send as many ray as the width value of our window.
  * 
 	// draw_player_directory(main);// player's rotation_angle (one line).
 
 		// if ((int)main->ply.rotation_angle == (int)angle)
+					or
+		// if (angle > main->ply.rotation_angle - 10
+			&& angle < main->ply.rotation_angle)
+					or
+		// raycasting(main, main->ply.rotation_angle, (FOV_THICKNESS - 1)/2);
  * 
  * @param main 
  */
@@ -55,12 +60,14 @@ void	draw_with_ray_casting(t_main *main)
 	draw_background(main);
 	angle = main->ply.rotation_angle - (FOV / 2.0);
 	ray_count = 0;
-	// main->sprite.distance = 0;
 	while (ray_count < FOV_THICKNESS)
 	{
-		main->ray.ray_number = ray_count;
-		// if ((int)main->ply.rotation_angle == (int)angle)
-			raycasting(main, angle, ray_count);
+		main->sprite.distance = 0;
+		if (angle <= 0.0)
+			angle += 360.0;
+		else if (angle >= 360.0)
+			angle -= 360.0;
+		raycasting(main, angle, ray_count);
 		angle += (double)FOV / (double)FOV_THICKNESS;
 		ray_count++;
 	}
@@ -71,6 +78,9 @@ void	draw_with_ray_casting(t_main *main)
 /**
  * @brief 
  * 
+	// static int	loop_count;
+	// printf(GREEN"Loop Count:%d\n"END, loop_count++);
+ * 
  * 	// printf("player x[%f] y[%f]", main->ply.pos_x, main->ply.pos_y);
 	// printf("ply.rotation_angle[%f]\n", main->ply.rotation_angle);
  * 
@@ -79,8 +89,6 @@ void	draw_with_ray_casting(t_main *main)
  */
 int	ft_loop(t_main *main)
 {
-	static int	loop_count;
-	printf(GREEN"Loop Count:%d\n"END, loop_count++);
 	if (main->key.help_page == true)
 		open_help_page(main);
 	else

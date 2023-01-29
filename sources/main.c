@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:37:31 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 22:41:50 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/29 23:45:20 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ Bonus listesi:
 	[OK]• Duvar çarpmaları.
 	[OK]• Mini harita sistemi.
 	[OK]• Açılıp kapanabilen kapılar.
-	• Animasyonlu spritelar.
+	[OK/2]• Animasyonlu spritelar.
 	[OK]• Mouse yardımıyla bakış açısını değiştirme.
 
 INFO: Değerlendirmeniz sırasında kullanımları serbest olduğu sürece,
@@ -115,12 +115,7 @@ Akıllı davranın!
 
 * ************************************************************************** *
  * 
- * TODO: OK:
- * TODO: norminette, minimap on/off,
- * 	hareketli spriteler, hareketli kapilar,karanlik ekleme.
- * 
- * NOTE: M-Z sprites, O open door, C close door.
- * 
+ * TODO: norminette, hareketli spriteler,
  * 
  * 	// free(main.texture.rgb_f);
 	// free(main.texture.rgb_c);

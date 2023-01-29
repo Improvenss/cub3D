@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 00:45:58 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 17:27:46 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/29 23:47:23 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ static int	init_minimap(t_main *main)
 	return (0);
 }
 
+/**
+ * @brief Initializing headers in here.
+ * 
+ * @param main 
+ * @return int 
+ */
 int	init_all(t_main *main)
 {
 	if (init_cub3d(main) == ERROR)

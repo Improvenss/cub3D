@@ -134,9 +134,9 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 
 /* ------------------PLAYER DEFINES------------------ */
 // 1º = 0.0174532925 radian
-# define ONE_DEGREE					(M_PI / 180.0)// FOV
+# define ONE_DEGREE				(M_PI / 180.0)
 // 1 rad = 57.2957795131 degree
-# define ONE_RADIAN					(180.0 / M_PI)
+# define ONE_RADIAN				(180.0 / M_PI)
 /*
 		π = 180º	</>	1 rad = 180 / π
 
@@ -154,9 +154,9 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define PLAYER_WALK_SPEED		0.80
 /* -------------------------------------------------- */
 
-/* --------------DEFINES_VERTICAL/HORIZONTAL------- */
-# define VERTICAL				0
-# define HORIZONTAL				1
+/* ------------------TEXTURE AREA-------------------- */
+// Starting 0 to num. etc; 0-7
+# define TEXTURE_NUMBER			7
 /* -------------------------------------------------- */
 
 
@@ -219,7 +219,7 @@ typedef struct s_ray
 	int		dir_y;
 	double	next_ray_step_x;
 	double	next_ray_step_y;
-	int		ray_number;// sagdan baslayarak sirasiyla atilan raylerin numarasi.
+	// int		ray_number;// sagdan baslayarak sirasiyla atilan raylerin numarasi.
 	// int		location;
 	// int		oran;
 	// int		find_pixel;

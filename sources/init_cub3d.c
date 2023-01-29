@@ -6,12 +6,18 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 17:26:43 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 17:27:22 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/29 23:57:17 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief Creating new screen image for rendered game (3D).
+ * 
+ * @param main 
+ * @return int 
+ */
 int	init_cub3d_image(t_main *main)
 {
 	main->screen.ptr = mlx_new_image(main->mlx.ptr,
@@ -30,6 +36,12 @@ int	init_cub3d_image(t_main *main)
 	return (0);
 }
 
+/**
+ * @brief Creating new window for cub3D :).
+ * 
+ * @param main 
+ * @return int 
+ */
 int	init_cub3d_window(t_main *main)
 {
 	main->mlx.win = mlx_new_window(main->mlx.ptr, WINDOW_W, WINDOW_H, PROMPT);
@@ -41,6 +53,12 @@ int	init_cub3d_window(t_main *main)
 	return (0);
 }
 
+/**
+ * @brief Initializing MLX, window ang screen img.
+ * 
+ * @param main 
+ * @return int 
+ */
 int	init_cub3d(t_main *main)
 {
 	main->mlx.ptr = mlx_init();
