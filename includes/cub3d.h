@@ -163,7 +163,7 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 
 /* ------------------TEXTURE AREA-------------------- */
 // Starting 0 to num. etc; 0-7
-# define TEXTURE_NUMBER			7
+# define TEXTURE_N				7
 /* -------------------------------------------------- */
 
 
@@ -297,6 +297,7 @@ typedef struct	s_texture
 	int		*rgb_c;
 	char	*c;
 	char	*sprite[2];
+	char	*sprite_hitler[14];
 	char	*door;
 	char	*crosshair;
 }		t_texture;
@@ -318,6 +319,7 @@ typedef struct s_sprite
 	bool	is_sprite;
 	bool	is_sprite_ray_vertical;
 	bool	is_sprite_ray_horizontal;
+
 
 	double	value;
 	double	length;
@@ -341,7 +343,7 @@ typedef struct s_main
 	t_mlx		mlx;//OK
 	t_mlximg	screen;
 	t_mlximg	mini_map;
-	t_xpm		xpm[8];// all xpm files data array.
+	t_xpm		xpm[21];// all xpm files data array.
 	t_key		key;
 	t_mouse		mouse;
 	t_sprite	sprite;
@@ -350,6 +352,9 @@ typedef struct s_main
 	t_time		time;
 	int			xpm_number;
 	int			xpm_number_sprite;
+	char		is_hit_val;
+	int			xpm_number_sprite_m;
+	int			loop_count;
 
 }		t_main;
 
@@ -417,6 +422,10 @@ int		init_all(t_main *main);
 int		init_cub3d_image(t_main *main);
 int		init_cub3d_window(t_main *main);
 int		init_cub3d(t_main *main);
+
+// init_sprite.c
+void	init_hitler_img(t_main *main);
+void	init_hitler_xpm(t_main *main);
 
 // key_button.c
 int		key_press(int keycode, t_main *main);

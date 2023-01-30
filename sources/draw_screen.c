@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 11:32:49 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 17:36:17 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,13 @@ void _3D(t_main *main, int ray_count)
 	draw_xpm_to_wall(main, loc, oran, main->xpm[main->xpm_number]);
 	if ((main->ray.original_distance > main->sprite.distance)
 		&& main->sprite.is_hit == true)// sprite'nin duvarin arkasindayken de gozukmesini engelliyor
-			draw_xpm_to_sprite(main, loc, main->xpm[5]);
+	{
+		// printf("sprite[%d] and m[%d]\n", main->xpm_number_sprite, main->xpm_number_sprite_m);
+		if (main->is_hit_val == 'Z')
+			draw_xpm_to_sprite(main, loc, main->xpm[main->xpm_number_sprite]);
+		else if (main->is_hit_val == 'M')
+			draw_xpm_to_sprite(main, loc, main->xpm[main->xpm_number_sprite_m]);
+	}
 }
 
 /**

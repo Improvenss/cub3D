@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 02:10:44 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 13:59:15 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 17:55:57 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,22 @@ int	mouse_move(int x, int y, t_main *main)
 	(void)y;
 	if (main->mouse.is_enable)
 	{
-		main->ply.rotation_angle = -1.0 * (x % 360);
-		if (main->ply.rotation_angle < 0.0)
-			main->ply.rotation_angle += 360.0;
-		else if (main->ply.rotation_angle >= 360.0)
-			main->ply.rotation_angle -= 360.0;
+		mlx_mouse_hide();
+		mlx_mouse_get_pos(main->mlx.win, &x, &y);
+		main->ply.rotation_angle -= (x - WINDOW_W / 2) / M_PI;
+		if (main->key.screen_mid - (y - WINDOW_H / 2) > 0 && main->key.screen_mid - (y - WINDOW_H / 2) < WINDOW_H)
+			main->key.screen_mid -= (y - WINDOW_H / 2);
+		mlx_mouse_move(main->mlx.win, WINDOW_W / 2, WINDOW_H / 2);
 	}
+	else
+		mlx_mouse_show();
+	// if (main->mouse.is_enable)
+	// {
+	// 	main->ply.rotation_angle = -1.0 * (x % 360);
+	// 	if (main->ply.rotation_angle < 0.0)
+	// 		main->ply.rotation_angle += 360.0;
+	// 	else if (main->ply.rotation_angle >= 360.0)
+	// 		main->ply.rotation_angle -= 360.0;
+	// }
 	return (0);
 }

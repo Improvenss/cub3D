@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 13:11:43 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 18:01:33 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ void	draw_with_ray_casting(t_main *main)
 	draw_background(main);
 	angle = main->ply.rotation_angle - (FOV / 2.0);
 	ray_count = 0;
+	if (main->loop_count % 20 == 0)
+		main->xpm_number_sprite_m++;
+	if (main->xpm_number_sprite_m >= TEXTURE_N + 15)
+		main->xpm_number_sprite_m = TEXTURE_N + 1;
 	while (ray_count < FOV_THICKNESS)
 	{
 		main->sprite.distance = 0;
@@ -117,8 +121,11 @@ int	ft_loop(t_main *main)
 		open_help_page(main);
 	else
 	{
+		main->loop_count++;
+		if (main->loop_count >= INT_MAX)
+			main->loop_count = 50;
+		main->is_hit_val = '\0';
 		get_or_print_time_for_fps(main, false);
-		// main->time.start_time = clock();
 		update_player_all(main);
 		draw_with_ray_casting(main);
 		mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
