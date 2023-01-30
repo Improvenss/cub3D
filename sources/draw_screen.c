@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 11:26:19 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 11:32:49 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,31 @@ void draw_ray(t_main *main, double angle, int ray_count)
 	}
 }
 
+void	calculate_sprite_values(t_main *main, double angle)
+{
+	main->sprite.value = 0;
+	main->sprite.angle = atan2(fabs(main->ply.pos_y - main->sprite.pos_y), fabs(main->ply.pos_x - main->sprite.pos_x)) * ONE_RADIAN; // doğru değere sahip
+	if ((main->ray.dir_x > 0 && main->ray.dir_y > 0) || (main->ray.dir_x < 0 && main->ray.dir_y < 0))
+		main->sprite.angle = (180.0 - main->sprite.angle);
+	// if (main->ply.pos_y >= main->sprite.pos_y + 0.5)
+	// {
+		if (angle > main->sprite.angle)
+		{
+			main->sprite.angle = angle - main->sprite.angle;
+			main->sprite.length = tan(main->sprite.angle * ONE_DEGREE) * main->sprite.distance;
+			if (main->sprite.length <= 0.5 && main->sprite.length >= -0.5)
+				main->sprite.value = 0.5 - main->sprite.length;
+		}
+		else if (angle < main->sprite.angle)
+		{
+			main->sprite.angle = main->sprite.angle - angle;
+			main->sprite.length = tan(main->sprite.angle * ONE_DEGREE) * main->sprite.distance;
+			if (main->sprite.length <= 0.5 && main->sprite.length >= -0.5)
+				main->sprite.value = main->sprite.length + 0.5;
+		}
+	// }
+}
+
 void	raycasting(t_main *main, double angle, int ray_count)
 {
 	main->ray.dir_x = ((cos(angle * ONE_DEGREE) > 0) * 2) - 1;
@@ -146,29 +171,7 @@ void	raycasting(t_main *main, double angle, int ray_count)
 		main->ray.hit_v = false;
 	}
 	if (main->sprite.is_hit == true)
-	{
-		main->sprite.value = 0;
-		main->sprite.angle = atan2(fabs(main->ply.pos_y - main->sprite.pos_y), fabs(main->ply.pos_x - main->sprite.pos_x)) * ONE_RADIAN; // doğru değere sahip
-		if ((main->ray.dir_x > 0 && main->ray.dir_y > 0) || (main->ray.dir_x < 0 && main->ray.dir_y < 0))
-			main->sprite.angle = (180.0 - main->sprite.angle);
-		// if (main->ply.pos_y >= main->sprite.pos_y + 0.5)
-		// {
-			if (angle > main->sprite.angle)
-			{
-				main->sprite.angle = angle - main->sprite.angle;
-				main->sprite.length = tan(main->sprite.angle * ONE_DEGREE) * main->sprite.distance;
-				if (main->sprite.length <= 0.5 && main->sprite.length >= -0.5)
-					main->sprite.value = 0.5 - main->sprite.length;
-			}
-			else if (angle < main->sprite.angle)
-			{
-				main->sprite.angle = main->sprite.angle - angle;
-				main->sprite.length = tan(main->sprite.angle * ONE_DEGREE) * main->sprite.distance;
-				if (main->sprite.length <= 0.5 && main->sprite.length >= -0.5)
-					main->sprite.value = main->sprite.length + 0.5;
-			}
-		// }
-	}
+		calculate_sprite_values(main, angle);
 	main->ray.original_distance = main->ray.distance;//minimap's kacan isinlari icin
 	main->ray.distance = main->ray.distance * cos((main->ply.rotation_angle - angle) * ONE_DEGREE);// balik gozunu engellemek icin.
 	draw_ray(main, angle, ray_count);

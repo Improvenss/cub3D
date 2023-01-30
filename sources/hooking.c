@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 02:10:44 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 09:47:46 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 13:59:15 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,16 @@ int	key_release(int keycode, t_main *main)
  * @brief Getting mouse's x and y coordinates and setting
  *  after the calculated angle and screen_mid location. :).
  * 
-	// mlx_mouse_move(main->mlx.ptr, main->mlx.win,
-main->ply.rotation_angle, main->key.screen_mid);
-	// printf("mouse pos:[%d]\n", mlx_mouse_get_pos(main->mlx.ptr,
-main->mlx.win, mouse_x, mouse_y));
-	// mlx_mouse_hide(main->mlx.ptr, main->mlx.win);
-	// if (x > 360)
-		// mlx_mouse_move(main->mlx.ptr, main->mlx.win, 360, 360);
+		// main->key.screen_mid = -1.0 * (y % WINDOW_H);
+		// mlx_mouse_hide();
+		// if (x > WINDOW_W)
+		// 	mlx_mouse_move(main->mlx.win, 0, y);
+		// else if (x < 0)
+		// 	mlx_mouse_move(main->mlx.win, WINDOW_W, y);
+		if (y > WINDOW_H)
+			mlx_mouse_move(main->mlx.win, x, 0);
+		else if (y < 0)
+			mlx_mouse_move(main->mlx.win, x, WINDOW_H);
 
 		// printf("mouse:x[%d] y[%d]\n", x, y);
  * @param x 
@@ -114,6 +117,7 @@ main->mlx.win, mouse_x, mouse_y));
  */
 int	mouse_move(int x, int y, t_main *main)
 {
+	(void)y;
 	if (main->mouse.is_enable)
 	{
 		main->ply.rotation_angle = -1.0 * (x % 360);
@@ -121,7 +125,6 @@ int	mouse_move(int x, int y, t_main *main)
 			main->ply.rotation_angle += 360.0;
 		else if (main->ply.rotation_angle >= 360.0)
 			main->ply.rotation_angle -= 360.0;
-		main->key.screen_mid = -1.0 * (y % WINDOW_H);
 	}
 	return (0);
 }

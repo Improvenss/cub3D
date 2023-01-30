@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 20:27:54 by akaraca           #+#    #+#             */
-/*   Updated: 2023/01/30 13:22:04 by gsever           ###   ########.fr       */
+/*   Created: 2023/01/30 11:59:34 by gsever            #+#    #+#             */
+/*   Updated: 2023/01/30 13:07:49 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	ft_exit(t_main *main)
+/**
+ * @brief Get the or print time for fps object
+ * 
+ * @param main 
+ * @param status if false; start time, if true, last time.
+ */
+void	get_or_print_time_for_fps(t_main *main, bool status)
 {
-	free(main->texture.rgb_f);
-	free(main->texture.rgb_c);
-	free_definitions(main);
-	free_pstr(main->map.map);
-	mlx_destroy_image(main->mlx.ptr, main->screen.ptr);
-	mlx_destroy_window(main->mlx.ptr, main->mlx.win);
-	exit(0);
+	if (status == false)
+		main->time.start_time = clock();
+	else if (status == true)
+	{
+		main->time.now = clock();
+		main->time.fps = (int)((FRAME_PER_SECOND)
+			/ (main->time.now - main->time.start_time));
+	}
 }

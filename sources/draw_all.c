@@ -6,11 +6,23 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 10:25:03 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 13:11:43 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	draw_text_on_window_part2(t_main *main)
+{
+	char	*tmp;
+
+	mlx_string_put(main->mlx.ptr, main->mlx.win, WINDOW_W - 160,
+		WINDOW_H - 170, COLOR_TUNDORA, "FPS:");
+	tmp = ft_itoa((int)main->time.fps);
+	mlx_string_put(main->mlx.ptr, main->mlx.win, WINDOW_W - 130,
+		WINDOW_H - 170, COLOR_TUNDORA, tmp);
+	free(tmp);
+}
 
 void	draw_text_on_window(t_main *main)
 {
@@ -34,6 +46,7 @@ void	draw_text_on_window(t_main *main)
 	mlx_string_put(main->mlx.ptr, main->mlx.win, WINDOW_W - 80,
 		WINDOW_H - 150, COLOR_TUNDORA, tmp);
 	free(tmp);
+	draw_text_on_window_part2(main);
 }
 
 /**
@@ -104,6 +117,8 @@ int	ft_loop(t_main *main)
 		open_help_page(main);
 	else
 	{
+		get_or_print_time_for_fps(main, false);
+		// main->time.start_time = clock();
 		update_player_all(main);
 		draw_with_ray_casting(main);
 		mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
@@ -114,6 +129,7 @@ int	ft_loop(t_main *main)
 		mlx_put_image_to_window(main->mlx.ptr, main->mlx.win,
 			main->xpm[7].img.ptr, ((WINDOW_W / 2) - main->xpm[7].width / 2),
 			((WINDOW_H / 2) - main->xpm[7].height / 2));
+		get_or_print_time_for_fps(main, true);
 		draw_text_on_window(main);
 	}
 	return (0);

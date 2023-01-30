@@ -71,8 +71,12 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 	errno;
 */
 # include "../libraries/libft/includes/libft.h"
-# include "../libraries/minilibx_linux/mlx.h"
+# if defined (__APPLE__)
 # include "../libraries/minilibx_opengl/mlx.h"
+# endif
+# if defined (linux)
+# include "../libraries/minilibx_linux/mlx.h"
+# endif
 # include "key_hooks.h" /* Keyboard/Mouse Press */
 # include "map_errors.h"
 # include "colors.h" /* 🟥 🟩 🟦
@@ -90,6 +94,7 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 
 # include <stdbool.h>
 # include <math.h>
+# include <sys/time.h>
 
 
 # define CMD_CLEAR	"\e[1;1H\e[2J"
@@ -102,6 +107,8 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define WINDOW_H				600//800
 
 # define WHITESPACES			" \t\n\r"
+
+# define FRAME_PER_SECOND		1200000
 
 /* ---------------MAP CONTROL DEFINES---------------- */
 // " " -> Empty, 1 -> Wall, 0 -> Ground, M -> Sprite, Z -> second sprite
@@ -317,6 +324,16 @@ typedef struct s_sprite
 	double	angle;// player'le sprite arasindaki cizginin aci degeri.
 }		t_sprite;
 
+typedef struct s_time
+{
+	// struct timeval	ct;
+	clock_t			start_time;
+	// uint64_t		start_time;
+	clock_t			now;
+	// uint64_t		now;
+	int				fps;
+}		t_time;
+
 typedef struct s_main
 {
 	t_texture	texture;
@@ -330,8 +347,10 @@ typedef struct s_main
 	t_sprite	sprite;
 	t_player	ply;
 	t_ray		ray;
+	t_time		time;
 	int			xpm_number;
 	int			xpm_number_sprite;
+
 }		t_main;
 
 
@@ -348,7 +367,6 @@ void	check_which_texture_put(t_main *main, double x, double y);
 void	check_door_open_or_close(t_main *main, double x, double y);
 
 //exit.c
-void	linux_mlx_free(t_main *main);
 int		ft_exit(t_main *main);
 
 // help_page.c
@@ -449,6 +467,9 @@ void	init_set_player(t_main *main, int x, int y);
 // ray.c
 void	ray_vertical(t_main *main, double angle, double dir_x, double dir_y);
 void	ray_horizontal(t_main *main, double angle, double dir_x, double dir_y);
+
+// time.c
+void	get_or_print_time_for_fps(t_main *main, bool status);
 
 // utils_func.c
 void	free_pstr(char **line);

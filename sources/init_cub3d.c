@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 17:26:43 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/29 23:57:17 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 13:23:03 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	init_cub3d_image(t_main *main)
 	if (main->screen.ptr == NULL)
 	{
 		mlx_destroy_window(main->mlx.ptr, main->mlx.win);
-		linux_mlx_free(main);
 		return (print_error(PROMPT, "mlx", "mlx_new_image()", "error."));
 	}
 	main->screen.addr = (int *)mlx_get_data_addr(main->screen.ptr,
@@ -46,10 +45,7 @@ int	init_cub3d_window(t_main *main)
 {
 	main->mlx.win = mlx_new_window(main->mlx.ptr, WINDOW_W, WINDOW_H, PROMPT);
 	if (main->mlx.win == NULL)
-	{
-		linux_mlx_free(main);
 		return (print_error(PROMPT, "mlx", "mlx_new_window()", "error."));
-	}
 	return (0);
 }
 
