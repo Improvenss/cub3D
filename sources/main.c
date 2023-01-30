@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:37:31 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/29 23:45:20 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 08:51:49 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,19 @@ Kısıtlamalar aşağıdaki gibidir:
 				101001
 				1100N1
 				111111
-		◦ Harita kapalı veya duvarlarla çevrili olmalı, değilse program bir
+		[OK]◦ Harita kapalı veya duvarlarla çevrili olmalı, değilse program bir
 	 hata vermelidir.
-		◦ Harita içeriği dışında, her öğe türü bir veya daha fazla boş
+		[OK]◦ Harita içeriği dışında, her öğe türü bir veya daha fazla boş
 	 satırla ayrılabilir.
-		◦ Her zaman en son olması gereken harita içeriği dışında,
+		[OK]◦ Her zaman en son olması gereken harita içeriği dışında,
 	 her öğe türü dosyada herhangi bir sırada ayarlanabilir.
-		◦ Harita dışında, bir öğeden gelen her bilgi türü bir veya daha
+		[OK]◦ Harita dışında, bir öğeden gelen her bilgi türü bir veya daha
 	 fazla boşlukla ayrılabilir.
-		◦ Harita, dosyada göründüğü gibi ayrıştırılmalıdır.
+		[OK]◦ Harita, dosyada göründüğü gibi ayrıştırılmalıdır.
 	 Boşluklar haritanın geçerli bir parçasıdır ve işlemek size kalmıştır.
 	 Harita kurallarına uyduğu sürece her tür haritayı
 	 ayrıştırabilmeniz gerekir.
-		◦ Her öğenin (harita hariç) ilk bilgileri, tür tanımlayıcısıdır
+		[OK]◦ Her öğenin (harita hariç) ilk bilgileri, tür tanımlayıcısıdır
 	 (bir veya iki karakterden oluşur), ardından her nesne için kesin bir
 	 sırayla tüm özel bilgiler gelir, örneğin:
 			∗ North texture(Kuzey dokusu):
@@ -94,7 +94,7 @@ Kısıtlamalar aşağıdaki gibidir:
 	Usage: ->	F 220,100,0
 			∗ İç kaplama rengi: (R,G,B [0,255] aralığında: 0, 255, 255)
 	Usage: ->	C 225,30,0
-		◦ Dosyada herhangi bir yanlış yapılandırma ile karşılaşılırsa,
+		[OK]◦ Dosyada herhangi bir yanlış yapılandırma ile karşılaşılırsa,
 	 program düzgün bir şekilde kapanmalı ve seçtiğiniz açık bir hata
 	 mesajının ardından "Error\n" döndürmelidir.
 

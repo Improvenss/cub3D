@@ -6,12 +6,26 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:05:27 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 17:05:17 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:14:23 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief Checking key.value's bitwise value. After moving player
+ *  to calculated destination.
+ * 
+ * @param main 
+ * @fn player_move(): WASD, for updating player's position.
+	PARAM:1: Main structure.
+	PARAM:2: Key's value but bitwise.
+	PARAM:3: Way like coordination system.
+ * @fn player_turn(): Arrows, for updating player's rotation_angle.
+	PARAM:1: Main structure.
+	PARAM:2: Key's value but bitwise.
+	PARAM:3: Way like coordination system.
+ */
 void	update_player_all(t_main *main)
 {
 	if (main->key.value & GO_FORWARD)
@@ -33,7 +47,7 @@ void	update_player_all(t_main *main)
 }
 
 /**
- * @brief Set the player default pos object
+ * @brief Set the player default pos object.
  * 
  * When user press R key from keyboard working here.
  * @param main 
@@ -47,8 +61,9 @@ void	set_player_default_pos(t_main *main)
 }
 
 /**
- * @brief Saving player's starting positions. Preparing data for R key.
+ * @brief Saving player's starting positions.
  * 
+ * Preparing(setting) data for R key.
  * @param main 
  * @param x 
  * @param y 
@@ -62,6 +77,16 @@ void	save_player_default_location(t_main *main, int x, int y)
 	main->ply.default_pos_y = (double)y + 0.5;
 }
 
+/**
+ * @brief Scanning map's matrix array, and setting
+ *  player's position and rotation_angle.
+ * 
+ * @param main 
+ * @param x For reading map's coordinate.
+ * @param y For reading map's coordinate.
+ * @fn ft_strchr(): For find the player's rotation_angle.
+ * @fn save_player_default_location(): Setting default player's pos_x/y.
+ */
 void	init_set_player(t_main *main, int x, int y)
 {
 	y = -1;

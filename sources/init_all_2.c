@@ -6,19 +6,30 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 17:23:45 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 00:42:43 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 09:18:56 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/**
+ * @brief Player's crosshair for rotation_angle way.
+ * 
+ * @param main 
+ */
 void	init_all_xpm_others(t_main *main)
 {
 	main->texture.crosshair = "./textures/crosshair_green.xpm";
 	main->xpm[7].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
-			main->texture.crosshair, &main->xpm[7].width, &main->xpm[7].height);
+			main->texture.crosshair,
+			&main->xpm[7].width, &main->xpm[7].height);
 }
 
+/**
+ * @brief Sprite and door.
+ * 
+ * @param main 
+ */
 void	init_all_xpm_sprites(t_main *main)
 {
 	main->texture.door = "./textures/fbi_flying_door.xpm";
@@ -29,14 +40,16 @@ void	init_all_xpm_sprites(t_main *main)
 	// main->texture.sprite[0] = "./textures/tonneau.xpm";
 	main->texture.sprite[0] = "./textures/pikachu_64px.xpm";
 	main->xpm[5].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
-			main->texture.sprite[0], &main->xpm[5].width, &main->xpm[5].height);
-	main->texture.sprite[1] = "./textures/niggachu_64px.xpm";
+			main->texture.sprite[0],
+			&main->xpm[5].width, &main->xpm[5].height);
+	main->texture.sprite[1] = "./textures/tonneau.xpm";
 	main->xpm[6].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
-			main->texture.sprite[1], &main->xpm[6].width, &main->xpm[6].height);
+			main->texture.sprite[1],
+			&main->xpm[6].width, &main->xpm[6].height);
 }
 
 /**
- * @brief 
+ * @brief Converting textures to image, after getting images data.
  * 
  * [0-1-2-3] = Walls,
  * [4] = Door,
@@ -68,13 +81,12 @@ int	init_all_xpm_files(t_main *main)
 }
 
 /**
- * @brief 
+ * @brief Initializing others.
  * 
-	// main->ray.is_sprite[0] = false;
-	// main->ray.is_sprite[1] = false;
-	// main->ray.is_door = false;
  * @param main 
- * @return int 
+ * @fn init_set_player(): Reading .cub file and setting player's
+ *  start location and rotation_angle.
+ * @return int 0
  */
 int	init_mlx_draw(t_main *main)
 {

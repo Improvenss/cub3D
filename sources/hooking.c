@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 02:10:44 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 23:22:46 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 09:47:46 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int	key_release(int keycode, t_main *main)
 }
 
 /**
- * @brief 
+ * @brief Getting mouse's x and y coordinates and setting
+ *  after the calculated angle and screen_mid location. :).
  * 
 	// mlx_mouse_move(main->mlx.ptr, main->mlx.win,
 main->ply.rotation_angle, main->key.screen_mid);
@@ -116,6 +117,10 @@ int	mouse_move(int x, int y, t_main *main)
 	if (main->mouse.is_enable)
 	{
 		main->ply.rotation_angle = -1.0 * (x % 360);
+		if (main->ply.rotation_angle < 0.0)
+			main->ply.rotation_angle += 360.0;
+		else if (main->ply.rotation_angle >= 360.0)
+			main->ply.rotation_angle -= 360.0;
 		main->key.screen_mid = -1.0 * (y % WINDOW_H);
 	}
 	return (0);

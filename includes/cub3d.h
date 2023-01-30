@@ -219,29 +219,7 @@ typedef struct s_ray
 	int		dir_y;
 	double	next_ray_step_x;
 	double	next_ray_step_y;
-	// int		ray_number;// sagdan baslayarak sirasiyla atilan raylerin numarasi.
-	// int		location;
-	// int		oran;
-	// int		find_pixel;
-	// int		img_loc;
-	//*******
-	// double	pos_x;// ray end start_to_end end location
-	// double	pos_y;// ray starting_to_end end location
-	// bool	is_hit_x;
-	// bool	is_hit_y;
-	// double	hit_x;// ray hit_the_wall location -> dx
-	// double	hit_y;// ray hit_the_wall location -> dy
-	// double	distance;// clear ray distance.
-	// double	original_distance;//kacan isinlari engelleyen.
-	// double	distance_v;// vertical distance.
-	// double	distance_h;// horizontal distance;
-	// bool	hit_h;
-	// bool	hit_v;
-	// bool	is_wall;
-	// bool	is_sprite[2];
-	// // double	sprite_distance;
 	bool	is_door;
-	// double	minimap_ray_color;
 }		t_ray;
 
 typedef struct s_player
@@ -319,10 +297,6 @@ typedef struct s_sprite
 	double	distance_h;// raycasting().ray_horizontal().is_wall_v2()'nin icinde ray'ler duvara uzaklik hesaplanmak icin giderken sprite'ye denk gelirse sprite'nin horizontal(yatay)'deki distance(uzaklik)'sini alacak.
 	double	distance;
 
-	// double	hit_v_x;// vertical x konumu
-	// double	hit_v_y;// vertical y konumu
-	// double	hit_h_x;// horizontal x konumu
-	// double	hit_h_y;// horizontal y konumu
 	double	oran_v;
 	double	oran_h;
 	double	oran;

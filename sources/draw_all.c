@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/29 23:43:02 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 09:55:29 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	draw_text_on_window(t_main *main)
 		// raycasting(main, main->ply.rotation_angle, (FOV_THICKNESS - 1)/2);
  * 
  * @param main 
+ * @fn 
  */
 void	draw_with_ray_casting(t_main *main)
 {
@@ -76,7 +77,7 @@ void	draw_with_ray_casting(t_main *main)
 }
 
 /**
- * @brief 
+ * @brief Main loop area;
  * 
 	// static int	loop_count;
 	// printf(GREEN"Loop Count:%d\n"END, loop_count++);
@@ -85,6 +86,11 @@ void	draw_with_ray_casting(t_main *main)
 	// printf("ply.rotation_angle[%f]\n", main->ply.rotation_angle);
  * 
  * @param main 
+ * @fn open_help_page(): Writing a few information.
+ * @fn update_player_all(): Setting new calculated player position.
+ * @fn draw_with_ray_casting(): Calculating player to wall distance and render.
+ * @fn mlx_put_image_to_window(): Putting drawed image to window.
+ * @fn draw_text_on_window(): Player; pos_x, pos_y, rotation_angle. Value print
  * @return int 
  */
 int	ft_loop(t_main *main)
@@ -108,11 +114,25 @@ int	ft_loop(t_main *main)
 	return (0);
 }
 
+/**
+ * @brief MLX: HOOK: funcs().
+ * 
+ * @param main 
+ * @fn mlx_loop_hook(): Like while(1).
+ * @fn ft_loop(): After the initializing func()s, cub3D loop.
+ * @fn mlx_hook(): For getting hooking possibilities.
+ * @fn key_press(): When pressing key from keyboard.
+ * @fn key_release(): When releasing key from keyboard.
+ * @fn ft_exit(): When clicking red close button top left window.
+ * @fn mouse_move(): It works when you move your mouse.
+ * @fn mlx_loop(): MLX's automatically data loop.(I think so...)
+ * @return int 
+ */
 int	draw_mlx_window(t_main *main)
 {
 	mlx_loop_hook(main->mlx.ptr, ft_loop, main);
-	mlx_hook(main->mlx.win, 2, 1L << 0, &key_press, main);
-	mlx_hook(main->mlx.win, 3, 1L << 1, &key_release, main);
+	mlx_hook(main->mlx.win, 2, (1L << 0), &key_press, main);
+	mlx_hook(main->mlx.win, 3, (1L << 1), &key_release, main);
 	mlx_hook(main->mlx.win, 17, (0L), &ft_exit, main);
 	mlx_hook(main->mlx.win, 6, (0L), &mouse_move, main);
 	mlx_loop(main->mlx.ptr);

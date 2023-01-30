@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 22:53:41 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/29 23:09:13 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 09:44:00 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ void	check_door_open_or_close(t_main *main, double x, double y)
 			{
 				if (main->map.map[y_y][x_x] == 'C')
 					main->map.map[y_y][x_x] = 'O';
-				printf(GREEN"Door Opened: map[%d][%d]=%c, ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y,
-					main->map.map[y_y][x_x], x, y);
+				printf(GREEN"Door Opened: map[%d][%d]=%c,\
+ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y, main->map.map[y_y][x_x], x, y);
 			}
 			else if (!ft_strchr("O", main->map.map[y_y][x_x]))
-				printf("Location: map[%d][%d]=%c, ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y,
-					main->map.map[y_y][x_x], x, y);
+				printf("Location: map[%d][%d]=%c,\
+ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y, main->map.map[y_y][x_x], x, y);
 		}
 		main->key.door_open_command = false;
 	}
