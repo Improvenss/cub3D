@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:53:55 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 17:43:13 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 23:46:46 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	next_step_is_wall(t_main *main, double x, double y)
 		return (1);
 	x_x = floor(x);
 	y_y = floor(y);
-	if (ft_strchr(MAP_PLY_CANT_GO, main->map.map[y_y][x_x]) == NULL)// playerimizin konumu icin genellikle
+	if (ft_strchr(MAP_PLY_CANT_GO, main->map.map[y_y][x_x]) == NULL)
 		return (0);
 	return (1);
 }
@@ -35,7 +35,6 @@ int	is_wall(t_main *main, double x, double y, double angle)
 		return (1);
 	x_x = floor(x);
 	y_y = floor(y);
-
 	if (main->key.door_open_command == true
 		&& (int)main->ply.rotation_angle == (int)angle)
 	{
@@ -43,7 +42,7 @@ int	is_wall(t_main *main, double x, double y, double angle)
 		{
 			if (!((int)floor(main->ply.pos_x) == x_x
 					&& (int)floor(main->ply.pos_y) == y_y)
-					&& (main->map.map[y_y][x_x] == 'O'))
+				&& (main->map.map[y_y][x_x] == 'O'))
 				main->map.map[y_y][x_x] = 'C';
 			printf(RED"Door Closed: map[%d][%d]=%c,\
 ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y,
@@ -51,15 +50,15 @@ ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y,
 			main->key.door_open_command = false;
 		}
 	}
-	if (ft_strchr(MAP_PLY_CANT_GO, main->map.map[y_y][x_x]) == NULL)// playerimizin konumu icin genellikle
+	if (ft_strchr(MAP_PLY_CANT_GO, main->map.map[y_y][x_x]) == NULL)
 		return (0);
 	return (1);
 }
 
-int is_wall_v2(t_main *main, double x, double y, double angle)
+int	is_wall_v2(t_main *main, double x, double y, double angle)
 {
-	int x_x;
-	int y_y;
+	int	x_x;
+	int	y_y;
 
 	x_x = (int)floor(x);
 	y_y = (int)floor(y);
@@ -71,19 +70,16 @@ int is_wall_v2(t_main *main, double x, double y, double angle)
 ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y, main->map.map[y_y][x_x], x, y);
 		main->sprite.pos_x = x_x + 0.5;
 		main->sprite.pos_y = y_y + 0.5;
-		main->sprite.distance = sqrt(powf(main->ply.pos_x - main->sprite.pos_x, 2) + powf(main->ply.pos_y - main->sprite.pos_y, 2));
-
+		main->sprite.distance = sqrt(
+				powf(main->ply.pos_x - main->sprite.pos_x, 2)
+				+ powf(main->ply.pos_y - main->sprite.pos_y, 2));
 		if (main->map.map[y_y][x_x] == 'M')
 		{
 			main->is_hit_val = 'M';
 		}
 		else if (main->map.map[y_y][x_x] == 'Z')
 			main->is_hit_val = 'Z';
-		// printf("xpm_number_sprite_m[%d], val[%c]\n", main->xpm_number_sprite_m, main->is_hit_val);
 		main->sprite.is_hit = true;
-		// static int	times_entered;
-		// printf("x: %f, y: %f, floor_x: %d, floor_y: %d\n", x, y, x_x, y_y);
-		// printf("Z spritinin icine vurduk[%d]\n", times_entered++);// 800 tane isinimiz 1'er kere giriyor yani her isin 1 kere giriyor OK.
 	}
-	return (ft_strchr(MAP_RAY_CAN_GO, main->map.map[y_y][x_x]) == NULL);// isinimiz bunlarin icinden gecebilir, haricindekilerden gecemez//return (ft_strchr("0NSEWMZ", main->map.map[y_y][x_x]) == NULL);
+	return (ft_strchr(MAP_RAY_CAN_GO, main->map.map[y_y][x_x]) == NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 11:59:34 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 13:07:49 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 23:47:09 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	get_or_print_time_for_fps(t_main *main, bool status)
 	{
 		main->time.now = clock();
 		main->time.fps = (int)((FRAME_PER_SECOND)
-			/ (main->time.now - main->time.start_time));
+				/ (main->time.now - main->time.start_time));
 	}
 }

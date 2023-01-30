@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 14:38:13 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 16:33:23 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 23:22:27 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ void	init_hitler_img(t_main *main)
 	i = 0;
 	while (++i <= 13)
 	{
-		main->xpm[TEXTURE_N + i].img.ptr = mlx_xpm_file_to_image(main->mlx.ptr,
-			main->texture.sprite_hitler[i], &main->xpm[TEXTURE_N + i].width,
-			&main->xpm[TEXTURE_N + i].height);
+		main->xpm[TEXTURE_N + i].img.ptr = mlx_xpm_file_to_image(
+				main->mlx.ptr,
+				main->texture.sprite_hitler[i],
+				&main->xpm[TEXTURE_N + i].width,
+				&main->xpm[TEXTURE_N + i].height);
 		main->xpm[TEXTURE_N + i].img.addr = (int *)mlx_get_data_addr(
-			main->xpm[TEXTURE_N + i].img.ptr,
-			&main->xpm[TEXTURE_N + i].img.bpp,
-			&main->xpm[TEXTURE_N + i].img.line_size,
-			&main->xpm[TEXTURE_N + i].img.endian);
+				main->xpm[TEXTURE_N + i].img.ptr,
+				&main->xpm[TEXTURE_N + i].img.bpp,
+				&main->xpm[TEXTURE_N + i].img.line_size,
+				&main->xpm[TEXTURE_N + i].img.endian);
 	}
 }
 

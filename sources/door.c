@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 22:53:41 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 17:20:26 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 23:56:18 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,9 @@ void	check_which_texture_put(t_main *main, double x, double y)
 	}
 	else if (main->map.map[y_y][x_x] == 'C')
 		main->xpm_number = 4;
-	// if (main->map.map[y_y][x_x] == 'Z')
-		// main->xpm_number_sprite = 5;
-	// else if (main->map.map[y_y][x_x] == 'M')
-	// {
-	// 	main->xpm_number_sprite = main->loop_count % 14;
-	// }
 }
 
-void	check_door_open_or_close(t_main *main, double x, double y)
+void	check_door_info(t_main *main, double x, double y)
 {
 	int	x_x;
 	int	y_y;

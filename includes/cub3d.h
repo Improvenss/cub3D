@@ -336,6 +336,14 @@ typedef struct s_time
 	int				fps;
 }		t_time;
 
+typedef struct s_draw
+{
+	int	color;
+	int	find_pixel;
+	int	img_loc;
+	int	oran;
+}		t_draw;
+
 typedef struct s_main
 {
 	t_texture	texture;
@@ -350,6 +358,7 @@ typedef struct s_main
 	t_player	ply;
 	t_ray		ray;
 	t_time		time;
+	t_draw		draw;
 	int			xpm_number;
 	int			xpm_number_sprite;
 	char		is_hit_val;
@@ -369,7 +378,7 @@ int		check_map(t_main *main, char **argv);
 
 // door.c
 void	check_which_texture_put(t_main *main, double x, double y);
-void	check_door_open_or_close(t_main *main, double x, double y);
+void	check_door_info(t_main *main, double x, double y);
 
 //exit.c
 int		ft_exit(t_main *main);
@@ -389,15 +398,17 @@ void	draw_minimap(t_main *main);
 // draw_pixel.c
 void	my_mlx_pixel_put(t_mlximg *img, int x, int y, int color);
 
+// draw_screen_2.c
+void	draw_background( t_main *main);
+void	three_dimension(t_main *main, int ray_count);
+
 // draw_screen.c
 void	draw_background( t_main *main);
-void	_3D(t_main *main, int ray_count);
-void	draw_ray(t_main *main, double angle, int ray_count);
 void	raycasting(t_main *main, double angle, int ray_count);
 
 // draw_xpm.c
 void	draw_xpm_to_wall(t_main *main, int location, int oran, t_xpm xpm);
-void	draw_xpm_to_sprite(t_main *main, int location, t_xpm xpm);
+void	draw_xpm_to_sprite(t_main *main, int location, t_xpm xpm, t_draw *draw);
 void	put_xpm_to_sprite(t_main *main, int location, t_xpm xpm);
 
 // error.c
