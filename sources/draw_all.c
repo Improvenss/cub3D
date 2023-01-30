@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 09:55:29 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:25:03 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,12 @@ void	draw_text_on_window(t_main *main)
 		// raycasting(main, main->ply.rotation_angle, (FOV_THICKNESS - 1)/2);
  * 
  * @param main 
- * @fn 
+ * @fn draw_minimap(): Drawing minimap for clearly see all parts.
+ * @fn draw_background(): Drawing screen_height/2 -> half, Ceil and Floor color
+ * @fn raycasting(): Sending one ray for calculate and
+ *  draw one column to the screen.
+ * @fn draw_player_position(): On minimap, drawing small red small square for
+ *  player's location.
  */
 void	draw_with_ray_casting(t_main *main)
 {

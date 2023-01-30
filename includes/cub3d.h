@@ -205,14 +205,20 @@ typedef struct s_ray
 {
 	double	pos_x;// ray end start_to_end end location
 	double	pos_y;// ray starting_to_end end location
-	bool	is_hit_vertical;
-	bool	is_hit_horizontal;
 	double	hit_x;// ray hit_the_wall location -> dx
 	double	hit_y;// ray hit_the_wall location -> dy
+
+	bool	is_hit_vertical;
+	bool	is_hit_horizontal;
 	double	distance;// clear ray distance.
 	double	original_distance;//kacan isinlari engelleyen.
 	double	distance_v;// vertical distance.
 	double	distance_h;// horizontal distance;
+	double	dx;
+	double	dy;
+	double	loc_x;
+	double	loc_y;
+
 	bool	hit_h;
 	bool	hit_v;
 	int		dir_x;
@@ -441,8 +447,8 @@ void	set_player_default_pos(t_main *main);
 void	init_set_player(t_main *main, int x, int y);
 
 // ray.c
-double	ray_vertical(t_main *main, double angle, double dir_x, double dir_y);
-double	ray_horizontal(t_main *main, double angle, double dir_x, double dir_y);
+void	ray_vertical(t_main *main, double angle, double dir_x, double dir_y);
+void	ray_horizontal(t_main *main, double angle, double dir_x, double dir_y);
 
 // utils_func.c
 void	free_pstr(char **line);

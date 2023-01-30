@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:00:20 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/22 17:17:52 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:31:46 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,21 @@ void	draw_player_position(t_main *main)
 	}
 }
 
+/**
+ * @brief Putting squares for every 
+ *  [1]-> Wall -> White
+ *  [M, Z]-> Sprites -> Cyan
+ *  [O]-> Door but open -> Green
+ *  [C]-> Door but close -> Red
+ *  [0]-> Floor -> Black
+ * 	[] -> nothing. :)
+ * 	block.
+ * 
+ * NOTE: map.max_x -> .cub file's max width map count.
+ * NOTE: map.max_y -> .cub file's max height map count.
+ * 
+ * @param main 
+ */
 void	draw_minimap(t_main *main)
 {
 	int	x;
