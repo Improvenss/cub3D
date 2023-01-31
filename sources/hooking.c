@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 02:10:44 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/31 00:17:29 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/31 12:39:33 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,10 @@ int	mouse_move(int x, int y, t_main *main)
 		if (main->key.screen_mid - (y - WINDOW_H / 2) > 0
 			&& main->key.screen_mid - (y - WINDOW_H / 2) < WINDOW_H)
 			main->key.screen_mid -= (y - WINDOW_H / 2);
+		if (main->ply.rotation_angle > 360.0)
+			main->ply.rotation_angle -= 360.0;
+		if (main->ply.rotation_angle < 0)
+			main->ply.rotation_angle = 360.0 - main->ply.rotation_angle;
 		mlx_mouse_move(main->mlx.win, WINDOW_W / 2, WINDOW_H / 2);
 	}
 	else

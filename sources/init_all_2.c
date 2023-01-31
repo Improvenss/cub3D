@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 17:23:45 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 23:22:42 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/31 12:16:21 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,6 @@ int	init_mlx_draw(t_main *main)
 	main->xpm_number = 0;
 	main->xpm_number_sprite = 5;
 	main->xpm_number_sprite_m = TEXTURE_N + 1;
-	main->loop_count = 50;
+	main->loop_count = 0;
 	return (0);
 }

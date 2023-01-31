@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:29 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 18:01:33 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/31 12:37:45 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	draw_with_ray_casting(t_main *main)
 	ray_count = 0;
 	if (main->loop_count % 20 == 0)
 		main->xpm_number_sprite_m++;
-	if (main->xpm_number_sprite_m >= TEXTURE_N + 15)
+	if (main->xpm_number_sprite_m >= TEXTURE_N + 14)
 		main->xpm_number_sprite_m = TEXTURE_N + 1;
 	while (ray_count < FOV_THICKNESS)
 	{
