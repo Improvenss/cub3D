@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 22:01:57 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/31 00:16:15 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/31 14:27:19 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	draw_ray(t_main *main, double angle, int ray_count)
 
 static void	calculate_sprite_values(t_main *main, double angle)
 {
-	main->sprite.value = 0;
+	main->sprite.value = -1;
 	main->sprite.angle = atan2(fabs(main->ply.pos_y - main->sprite.pos_y),
 			fabs(main->ply.pos_x - main->sprite.pos_x)) * ONE_RADIAN;
 	if ((main->ray.dir_x > 0 && main->ray.dir_y > 0)
