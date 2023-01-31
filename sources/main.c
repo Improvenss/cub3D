@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:37:31 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 15:20:35 by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/31 17:01:30 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ Bonus listesi:
 	[OK]• Duvar çarpmaları.
 	[OK]• Mini harita sistemi.
 	[OK]• Açılıp kapanabilen kapılar.
-	[OK/2]• Animasyonlu spritelar.
+	[OK]• Animasyonlu spritelar.
 	[OK]• Mouse yardımıyla bakış açısını değiştirme.
 
 INFO: Değerlendirmeniz sırasında kullanımları serbest olduğu sürece,
