@@ -6,13 +6,12 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 15:58:35 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/26 21:57:01by gsever           ###   ########.fr       */
+/*   Updated: 2023/01/31 12:58:57 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-
 # include <unistd.h> /* OK:
 	write()		-> System call used to write data from the buffer
 		ssize_t	write(int fd, const void *buf, size_t count);
@@ -70,12 +69,15 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # include <errno.h> /* OK: int errno = 0;
 	errno;
 */
+# include <stdbool.h>
+# include <math.h>
+# include <sys/time.h>
 # include "../libraries/libft/includes/libft.h"
 # if defined (__APPLE__)
-# include "../libraries/minilibx_opengl/mlx.h"
+#  include "../libraries/minilibx_opengl/mlx.h"
 # endif
 # if defined (linux)
-# include "../libraries/minilibx_linux/mlx.h"
+#  include "../libraries/minilibx_linux/mlx.h"
 # endif
 # include "key_hooks.h" /* Keyboard/Mouse Press */
 # include "map_errors.h"
@@ -91,11 +93,6 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 	END		"\033[m"
 	RESET	"\033[0m"
 */
-
-# include <stdbool.h>
-# include <math.h>
-# include <sys/time.h>
-
 
 # define CMD_CLEAR	"\e[1;1H\e[2J"
 
@@ -131,19 +128,17 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 # define MAP_WHITESPACES		" \r\n"
 # define RGB_CHR				"0123456789,"
 /* -------------------------------------------------- */
-
 /* -----------------MINIMAP DEFINES------------------ */
 # define SCREEN_RATE			2
-# define MINIMAP_RATE_W			(WINDOW_W / SCREEN_RATE)
-# define MINIMAP_RATE_H			(WINDOW_H / SCREEN_RATE)
 # define BOX_SIZE				16
 /* -------------------------------------------------- */
-
 /* ------------------PLAYER DEFINES------------------ */
 // 1º = 0.0174532925 radian
-# define ONE_DEGREE				(M_PI / 180.0)
+// # define ONE_DEGREE				(M_PI / 180.0)
+# define ONE_DEGREE				0.01745329251
 // 1 rad = 57.2957795131 degree
-# define ONE_RADIAN				(180.0 / M_PI)
+// # define ONE_RADIAN				(180.0 / M_PI)
+# define ONE_RADIAN				57.2957795131
 /*
 		π = 180º	</>	1 rad = 180 / π
 
@@ -152,21 +147,16 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 	66º = 66 * (M_PI / 180.0)
 	66º = 1.15191730631626 radians
 */
-# define PLAYER_ANGLE			(ONE_DEGREE * 66)
-# define RAY_COUNT				(PLAYER_ANGLE * 2)
 # define PLAYER_THICKNESS		2
 # define FOV					60
 # define FOV_THICKNESS			(WINDOW_W)
 # define PLAYER_ROTATION_SPEED	1.50
 # define PLAYER_WALK_SPEED		0.80
 /* -------------------------------------------------- */
-
 /* ------------------TEXTURE AREA-------------------- */
 // Starting 0 to num. etc; 0-7
 # define TEXTURE_N				7
 /* -------------------------------------------------- */
-
-
 
 /* ************************************************************************** */
 /* STRUCT DEFINES AREA                                                        */
@@ -186,7 +176,7 @@ https://www.ibm.com/docs/en/i/7.5?topic=ssw_ibm_i_75/apis/close.htm
 typedef struct s_mlximg
 {
 	void	*ptr;
-	int		*addr;// bunu char* yapinca my_mlx_pixel_put() dogru calisiyor cunku 1 byte'ye biz 4 byte veriyoruz falan falan :D
+	int		*addr;
 	int		bpp;
 	int		line_size;
 	int		endian;
@@ -210,17 +200,17 @@ typedef struct s_mlx
 
 typedef struct s_ray
 {
-	double	pos_x;// ray end start_to_end end location
-	double	pos_y;// ray starting_to_end end location
-	double	hit_x;// ray hit_the_wall location -> dx
-	double	hit_y;// ray hit_the_wall location -> dy
+	double	pos_x;
+	double	pos_y;
+	double	hit_x;
+	double	hit_y;
 
 	bool	is_hit_vertical;
 	bool	is_hit_horizontal;
-	double	distance;// clear ray distance.
-	double	original_distance;//kacan isinlari engelleyen.
-	double	distance_v;// vertical distance.
-	double	distance_h;// horizontal distance;
+	double	distance;
+	double	original_distance;
+	double	distance_v;
+	double	distance_h;
 	double	dx;
 	double	dy;
 	double	loc_x;
@@ -237,12 +227,12 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-	double	pos_x;// start location
-	double	pos_y;// start location
-	double	dir_x;// initial direction location
-	double	dir_y;// initial direction location
-	double	plane_x;// 0
-	double	plane_y;// 0.66 -> 66º fov look angle
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	double	walk_speed;
 	double	rotation_angle;
 	double	default_rotation_angle;
@@ -279,14 +269,14 @@ typedef struct s_map
 /**
  * @brief Just one xpm file data.
  */
-typedef struct	s_xpm
+typedef struct s_xpm
 {
 	t_mlximg	img;
 	int			width;
 	int			height;
 }		t_xpm;
 
-typedef struct	s_texture
+typedef struct s_texture
 {
 	char	*no;
 	char	*so;
@@ -307,10 +297,9 @@ typedef struct s_sprite
 	bool	is_hit;
 	double	pos_x;
 	double	pos_y;
-	double	distance_v;// raycasting().ray_vertical().is_wall_v2()'nin icinde ray'ler duvara uzaklik hesaplanmak icin giderken sprite'ye denk gelirse sprite'nin vertical(dikey)'deki distance(uzaklik)'sini alacak.
-	double	distance_h;// raycasting().ray_horizontal().is_wall_v2()'nin icinde ray'ler duvara uzaklik hesaplanmak icin giderken sprite'ye denk gelirse sprite'nin horizontal(yatay)'deki distance(uzaklik)'sini alacak.
+	double	distance_v;
+	double	distance_h;
 	double	distance;
-
 	double	oran_v;
 	double	oran_h;
 	double	oran;
@@ -319,20 +308,15 @@ typedef struct s_sprite
 	bool	is_sprite;
 	bool	is_sprite_ray_vertical;
 	bool	is_sprite_ray_horizontal;
-
-
 	double	value;
 	double	length;
-	double	angle;// player'le sprite arasindaki cizginin aci degeri.
+	double	angle;
 }		t_sprite;
 
 typedef struct s_time
 {
-	// struct timeval	ct;
 	clock_t			start_time;
-	// uint64_t		start_time;
 	clock_t			now;
-	// uint64_t		now;
 	int				fps;
 }		t_time;
 
@@ -347,11 +331,11 @@ typedef struct s_draw
 typedef struct s_main
 {
 	t_texture	texture;
-	t_map		map;//OK
-	t_mlx		mlx;//OK
+	t_map		map;
+	t_mlx		mlx;
 	t_mlximg	screen;
 	t_mlximg	mini_map;
-	t_xpm		xpm[21];// all xpm files data array.
+	t_xpm		xpm[21];
 	t_key		key;
 	t_mouse		mouse;
 	t_sprite	sprite;
@@ -364,16 +348,14 @@ typedef struct s_main
 	char		is_hit_val;
 	int			xpm_number_sprite_m;
 	int			loop_count;
-
 }		t_main;
-
 
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES                                                        */
 /* ************************************************************************** */
 
 // check_all.c
-int		check_args(int	argc, char	**argv);
+int		check_args(int argc, char **argv);
 int		check_map(t_main *main, char **argv);
 
 // door.c
@@ -409,7 +391,6 @@ void	raycasting(t_main *main, double angle, int ray_count);
 // draw_xpm.c
 void	draw_xpm_to_wall(t_main *main, int location, int oran, t_xpm xpm);
 void	draw_xpm_to_sprite(t_main *main, int location, t_xpm xpm, t_draw *draw);
-void	put_xpm_to_sprite(t_main *main, int location, t_xpm xpm);
 
 // error.c
 int		print_error(char *s1, char *s2, char *s3, char *message);
