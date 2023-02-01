@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:53:55 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/30 23:46:46 by gsever           ###   ########.fr       */
+/*   Updated: 2023/02/01 22:46:54 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ int	is_wall_v2(t_main *main, double x, double y, double angle)
 			&& (int)main->ply.rotation_angle == (int)angle)
 			printf(CYAN"Passed Inside Sprite: map[%d][%d]=%c,\
 ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y, main->map.map[y_y][x_x], x, y);
-		main->sprite.pos_x = x_x + 0.5;
-		main->sprite.pos_y = y_y + 0.5;
-		main->sprite.distance = sqrt(
+			main->sprite.pos_x = x_x + 0.5;
+			main->sprite.pos_y = y_y + 0.5;
+			main->sprite.distance = sqrt(
 				powf(main->ply.pos_x - main->sprite.pos_x, 2)
 				+ powf(main->ply.pos_y - main->sprite.pos_y, 2));
 		if (main->map.map[y_y][x_x] == 'M')
