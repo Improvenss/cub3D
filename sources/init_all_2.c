@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 17:23:45 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/31 17:02:17 by gsever           ###   ########.fr       */
+/*   Updated: 2023/02/02 12:18:15 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	init_all_xpm_others(t_main *main)
  * @brief Sprite and door.
  * 
  * @param main 
- * @fn init_all_animated_sprite(): 4k_hitler_gif to xpm.
+ * @fn init_all_xpm_others(): Crosshair.
+ * @fn init_hitler_xpm(): 4k_hitler_gif to xpm.
  */
 void	init_all_xpm_sprites(t_main *main)
 {

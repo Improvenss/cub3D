@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:37:31 by gsever            #+#    #+#             */
-/*   Updated: 2023/01/31 17:01:30 by gsever           ###   ########.fr       */
+/*   Updated: 2023/02/02 12:06:09 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,29 @@ Aciklama:
 	 bahsedilen Işın Takibi(Ray Casting) ilkesini kullanarak oluşturmalısınız.
 
 Kısıtlamalar aşağıdaki gibidir:
-	• miniLibX kullanmanız gerekiyor. Ya işletim sisteminde bulunan sürümü
+	[OK]• miniLibX kullanmanız gerekiyor. Ya işletim sisteminde bulunan sürümü
  ya da kendi kaynaklarındaki sürümü kullanın. Kaynaklarla çalışmayı seçerseniz,
  libft için yukarıda Ortak Talimatlar bölümünde yazılanlarla aynı kuralları
  uygulamanız gerekir.
-	• Pencere kontrolünüz başka bir pencereye geçme, küçültme vb. durumlarda
+	[OK]• Pencere kontrolünüz başka bir pencereye geçme, küçültme vb. durumlarda
  akıcı olmalıdır.
-	• Duvarın hangi tarafa baktığına (Kuzey, Güney, Doğu, Batı) bağlı olarak
+	[OK]• Duvarın hangi tarafa baktığına (Kuzey, Güney, Doğu, Batı) bağlı olarak
  değişen farklı duvar dokuları sergileyin (seçim sizin).
-	• Programınız zemin ve tavan renklerini iki farklı renge
+	[OK]• Programınız zemin ve tavan renklerini iki farklı renge
  ayarlayabilmelidir.
-	• Program görüntüyü bir pencerede gösterir ve aşağıdaki kurallara uyar:
+	[OK]• Program görüntüyü bir pencerede gösterir ve aşağıdaki kurallara uyar:
 		[OK]◦ Klavyenin sol ve sağ ok tuşları labirentte sola ve sağa bakmanıza
 	 izin vermelidir.
-		[OK]◦ W, A, S ve D tuşları, bakış açısını labirentte hareket ettirmenize
-	 izin vermelidir.
+		[OK]◦ W, A, S ve D tuşları, bakış açısını labirentte hareket
+	 ettirmenize izin vermelidir.
 		[OK]◦ ESC’ye basmak pencereyi kapatmalı ve programdan temiz bir şekilde
 	 çıkmalıdır.
 		[OK]◦ Pencere çerçevesindeki kırmızı çarpı işaretine tıklamak pencereyi
 	 kapatmalı ve programdan temiz bir şekilde çıkmalıdır.
 		[OK]◦ minilibX kullanılması şiddetle önerilmektedir.
-	• Programınız ilk argüman olarak bir harita dosyasını .cub
+	[OK]• Programınız ilk argüman olarak bir harita dosyasını .cub
  uzantısıyla almalıdır.
-		◦ Harita 6 olası karakterden oluşmalıdır:
+		[OK]◦ Harita 6 olası karakterden oluşmalıdır:
 			Boş alanlar için 0,
 			Duvarlar için 1,
 			ve kullanıcının başlangıç pozisyonu
@@ -115,7 +115,7 @@ Akıllı davranın!
 
 * ************************************************************************** *
  * 
- * TODO: norminette, hareketli spriteler,
+ * TODO: All Finished.
  * 
  * 	// free(main.texture.rgb_f);
 	// free(main.texture.rgb_c);

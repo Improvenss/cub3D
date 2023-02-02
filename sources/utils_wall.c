@@ -6,7 +6,7 @@
 /*   By: gsever <gsever@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:53:55 by gsever            #+#    #+#             */
-/*   Updated: 2023/02/01 22:46:54 by gsever           ###   ########.fr       */
+/*   Updated: 2023/02/02 12:21:19 by gsever           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,7 @@ ray_hit_location[x:%f][y:%f]\n"END, x_x, y_y, main->map.map[y_y][x_x], x, y);
 				powf(main->ply.pos_x - main->sprite.pos_x, 2)
 				+ powf(main->ply.pos_y - main->sprite.pos_y, 2));
 		if (main->map.map[y_y][x_x] == 'M')
-		{
 			main->is_hit_val = 'M';
-		}
 		else if (main->map.map[y_y][x_x] == 'Z')
 			main->is_hit_val = 'Z';
 		main->sprite.is_hit = true;
